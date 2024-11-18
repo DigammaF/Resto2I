@@ -29,6 +29,13 @@ public class Menu extends JPanel {
         });
         this.ticketsEditorButton = new JButton();
         this.restaurantEditorButton = new JButton();
+        this.restaurantEditorButton.addActionListener(_ -> {
+            JPanel mainPanel = context.getMainView().getMainPanel();
+            mainPanel.removeAll();
+            mainPanel.add(new RestaurantEditor(context.getRestaurant()));
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        });
         this.languageSwitchButton = new JButton("FR/EN");
         this.languageSwitchButton.addActionListener(_ -> {
             switch (context.getLanguage()) {
