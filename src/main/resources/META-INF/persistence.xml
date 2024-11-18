@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+    <persistence-unit name="resto2I" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>models.Client</class>
+        <class>models.LiveProduct</class>
+        <class>models.Product</class>
+        <class>models.Restaurant</class>
+        <class>models.Statement</class>
+        <class>models.Ticket</class>
+
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/resto2i"/>
+            <property name="jakarta.persistence.jdbc.user" value="main"/>
+            <property name="jakarta.persistence.jdbc.password" value="root"/>
+        </properties>
+    </persistence-unit>
+</persistence>
