@@ -10,7 +10,7 @@ import java.awt.*;
 public class ProductsEditor extends JPanel implements Observer<ProductDisplay.ProductDisplayEvent> {
     private JButton newProductButton;
     private JPanel productsPanel;
-    private JScrollPane productsScroller;
+    private JScrollPane productsScrollPane;
 
     public ProductsEditor() {
         super();
@@ -33,7 +33,7 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
             });
         });
         this.productsPanel = new JPanel();
-        this.productsScroller = new JScrollPane(productsPanel);
+        this.productsScrollPane = new JScrollPane(productsPanel);
 
         for (Product product : context.getRestaurant().getProducts()) {
             if (product.isUsed()) {
@@ -46,7 +46,7 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
         this.productsPanel.setLayout(new BoxLayout(this.productsPanel, BoxLayout.Y_AXIS));
         this.setLayout(new BorderLayout());
         this.add(this.newProductButton, BorderLayout.NORTH);
-        this.add(this.productsScroller, BorderLayout.CENTER);
+        this.add(this.productsScrollPane, BorderLayout.CENTER);
         this.add(Box.createHorizontalStrut(500), BorderLayout.SOUTH);
     }
 
