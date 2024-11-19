@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RestaurantEditor extends JPanel {
-    private Restaurant restaurant;
+    private final Restaurant restaurant;
     private JTextField nameTextField;
     private JLabel nameLabel;
     private JTextField addressTextField;
