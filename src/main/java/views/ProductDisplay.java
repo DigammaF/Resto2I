@@ -6,9 +6,6 @@ import logic.Observer;
 import models.Product;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +25,8 @@ public class ProductDisplay extends JPanel implements Observable<ProductDisplay.
         public ProductDisplay productDisplay;
         public ProductDisplayEvent(ProductDisplay product) { this.productDisplay = product; }
     }
-    public class RemoveProductEvent extends ProductDisplayEvent {
-        public RemoveProductEvent(ProductDisplay product) { super(product); }
+    public class RemovedProductEvent extends ProductDisplayEvent {
+        public RemovedProductEvent(ProductDisplay product) { super(product); }
     }
 
     public ProductDisplay(Product product) {
@@ -55,7 +52,7 @@ public class ProductDisplay extends JPanel implements Observable<ProductDisplay.
             if (context.perform(_ -> {
                 product.setUsed(false);
             })) {
-                notifyObservers(new RemoveProductEvent(productDisplay));
+                notifyObservers(new RemovedProductEvent(productDisplay));
             }
         });
     }

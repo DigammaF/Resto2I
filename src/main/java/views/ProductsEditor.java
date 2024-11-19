@@ -52,7 +52,7 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
 
     @Override
     public void onUpdate(ProductDisplay.ProductDisplayEvent event) {
-        if (event instanceof ProductDisplay.RemoveProductEvent) {
+        if (event instanceof ProductDisplay.RemovedProductEvent) {
             this.removeProductDisplay(event.productDisplay);
             this.revalidate();
             this.repaint();
