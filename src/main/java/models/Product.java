@@ -101,7 +101,11 @@ public class Product {
         return this.tax.applied(this.cost);
     }
 
-    public String describe() {
+    public String describeCosts() {
         return String.format("%s - %.2f€ - %.2f€", name, this.cost, this.getATICost());
+    }
+
+    public String toString() {
+        return String.format("[%.2f€ %s TVA] %s", this.cost, this.tax.toString(), this.name);
     }
 }
