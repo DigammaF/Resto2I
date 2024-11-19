@@ -17,8 +17,8 @@ public enum Tax {
     public String toString() {
         return switch (this) {
             case CONDITIONED -> "5.5%";
-            case INSTANT -> "1%";
-            case ALCOHOL -> "2%";
+            case INSTANT -> "10%";
+            case ALCOHOL -> "20%";
         };
     }
 }
