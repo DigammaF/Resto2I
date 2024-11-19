@@ -12,4 +12,13 @@ public enum Tax {
             case ALCOHOL -> value * 1.2;
         };
     }
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case CONDITIONED -> "5.5%";
+            case INSTANT -> "1%";
+            case ALCOHOL -> "2%";
+        };
+    }
 }
