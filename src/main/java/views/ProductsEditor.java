@@ -21,15 +21,14 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
     private void initComponent() {
         AppContext context = AppContext.getAppContext();
         this.newProductButton = new JButton("+");
-        ProductsEditor productsEditor = this;
         this.newProductButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 Product product = new Product();
                 Logic.addproduct(context.getRestaurant(), product);
                 entityManager.persist(product);
                 this.addProductDisplay(new ProductDisplay(product));
-                productsEditor.revalidate();
-                productsEditor.repaint();
+                this.revalidate();
+                this.repaint();
             });
         });
         this.productsPanel = new JPanel();
