@@ -47,9 +47,9 @@ public class ProductDisplay extends JPanel implements Observable<ProductDisplay.
         this.productNameLabel = new JLabel(text.get(context.getLanguage(), TextContent.Key.PRODUCT_DISPLAY_NAME_LABEL));
         this.productNameTextField = new JTextField(10);
         this.productNameTextField.setText(product.getName());
-        this.productNameTextField.addKeyListener(new Validate(this.productNameTextField, enteredText -> {
-            context.perform(_ -> { product.setName(enteredText); });
-        }));
+        this.productNameTextField.addKeyListener(new Validate(
+                this.productNameTextField, enteredText -> context.perform(_ -> { product.setName(enteredText); })
+        ));
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> {
