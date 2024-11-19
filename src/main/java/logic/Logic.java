@@ -22,4 +22,19 @@ public class Logic {
         statement.setTicket(ticket);
         return statement;
     }
+
+    public static void addLiveProduct(Ticket ticket, LiveProduct liveProduct) {
+        ticket.getLiveProducts().add(liveProduct);
+        liveProduct.setTicket(ticket);
+    }
+
+    public static void remLiveProduct(Ticket ticket, LiveProduct liveProduct) {
+        ticket.getLiveProducts().remove(liveProduct);
+        liveProduct.setTicket(null);
+    }
+
+    public static void addTicket(Ticket ticket, Restaurant restaurant) {
+        ticket.setRestaurant(restaurant);
+        restaurant.getTickets().add(ticket);
+    }
 }

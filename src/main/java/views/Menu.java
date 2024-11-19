@@ -28,6 +28,13 @@ public class Menu extends JPanel {
             mainPanel.repaint();
         });
         this.ticketsEditorButton = new JButton();
+        this.ticketsEditorButton.addActionListener(_ -> {
+            JPanel mainPanel = context.getMainView().getMainPanel();
+            mainPanel.removeAll();
+            mainPanel.add(new TicketsEditor());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        });
         this.restaurantEditorButton = new JButton();
         this.restaurantEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();

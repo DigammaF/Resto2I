@@ -6,6 +6,7 @@ public class TextContent {
     private final Map<Key, Map<Language, String>> texts;
 
     public enum Key {
+        EDIT, EMITTED, YES, NO,
         MENU_PRODUCTS_EDITOR_BUTTON,
         MENU_TICKETS_EDITOR_BUTTON,
         MENU_RESTAURANT_EDITOR_BUTTON,
@@ -17,6 +18,8 @@ public class TextContent {
         RESTAURANT_EDITOR_TAXID_LABEL,
         RESTAURANT_EDITOR_SIREN_LABEL,
         RESTAURANT_EDITOR_LATE_PENALTY_POLICY_LABEL,
+        TICKET_DISPLAY_TABLE_NUMBER_LABEL,
+        TICKETS_EDITOR_NEW_TICKET_BUTTON,
     }
 
     public enum Language {
@@ -32,6 +35,10 @@ public class TextContent {
 
     private TextContent() {
         this.texts = new HashMap<>();
+        this.texts.put(Key.EDIT, make("Edit", "Editer"));
+        this.texts.put(Key.EMITTED, make("Emitted", "Emit"));
+        this.texts.put(Key.YES, make("yes", "oui"));
+        this.texts.put(Key.NO, make("no", "non"));
         this.texts.put(Key.MENU_PRODUCTS_EDITOR_BUTTON, make("Product editor", "Editeur de produit"));
         this.texts.put(Key.MENU_TICKETS_EDITOR_BUTTON, make("Ticket editor", "Editeur de ticket"));
         this.texts.put(Key.MENU_RESTAURANT_EDITOR_BUTTON, make("Restaurant editor", "Editeur de restaurant"));
@@ -43,6 +50,8 @@ public class TextContent {
         this.texts.put(Key.RESTAURANT_EDITOR_TAXID_LABEL, make("Tax ID", "Numéro de TVA"));
         this.texts.put(Key.RESTAURANT_EDITOR_SIREN_LABEL, make("SIREN", "SIREN"));
         this.texts.put(Key.RESTAURANT_EDITOR_LATE_PENALTY_POLICY_LABEL, make("Late penalty policy", "Politique de pénalité de retard"));
+        this.texts.put(Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL, make("Table number", "Numéro de table"));
+        this.texts.put(Key.TICKETS_EDITOR_NEW_TICKET_BUTTON, make("New ticket", "Nouvelle commande"));
     }
 
     static private Map<Language, String> make(String en, String fr) {
