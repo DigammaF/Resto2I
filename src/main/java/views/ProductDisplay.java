@@ -31,9 +31,6 @@ public class ProductDisplay extends JPanel implements Observable<ProductDisplay.
     public class RemoveProductEvent extends ProductDisplayEvent {
         public RemoveProductEvent(ProductDisplay product) { super(product); }
     }
-    public class CommitedProductEvent extends ProductDisplayEvent {
-        public CommitedProductEvent(ProductDisplay product) { super(product); }
-    }
 
     public ProductDisplay(Product product) {
         super();
@@ -51,11 +48,7 @@ public class ProductDisplay extends JPanel implements Observable<ProductDisplay.
         this.productNameTextField = new JTextField(10);
         this.productNameTextField.setText(product.getName());
         this.productNameTextField.addKeyListener(new Validate(this.productNameTextField, enteredText -> {
-            if (context.perform(_ -> {
-                product.setName(enteredText);
-            })) {
-                this.notifyObservers(new CommitedProductEvent(this));
-            }
+            context.perform(_ -> { product.setName(enteredText); });
         }));
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
