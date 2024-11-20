@@ -8,6 +8,7 @@ import logic.Tax;
 import models.Product;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +64,10 @@ public class ProductDisplay extends JPanel {
             if (context.perform(_ -> {
                 product.setUsed(false);
             })) {
-                this.getParent().remove(this);
-                this.getParent().revalidate();
-                this.getParent().repaint();
+                Container parent = this.getParent();
+                parent.remove(this);
+                parent.revalidate();
+                parent.repaint();
             }
         });
     }

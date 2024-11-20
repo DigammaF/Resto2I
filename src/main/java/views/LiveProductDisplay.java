@@ -9,6 +9,7 @@ import models.LiveProduct;
 import models.Product;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -67,9 +68,10 @@ public class LiveProductDisplay extends JPanel
                 Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
                 entityManager.remove(liveProduct);
             })) {
-                this.getParent().remove(this);
-                this.getParent().revalidate();
-                this.getParent().repaint();
+                Container parent = this.getParent();
+                parent.remove(this);
+                parent.revalidate();
+                parent.repaint();
             }
         });
     }

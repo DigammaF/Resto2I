@@ -117,7 +117,7 @@ public class TicketEditor extends JPanel
 
     private void initLayout() {
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new BoxLayout(this.liveProductsPanel, BoxLayout.X_AXIS));
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         buttonsPanel.add(this.newSoftDrinkButton);
         buttonsPanel.add(this.newAlcoholButton);
         buttonsPanel.add(this.newEntreeButton);
