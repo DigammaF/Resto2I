@@ -2,6 +2,7 @@ package views;
 
 import Events.LiveProductDisplayEvent;
 import Events.TicketEditorEvent;
+import language.TextContent;
 import logic.Logic;
 import logic.Observable;
 import logic.Observer;
@@ -37,7 +38,9 @@ public class TicketEditor extends JPanel
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
+        TextContent textContent = TextContent.getTextContent();
         this.newSoftDrinkButton = new JButton();
+        this.newSoftDrinkButton.setText(textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK));
         this.newSoftDrinkButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
@@ -52,6 +55,7 @@ public class TicketEditor extends JPanel
             });
         });
         this.newAlcoholButton = new JButton();
+        this.newAlcoholButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ALCOHOL));
         this.newAlcoholButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
@@ -66,6 +70,7 @@ public class TicketEditor extends JPanel
             });
         });
         this.newEntreeButton = new JButton();
+        this.newEntreeButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ENTREE));
         this.newEntreeButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
@@ -80,6 +85,7 @@ public class TicketEditor extends JPanel
             });
         });
         this.newMealButton = new JButton();
+        this.newMealButton.setText(textContent.get(context.getLanguage(), TextContent.Key.MEAL));
         this.newMealButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
@@ -94,6 +100,7 @@ public class TicketEditor extends JPanel
             });
         });
         this.newDessertButton = new JButton();
+        this.newDessertButton.setText(textContent.get(context.getLanguage(), TextContent.Key.DESSERT));
         this.newDessertButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
