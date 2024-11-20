@@ -7,7 +7,7 @@ import models.Product;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProductsEditor extends JPanel implements Observer<ProductDisplay.ProductDisplayEvent> {
+public class ProductsEditor extends JPanel {
     private JButton newProductButton;
     private JPanel productsPanel;
     private JScrollPane productsScrollPane;
@@ -26,7 +26,7 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
                 Product product = new Product();
                 Logic.addproduct(context.getRestaurant(), product);
                 entityManager.persist(product);
-                this.addProductDisplay(new ProductDisplay(product));
+                this.productsPanel.add(new ProductDisplay(product));
                 this.revalidate();
                 this.repaint();
             });
@@ -36,7 +36,7 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
 
         for (Product product : context.getRestaurant().getProducts()) {
             if (product.isUsed()) {
-                this.addProductDisplay(new ProductDisplay(product));
+                this.productsPanel.add(new ProductDisplay(product));
             }
         }
     }
@@ -47,24 +47,5 @@ public class ProductsEditor extends JPanel implements Observer<ProductDisplay.Pr
         this.add(this.newProductButton, BorderLayout.NORTH);
         this.add(this.productsScrollPane, BorderLayout.CENTER);
         this.add(Box.createHorizontalStrut(500), BorderLayout.SOUTH);
-    }
-
-    @Override
-    public void onUpdate(ProductDisplay.ProductDisplayEvent event) {
-        if (event instanceof ProductDisplay.RemovedProductEvent) {
-            this.removeProductDisplay(event.productDisplay);
-            this.revalidate();
-            this.repaint();
-        }
-    }
-
-    private void addProductDisplay(ProductDisplay productDisplay) {
-        this.productsPanel.add(productDisplay);
-        productDisplay.addObserver(this);
-    }
-
-    private void removeProductDisplay(ProductDisplay productDisplay) {
-        this.productsPanel.remove(productDisplay);
-        productDisplay.removeObserver(this);
     }
 }

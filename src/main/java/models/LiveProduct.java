@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.ProductType;
 
 @Entity
 public class LiveProduct {
@@ -58,4 +59,6 @@ public class LiveProduct {
     public double getATICost() {
         return this.product.getATICost() * this.count;
     }
+
+    public ProductType getProductType() { return this.product.getProductType(); }
 }

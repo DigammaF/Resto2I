@@ -41,11 +41,11 @@ public class Client {
         this.name = name;
     }
 
-    public String getTax_id() {
+    public String getTaxID() {
         return tax_id;
     }
 
-    public void setTax_id(String tax_id) {
+    public void setTaxID(String tax_id) {
         this.tax_id = tax_id;
     }
 

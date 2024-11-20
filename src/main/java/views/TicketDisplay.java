@@ -8,7 +8,6 @@ import javax.swing.*;
 public class TicketDisplay extends JPanel {
     private Ticket ticket;
     private JLabel dateLabel;
-    private JLabel emittedLabel;
     private JButton emittedButton;
     private JLabel tableNumberLabel;
     private JTextField tableNumberField;
@@ -25,7 +24,6 @@ public class TicketDisplay extends JPanel {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.dateLabel = new JLabel(this.ticket.getDate().toString());
-        this.emittedLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.EMITTED));
         this.emittedButton = new JButton(this.getEmittedButtonText());
         this.emittedButton.addActionListener(_ -> {
             if (context.perform(_ -> this.ticket.setEmitted(!this.ticket.isEmitted()))) {
@@ -49,7 +47,6 @@ public class TicketDisplay extends JPanel {
     private void initLayout() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(this.dateLabel);
-        this.add(this.emittedLabel);
         this.add(this.emittedButton);
         this.add(this.tableNumberLabel);
         this.add(this.tableNumberField);
@@ -59,8 +56,8 @@ public class TicketDisplay extends JPanel {
     private String getEmittedButtonText() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        return this.ticket.isEmitted()
+        return textContent.get(context.getLanguage(), TextContent.Key.EMITTED) + ": " + (this.ticket.isEmitted()
                 ? textContent.get(context.getLanguage(), TextContent.Key.YES)
-                : textContent.get(context.getLanguage(), TextContent.Key.NO);
+                : textContent.get(context.getLanguage(), TextContent.Key.NO));
     }
 }

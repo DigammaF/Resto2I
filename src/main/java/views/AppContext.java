@@ -89,7 +89,7 @@ public class AppContext {
             this.entityManager.getTransaction().begin();
             action.execute(entityManager);
             this.entityManager.getTransaction().commit();
-        } catch (Exception exception) { this.entityManager.getTransaction().rollback(); return false; }
+        } catch (Exception exception) { this.entityManager.getTransaction().rollback(); exception.printStackTrace(); return false; }
         return true;
     }
 }

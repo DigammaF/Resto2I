@@ -10,17 +10,18 @@ public class Logic {
         restaurant.getProducts().add(product);
     }
 
-    public static Statement emitStatement(
-            Ticket ticket, Client client, Date due
-    ) {
+    public static Statement emitStatement(Ticket ticket) {
         Statement statement = new Statement();
         statement.setRestaurant(ticket.getRestaurant());
-        statement.setClient(client);
-        statement.setAmount(ticket.getTotalATICost());
-        statement.setDue(due);
+        Logic.updateStatementAmount(ticket, statement);
+        statement.setDue(ticket.getDate());
         statement.setLatePenalty(ticket.getRestaurant().getLatePenaltyPolicy());
         statement.setTicket(ticket);
         return statement;
+    }
+
+    public static void updateStatementAmount(Ticket ticket, Statement statement) {
+        statement.setAmount(ticket.getTotalATICost());
     }
 
     public static void addLiveProduct(Ticket ticket, LiveProduct liveProduct) {

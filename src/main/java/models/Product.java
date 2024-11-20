@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.ProductType;
 import logic.Tax;
 
 @Entity
@@ -31,6 +32,18 @@ public class Product {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Restaurant restaurant;
+
+    @Column(name = "product_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 
     public boolean isUsed() {
         return used;

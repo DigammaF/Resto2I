@@ -1,39 +1,49 @@
 package views;
 
+import Events.LiveProductDisplayEvent;
 import logic.Logic;
 import logic.Observable;
 import logic.Observer;
+import logic.ProductType;
 import models.LiveProduct;
 import models.Product;
 
 import javax.swing.*;
-import javax.swing.event.ListDataListener;
-import java.awt.event.KeyAdapter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
-public class LiveProductDisplay extends JPanel implements Observable<LiveProductDisplay.LiveProductDisplayEvent> {
+public class LiveProductDisplay extends JPanel
+        implements Observable<LiveProductDisplayEvent>
+{
     private LiveProduct liveProduct;
+    private ProductFilter productFilter;
     private ComboBoxModel<Product> productsModel;
     private JComboBox<Product> productsComboBox;
     private JLabel countLabel;
     private JTextField countField;
     private JButton removeButton;
 
-    private List<Observer<LiveProductDisplayEvent>> observers;
+    private ArrayList<Observer<LiveProductDisplayEvent>> liveProductDisplayEventObservers;
 
-    public abstract class LiveProductDisplayEvent { }
-    public class RemovedLiveProductEvent extends LiveProductDisplayEvent {
-        public LiveProductDisplay liveProductDisplay;
+    @FunctionalInterface
+    public interface ProductFilter {
+        boolean execute(Product product);
+    }
 
-        public RemovedLiveProductEvent(LiveProductDisplay liveProductDisplay) { this.liveProductDisplay = liveProductDisplay; }
+    public LiveProductDisplay(LiveProduct liveProduct, ProductFilter productFilter) {
+        super();
+        this.liveProductDisplayEventObservers = new ArrayList<>();
+        this.liveProduct = liveProduct;
+        this.productFilter = productFilter;
+        this.initComponents();
+        this.initLayout();
     }
 
     public LiveProductDisplay(LiveProduct liveProduct) {
         super();
-        this.observers = new ArrayList<>();
+        this.liveProductDisplayEventObservers = new ArrayList<>();
         this.liveProduct = liveProduct;
+        this.productFilter = _ -> true;
         this.initComponents();
         this.initLayout();
     }
@@ -41,7 +51,7 @@ public class LiveProductDisplay extends JPanel implements Observable<LiveProduct
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         Vector<Product> products = new Vector<>(context.getRestaurant().getProducts());
-        Vector<Product> usedProducts = new Vector<>(products.stream().filter(Product::isUsed).toList());
+        Vector<Product> usedProducts = new Vector<>(products.stream().filter(product -> product.isUsed() && this.productFilter.execute(product)).toList());
         this.productsModel = new DefaultComboBoxModel<>(usedProducts);
         this.productsComboBox = new JComboBox<>(this.productsModel);
         this.countLabel = new JLabel("X");
@@ -57,7 +67,9 @@ public class LiveProductDisplay extends JPanel implements Observable<LiveProduct
                 Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
                 entityManager.remove(liveProduct);
             })) {
-                this.notifyObservers(new RemovedLiveProductEvent(this));
+                this.getParent().remove(this);
+                this.getParent().revalidate();
+                this.getParent().repaint();
             }
         });
     }
@@ -70,21 +82,23 @@ public class LiveProductDisplay extends JPanel implements Observable<LiveProduct
         this.add(removeButton);
     }
 
+    public ProductFilter getProductFilter(ProductType productType) {
+        return product -> product.getProductType() == productType;
+    }
+
     @Override
     public void addObserver(Observer<LiveProductDisplayEvent> observer) {
-        this.observers.add(observer);
+        this.liveProductDisplayEventObservers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer<LiveProductDisplayEvent> observer) {
-        this.observers.remove(observer);
+        this.liveProductDisplayEventObservers.remove(observer);
     }
 
     @Override
     public void notifyObservers(LiveProductDisplayEvent event) {
-        List<Observer<LiveProductDisplay.LiveProductDisplayEvent>> independent_observers = new ArrayList<>(this.observers);
-        for (Observer<LiveProductDisplay.LiveProductDisplayEvent> observer : independent_observers) {
-            observer.onUpdate(event);
-        }
+        ArrayList<Observer<LiveProductDisplayEvent>> observers = new ArrayList<>(this.liveProductDisplayEventObservers);
+        for (Observer<LiveProductDisplayEvent> observer: observers) { observer.onEvent(event); }
     }
 }

@@ -1,5 +1,5 @@
 package logic;
 
 public interface Observer<T> {
-    void onUpdate(T event);
+    void onEvent(T event);
 }
