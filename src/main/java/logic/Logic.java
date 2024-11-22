@@ -2,22 +2,15 @@ package logic;
 
 import models.*;
 
-import java.util.Date;
-
 public class Logic {
-    public static void addproduct(Restaurant restaurant, Product product) {
+    /*
+
+        Holds static methods that operate on multiple types.
+
+     */
+    public static void addProduct(Restaurant restaurant, Product product) {
         product.setRestaurant(restaurant);
         restaurant.getProducts().add(product);
-    }
-
-    public static Statement emitStatement(Ticket ticket) {
-        Statement statement = new Statement();
-        statement.setRestaurant(ticket.getRestaurant());
-        Logic.updateStatementAmount(ticket, statement);
-        statement.setDue(ticket.getDate());
-        statement.setLatePenalty(ticket.getRestaurant().getLatePenaltyPolicy());
-        statement.setTicket(ticket);
-        return statement;
     }
 
     public static void updateStatementAmount(Ticket ticket, Statement statement) {

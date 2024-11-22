@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Logic;
 
 import java.util.Date;
 import java.util.List;
@@ -94,5 +95,15 @@ public class Ticket {
 
     public double getTotalATICost() {
         return this.liveProducts.stream().map(LiveProduct::getATICost).reduce(0.0, Double::sum);
+    }
+
+    public Statement emitStatement() {
+        Statement statement = new Statement();
+        statement.setRestaurant(this.getRestaurant());
+        Logic.updateStatementAmount(this, statement);
+        statement.setDue(this.getDate());
+        statement.setLatePenalty(this.getRestaurant().getLatePenaltyPolicy());
+        statement.setTicket(this);
+        return statement;
     }
 }
