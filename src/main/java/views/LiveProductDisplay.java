@@ -63,15 +63,15 @@ public class LiveProductDisplay extends JPanel
                 text -> context.perform(_ -> this.liveProduct.setCount(Integer.parseInt(text)))
         ));
         this.removeButton = new JButton("X");
+        LiveProductDisplay liveProductDisplay = this;
         this.removeButton.addActionListener(_ -> {
             if (context.perform(entityManager -> {
                 Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
                 entityManager.remove(liveProduct);
             })) {
-                Container parent = this.getParent();
-                parent.remove(this);
-                parent.revalidate();
-                parent.repaint();
+                liveProductDisplay.getParent().remove(liveProductDisplay);
+                context.getMainView().validate();
+                context.getMainView().repaint();
             }
         });
     }

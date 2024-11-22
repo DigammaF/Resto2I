@@ -60,14 +60,14 @@ public class ProductDisplay extends JPanel {
         this.productTypeComboBoxModel = new DefaultComboBoxModel<>(ProductType.values());
         this.productTypeComboBox = new JComboBox<>(this.productTypeComboBoxModel);
         this.removeButton = new JButton("X");
+        ProductDisplay productDisplay = this;
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> {
                 product.setUsed(false);
             })) {
-                Container parent = this.getParent();
-                parent.remove(this);
-                parent.revalidate();
-                parent.repaint();
+                productDisplay.getParent().remove(productDisplay);
+                context.getMainView().validate();
+                context.getMainView().repaint();
             }
         });
     }
