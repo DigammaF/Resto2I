@@ -17,10 +17,6 @@ public class AppContext {
         return demoMode;
     }
 
-    public void setDemoMode(boolean demoMode) {
-        this.demoMode = demoMode;
-    }
-
     public MainView getMainView() {
         return mainView;
     }
