@@ -8,6 +8,11 @@ import java.util.List;
 
 @Entity
 public class Ticket {
+    /*
+
+        Created every time a client eats at the restaurant
+
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

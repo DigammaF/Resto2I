@@ -1,7 +1,6 @@
 package views;
 
 import logic.Logic;
-import logic.Observer;
 import models.Product;
 
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class ProductsEditor extends JPanel {
         this.newProductButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 Product product = new Product();
-                Logic.addproduct(context.getRestaurant(), product);
+                Logic.addProduct(context.getRestaurant(), product);
                 entityManager.persist(product);
                 this.productsPanel.add(new ProductDisplay(product));
                 this.revalidate();

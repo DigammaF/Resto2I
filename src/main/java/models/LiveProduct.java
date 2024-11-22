@@ -5,6 +5,11 @@ import logic.ProductType;
 
 @Entity
 public class LiveProduct {
+    /*
+
+        A concrete realisation of a product archetype
+
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

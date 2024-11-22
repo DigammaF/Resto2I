@@ -1,0 +1,14 @@
+
+The names of custom widgets obey the following pattern: <Item>s?(Editor)|(Display)
+
+Item
+    the related item being handled
+    read-only item properties are displayed using read-only widgets
+    read-write item properties are displayed and made available for user modification
+s?
+    when present, indicates that instead of one item, a list of items is being handled
+    such a widget is usually an Editor, containing multiple Display
+Editor
+    a widget made to occupy all, or a significant portion of the MainView central panel
+Display
+    a compact widget meant to be displayed in a list of similar widgets

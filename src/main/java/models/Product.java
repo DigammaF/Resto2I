@@ -6,6 +6,11 @@ import logic.Tax;
 
 @Entity
 public class Product {
+    /*
+
+        Archetype of a consumable item
+
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

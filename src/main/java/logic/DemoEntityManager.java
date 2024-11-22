@@ -8,6 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class DemoEntityManager implements EntityManager {
+    /*
+
+        Acts as an empty shell. Used when the app is started in
+        offline mode
+
+     */
     public DemoEntityManager() {}
     public void persist(Object entity) {}
     public void remove(Object entity) {}

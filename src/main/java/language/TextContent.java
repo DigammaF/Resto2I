@@ -3,6 +3,12 @@ package language;
 import java.util.*;
 
 public class TextContent {
+    /*
+
+        Singleton. Used to provide multiple translations for each text item.
+        Contains enums that identifies languages and text items.
+
+     */
     private final Map<Key, Map<Language, String>> texts;
 
     public enum Key {
