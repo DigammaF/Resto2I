@@ -30,6 +30,7 @@ public class TicketsEditor extends JPanel {
                         false, context.getRestaurant(), new Date(), 0, new ArrayList<>()
                 );
                 Logic.addTicket(ticket, context.getRestaurant());
+                ticket.setStatement(ticket.emitStatement());
                 entityManager.persist(ticket);
                 this.ticketsPanel.add(new TicketDisplay(ticket));
                 this.revalidate();

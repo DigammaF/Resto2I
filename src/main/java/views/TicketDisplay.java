@@ -4,6 +4,7 @@ import language.TextContent;
 import models.Ticket;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class TicketDisplay extends JPanel {
     private Ticket ticket;
@@ -38,7 +39,12 @@ public class TicketDisplay extends JPanel {
         this.editButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
-            mainPanel.add(new TicketEditor(this.ticket));
+            mainPanel.setLayout(new FlowLayout());
+            TicketEditor ticketEditor = new TicketEditor(this.ticket);
+            mainPanel.add(ticketEditor);
+            StatementEditor statementEditor = new StatementEditor(this.ticket.getStatement());
+            ticketEditor.addObserver(statementEditor);
+            mainPanel.add(statementEditor);
             mainPanel.revalidate();
             mainPanel.repaint();
         });
