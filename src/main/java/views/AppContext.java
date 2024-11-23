@@ -7,10 +7,15 @@ import models.Restaurant;
 
 /**
  *
+ * <p>
  * Singleton meant to offer global access to important resources
  * Can be started in demo mode, which is a kind of offline mode:
  * in this mode, the application doesn't rely on the existence of
  * an external database anymore.
+ * </p>
+ * <p>
+ * Use .perform to perform an action that requires an EntityManager Transaction
+ * </p>
  *
  */
 public class AppContext {
