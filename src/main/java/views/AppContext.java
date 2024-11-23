@@ -14,7 +14,7 @@ import models.Restaurant;
  * an external database anymore.
  * </p>
  * <p>
- * Use .perform to perform an action that requires an EntityManager Transaction
+ * Use <code>.perform</code> to perform an action that requires an <code>EntityManager Transaction</code>.
  * </p>
  *
  */
@@ -97,6 +97,28 @@ public class AppContext {
         void execute(EntityManager entityManager);
     }
 
+    /**
+     *
+     * <p>
+     * Use .perform to perform an action that requires an EntityManager Transaction.
+     * Just remember that an action has to be fully performed before the next one starts!
+     * <br/>
+     * <strong>No nested transactions!</strong>
+     * <br/>
+     * Therefore, one shouldn't trigger an Observable event in a perform callback, as the event will
+     * immediately trigger some method calls: those methods are not supposed to be aware
+     * of this context, and might want to perform transactions of their own, crashing the
+     * application.
+     * <br/>
+     * Use the following pattern
+     * <p><code>
+     *     if (context.perform(...)) { notifyObservers(...) }
+     * </code></p>
+     * </p>
+     *
+     * @param action EntityManager -> void
+     * @return true if the transaction was commited, false if it was rollback
+     */
     public boolean perform(PersistenceAction action) {
         if (this.demoMode) { action.execute(this.entityManager); return true; }
         try {
