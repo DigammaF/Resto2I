@@ -44,5 +44,6 @@ public class ClientEditor extends JPanel {
         this.add(this.nameLabel); this.add(this.nameField);
         this.add(this.taxIDLabel); this.add(this.taxIDField);
         this.add(this.contactLabel); this.add(this.contactField);
+        this.add(Box.createHorizontalStrut(500));
     }
 }

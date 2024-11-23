@@ -1,6 +1,7 @@
 package views;
 
 import language.TextContent;
+import models.Client;
 import models.Ticket;
 
 import javax.swing.*;
@@ -45,6 +46,7 @@ public class TicketDisplay extends JPanel {
             StatementEditor statementEditor = new StatementEditor(this.ticket.getStatement());
             ticketEditor.addObserver(statementEditor);
             mainPanel.add(statementEditor);
+            mainPanel.add(new ClientEditor(new Client()));
             mainPanel.revalidate();
             mainPanel.repaint();
         });
