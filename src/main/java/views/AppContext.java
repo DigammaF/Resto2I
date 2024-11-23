@@ -5,6 +5,14 @@ import language.TextContent;
 import logic.DemoEntityManager;
 import models.Restaurant;
 
+/**
+ *
+ * Singleton meant to offer global access to important resources
+ * Can be started in demo mode, which is a kind of offline mode:
+ * in this mode, the application doesn't rely on the existence of
+ * an external database anymore.
+ *
+ */
 public class AppContext {
     private TextContent.Language language;
     private final EntityManagerFactory entityManagerFactory;
@@ -48,12 +56,17 @@ public class AppContext {
     private static AppContext appContext;
 
     public static AppContext getAppContext() {
-        if (appContext == null) { appContext = new AppContext(); }
+        if (appContext == null) { appContext = new AppContext(false); }
         return appContext;
     }
 
-    private AppContext() {
-        this.demoMode = true;
+    public static AppContext getAppContext(boolean demoMode) {
+        if (appContext == null) { appContext = new AppContext(demoMode); }
+        return appContext;
+    }
+
+    private AppContext(boolean demoMode) {
+        this.demoMode = demoMode;
         this.language = TextContent.Language.FR;
 
         if (this.demoMode) {
