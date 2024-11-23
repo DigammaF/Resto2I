@@ -22,6 +22,7 @@ public class TextContent {
         RESTAURANT_EDITOR_LATE_PENALTY_POLICY_LABEL,
         TICKET_DISPLAY_TABLE_NUMBER_LABEL,
         TICKETS_EDITOR_NEW_TICKET_BUTTON,
+        STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL,
     }
 
     public enum Language {
@@ -63,6 +64,7 @@ public class TextContent {
         this.texts.put(Key.RESTAURANT_EDITOR_LATE_PENALTY_POLICY_LABEL, make("Late penalty policy", "Politique de pénalité de retard"));
         this.texts.put(Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL, make("Table number", "Numéro de table"));
         this.texts.put(Key.TICKETS_EDITOR_NEW_TICKET_BUTTON, make("New ticket", "Nouvelle commande"));
+        this.texts.put(Key.STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL, make("Late penalty policy", "Politique de pénalité de retard"));
     }
 
     static private Map<Language, String> make(String en, String fr) {
