@@ -29,7 +29,7 @@ public class Menu extends JPanel {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
             mainPanel.add(new ProductsEditor());
-            mainPanel.revalidate();
+            mainPanel.validate();
             mainPanel.repaint();
         });
         this.ticketsEditorButton = new JButton();
@@ -37,7 +37,7 @@ public class Menu extends JPanel {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
             mainPanel.add(new TicketsEditor());
-            mainPanel.revalidate();
+            mainPanel.validate();
             mainPanel.repaint();
         });
         this.restaurantEditorButton = new JButton();
@@ -45,7 +45,7 @@ public class Menu extends JPanel {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
             mainPanel.add(new RestaurantEditor(context.getRestaurant()));
-            mainPanel.revalidate();
+            mainPanel.validate();
             mainPanel.repaint();
         });
         this.languageSwitchButton = new JButton("FR/EN");
