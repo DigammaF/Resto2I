@@ -5,21 +5,23 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ *
+ * Colors field accordingly to its database-related state
+ *      <ul>
+ *      <li>red: field modified but not commited</li>
+ *      <li>green: field modified and commited</li>
+ *      <li>unmodified: field not modified</li>
+ *      </ul>
+ * <p>
+ * enterKeyAction is a callback that will be called with
+ *         the field's content when the user presses Enter
+ * <p>
+ *         ! The field's content is trimmed before being passed
+ *         to enterKeyAction
+ *
+ */
 public class Validate extends KeyAdapter {
-    /*
-
-        Colors <field> accordingly to its database-related state
-            red: field modified but not commited
-            green: field modified and commited
-            unmodified: field not modified
-
-        <enterKeyAction> is a callback that will be called with
-        the field's content when the user presses Enter
-
-        ! The field's content is trimmed before being passed
-        to <enterKeyAction>
-
-     */
     private final JTextField field;
     private final EnterKeyAction enterKeyAction;
 

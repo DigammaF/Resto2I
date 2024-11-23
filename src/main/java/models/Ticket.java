@@ -6,13 +6,13 @@ import logic.Logic;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ * Created every time a client eats at the restaurant
+ *
+ */
 @Entity
 public class Ticket {
-    /*
-
-        Created every time a client eats at the restaurant
-
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

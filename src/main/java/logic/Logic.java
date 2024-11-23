@@ -2,12 +2,12 @@ package logic;
 
 import models.*;
 
+/**
+ *
+ * Holds static methods that operate on multiple types
+ *
+ */
 public class Logic {
-    /*
-
-        Holds static methods that operate on multiple types.
-
-     */
     public static void addProduct(Restaurant restaurant, Product product) {
         product.setRestaurant(restaurant);
         restaurant.getProducts().add(product);

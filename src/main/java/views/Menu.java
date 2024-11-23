@@ -4,6 +4,11 @@ import language.TextContent;
 
 import javax.swing.*;
 
+/**
+ *
+ * Sidebar menu
+ *
+ */
 public class Menu extends JPanel {
     private JButton productsEditorButton;
     private JButton ticketsEditorButton;

@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+/**
+ *
+ * Comes with a Ticket, destined to be read and used by the client
+ *
+ */
 @Entity
 public class Statement {
-    /*
-
-        Comes with a Ticket, destined to be read and used by the client
-
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

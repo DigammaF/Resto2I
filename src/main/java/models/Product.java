@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import logic.ProductType;
 import logic.Tax;
 
+/**
+ *
+ * Archetype of a consumable item
+ *
+ */
 @Entity
 public class Product {
-    /*
-
-        Archetype of a consumable item
-
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
