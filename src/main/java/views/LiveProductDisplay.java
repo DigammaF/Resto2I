@@ -1,6 +1,7 @@
 package views;
 
-import Events.LiveProductDisplayEvent;
+import Events.LiveProductDisplayEvents;
+import Events.LiveProductDisplayEvents.LiveProductDisplayEvent;
 import logic.Logic;
 import logic.Observable;
 import logic.Observer;
@@ -60,7 +61,14 @@ public class LiveProductDisplay extends JPanel
         this.countField.setText(Integer.toString(liveProduct.getCount()));
         this.countField.addKeyListener(new Validate(
                 this.countField,
-                text -> context.perform(_ -> this.liveProduct.setCount(Integer.parseInt(text)))
+                text -> {
+                    if (context.perform(_ -> this.liveProduct.setCount(Integer.parseInt(text)))) {
+                        this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
         ));
         this.removeButton = new JButton("X");
         LiveProductDisplay liveProductDisplay = this;
@@ -72,6 +80,8 @@ public class LiveProductDisplay extends JPanel
                 liveProductDisplay.getParent().remove(liveProductDisplay);
                 context.getMainView().validate();
                 context.getMainView().repaint();
+                this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
+                this.notifyObservers(new LiveProductDisplayEvents.Removed(this));
             }
         });
     }

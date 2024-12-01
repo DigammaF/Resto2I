@@ -1,6 +1,7 @@
 package views;
 
-import Events.LiveProductDisplayEvent;
+import Events.LiveProductDisplayEvents;
+import Events.LiveProductDisplayEvents.LiveProductDisplayEvent;
 import Events.TicketEditorEvent;
 import language.TextContent;
 import logic.Logic;
@@ -47,9 +48,11 @@ public class TicketEditor extends JPanel
                 liveProduct.setCount(1);
                 Logic.addLiveProduct(this.ticket, liveProduct);
                 entityManager.persist(liveProduct);
-                this.liveProductsPanel.add(
-                        new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.SOFT_DRINK)
+                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                        liveProduct, product -> product.getProductType() == ProductType.SOFT_DRINK
                 );
+                liveProductDisplay.addObserver(this);
+                this.liveProductsPanel.add(liveProductDisplay);
                 this.revalidate();
                 this.repaint();
             });
@@ -66,7 +69,7 @@ public class TicketEditor extends JPanel
                         new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.ALCOHOL)
                 );
                 this.revalidate();
-                this.repaint();
+                this.repaint(); // TODO keep changing those callbacks to include .addObserver
             });
         });
         this.newEntreeButton = new JButton();
@@ -118,7 +121,9 @@ public class TicketEditor extends JPanel
         this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
 
         for (LiveProduct liveProduct : this.ticket.getLiveProducts()) {
-            this.liveProductsPanel.add(new LiveProductDisplay(liveProduct));
+            LiveProductDisplay liveProductDisplay = new LiveProductDisplay(liveProduct);
+            liveProductDisplay.addObserver(this);
+            this.liveProductsPanel.add(liveProductDisplay);
         }
     }
 
@@ -155,9 +160,8 @@ public class TicketEditor extends JPanel
 
     @Override
     public void onEvent(LiveProductDisplayEvent event) {
-        switch (event) {
-            case COST_CHANGE -> this.notifyObservers(TicketEditorEvent.COST_CHANGE);
-            default -> { }
-        }
+        System.out.println(event);
+        if (event instanceof LiveProductDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
+        if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
     }
 }

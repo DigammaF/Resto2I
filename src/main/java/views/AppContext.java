@@ -77,7 +77,7 @@ public class AppContext {
         if (this.demoMode) {
             this.entityManagerFactory = null;
             this.entityManager = new DemoEntityManager();
-            this.restaurant = new Restaurant();
+            this.restaurant = Restaurant.generateDefault();
         } else {
             this.entityManagerFactory = Persistence.createEntityManagerFactory("resto2I");
             this.entityManager = entityManagerFactory.createEntityManager();

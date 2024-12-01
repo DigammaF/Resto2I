@@ -41,6 +41,9 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Statement> statements;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Client> clients;
+
     public String getName() {
         return name;
     }
@@ -121,7 +124,19 @@ public class Restaurant {
         this.statements = statements;
     }
 
-    public Restaurant(String name, String email, String address, String phone, String tax_id, String SIREN, String latePenaltyPolicy, List<Product> products, List<Ticket> tickets, List<Statement> statements) {
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public Restaurant(String name, String email, String address, String phone,
+                      String tax_id, String SIREN, String latePenaltyPolicy,
+                      List<Product> products, List<Ticket> tickets, List<Statement> statements,
+                      List<Client> clients
+    ) {
         this.name = name;
         this.email = email;
         this.address = address;
@@ -132,6 +147,7 @@ public class Restaurant {
         this.products = products;
         this.tickets = tickets;
         this.statements = statements;
+        this.clients = clients;
     }
 
     public Restaurant() {
@@ -145,5 +161,11 @@ public class Restaurant {
         this.products = new ArrayList<Product>();
         this.tickets = new ArrayList<Ticket>();
         this.statements = new ArrayList<Statement>();
+        this.clients = new ArrayList<Client>();
+    }
+
+    static public Restaurant generateDefault() {
+        Restaurant restaurant = new Restaurant();
+        return restaurant; // TODO add default-related methods to prevent null references
     }
 }
