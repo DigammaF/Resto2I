@@ -113,6 +113,7 @@ public class Product {
         this.cost = 0;
         this.tax = Tax.INSTANT;
         this.used = true;
+        this.productType = ProductType.DEFAULT;
     }
 
     public double getATICost() {
