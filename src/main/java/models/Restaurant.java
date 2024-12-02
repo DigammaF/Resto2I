@@ -1,9 +1,13 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Logic;
+import logic.ProductType;
+import logic.Tax;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Restaurant {
@@ -164,8 +168,47 @@ public class Restaurant {
         this.clients = new ArrayList<Client>();
     }
 
-    static public Restaurant generateDefault() {
-        Restaurant restaurant = new Restaurant();
-        return restaurant; // TODO add default-related methods to prevent null references
+    public Optional<Client> createClient() {
+        return Optional.of(new Client());
+    }
+
+    public Optional<LiveProduct> createLiveProduct(Ticket ticket, List<Product> availableProducts) {
+        if (availableProducts.isEmpty()) { return Optional.empty(); }
+        else {
+            LiveProduct liveProduct = new LiveProduct();
+            liveProduct.setCount(1);
+            liveProduct.setProduct(availableProducts.getFirst());
+            Logic.addLiveProduct(ticket, liveProduct);
+            return Optional.of(liveProduct);
+        }
+    }
+
+    public Optional<Product> createProduct() {
+        Product product = new Product();
+        Logic.addProduct(this, product);
+        return Optional.of(product);
+    }
+
+    public boolean initTicketStatement(Ticket ticket, Statement statement) {
+        Logic.addTicket(this, ticket);
+        Logic.addStatement(this, statement);
+        Logic.bindTicketStatement(ticket, statement);
+        statement.setLatePenalty(this.latePenaltyPolicy);
+        Optional<Client> client = createClient();
+        if (client.isPresent()) { statement.setClient(client.get()); }
+        else { return false; }
+        return true;
+    }
+
+    public void fillWithDummyValues() {
+        Logic.addProduct(this, new Product(
+                this, true, "AAA", 10, Tax.ALCOHOL, true, ProductType.ALCOHOL
+        ));
+        Logic.addProduct(this, new Product(
+                this, true, "BBB", 20, Tax.ALCOHOL, true, ProductType.ALCOHOL
+        ));
+        Logic.addClient(this, new Client(this, "Alice", "ALICE TAX ID", "ALICE CONTACT"));
+        Logic.addClient(this, new Client(this, "First", "FIRST TAX ID", "FIRST CONTACT"));
+        this.address = "221B Baker Street";
     }
 }

@@ -3,6 +3,7 @@ package models;
 import jakarta.persistence.*;
 import logic.Logic;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -92,6 +93,10 @@ public class Ticket {
     }
 
     public Ticket() {
+        this.emitted = false;
+        this.date = new Date();
+        this.tableNumber = 0;
+        this.liveProducts = new ArrayList<>();
     }
 
     public double getTotalCost() {

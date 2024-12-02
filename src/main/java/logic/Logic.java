@@ -27,7 +27,7 @@ public class Logic {
         liveProduct.setTicket(null);
     }
 
-    public static void addTicket(Ticket ticket, Restaurant restaurant) {
+    public static void addTicket(Restaurant restaurant, Ticket ticket) {
         ticket.setRestaurant(restaurant);
         restaurant.getTickets().add(ticket);
     }
@@ -35,5 +35,20 @@ public class Logic {
     public static void addClient(Restaurant restaurant, Client client) {
         client.setRestaurant(restaurant);
         restaurant.getClients().add(client);
+    }
+
+    public static void remClient(Restaurant restaurant, Client client) {
+        client.setRestaurant(null);
+        restaurant.getClients().remove(client);
+    }
+
+    public static void bindTicketStatement(Ticket ticket, Statement statement) {
+        statement.setTicket(ticket);
+        ticket.setStatement(statement);
+    }
+
+    public static void addStatement(Restaurant restaurant, Statement statement) {
+        statement.setRestaurant(restaurant);
+        restaurant.getStatements().add(statement);
     }
 }

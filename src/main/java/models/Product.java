@@ -98,13 +98,17 @@ public class Product {
         this.restaurant = restaurant;
     }
 
-    public Product(boolean available, String name, double cost, Tax tax, Restaurant restaurant, boolean used) {
+    public Product(
+            Restaurant restaurant,
+            boolean available, String name, double cost, Tax tax, boolean used, ProductType productType
+    ) {
         this.available = available;
         this.name = name;
         this.cost = cost;
         this.tax = tax;
         this.restaurant = restaurant;
         this.used = used;
+        this.productType = productType;
     }
 
     public Product() {
