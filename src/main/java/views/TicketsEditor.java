@@ -2,6 +2,7 @@ package views;
 
 import language.TextContent;
 import logic.Logic;
+import models.Statement;
 import models.Ticket;
 
 import javax.swing.*;
@@ -26,15 +27,18 @@ public class TicketsEditor extends JPanel {
         this.newTicketButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.TICKETS_EDITOR_NEW_TICKET_BUTTON));
         this.newTicketButton.addActionListener(_ -> {
             context.perform(entityManager -> {
-                Ticket ticket = new Ticket(
-                        false, context.getRestaurant(), new Date(), 0, new ArrayList<>()
-                );
-                Logic.addTicket(context.getRestaurant(), ticket);
-                ticket.setStatement(ticket.emitStatement());
-                entityManager.persist(ticket);
-                this.ticketsPanel.add(new TicketDisplay(ticket));
-                this.revalidate();
-                this.repaint();
+                Ticket ticket = new Ticket();
+                Statement statement = new Statement();
+                if (context.getRestaurant().initTicketStatement(ticket, statement)) {
+                    entityManager.persist(ticket);
+                    entityManager.persist(statement);
+                    entityManager.persist(statement.getClient());
+                    this.ticketsPanel.add(new TicketDisplay(ticket));
+                    this.revalidate();
+                    this.repaint();
+                } else {
+                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_TICKET));
+                }
             });
         });
         this.ticketsPanel = new JPanel();
