@@ -13,13 +13,16 @@ import models.Ticket;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class TicketEditor extends JPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
 {
     private Ticket ticket;
+    private JPanel liveProductsPanel;
 
     /**
      * Contains all the new buttons corresponding to each ProductType.
@@ -50,7 +53,7 @@ public class TicketEditor extends JPanel
                     textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
             );
             newButton.addActionListener(
-                    makeActionListener(currentProductType);
+                    makeActionListener(currentProductType)
             );
         }
 
@@ -104,8 +107,9 @@ public class TicketEditor extends JPanel
 
 
 
-    private Function<Integer, Integer> makeActionListener(ProductType productTypeParam){
-        return ( _ -> {
+    private Function<ActionEvent, void> makeActionListener(ProductType productTypeParam){
+
+        return (ActionEvent e) -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
                 liveProduct.setCount(1);
@@ -119,7 +123,7 @@ public class TicketEditor extends JPanel
                 this.revalidate();
                 this.repaint();
             });
-        })
+        };
     }
 
 }
