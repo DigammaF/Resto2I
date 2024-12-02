@@ -31,4 +31,9 @@ public class Logic {
         ticket.setRestaurant(restaurant);
         restaurant.getTickets().add(ticket);
     }
+
+    public static void addClient(Restaurant restaurant, Client client) {
+        client.setRestaurant(restaurant);
+        restaurant.getClients().add(client);
+    }
 }
