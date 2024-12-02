@@ -41,12 +41,13 @@ public class TicketDisplay extends JPanel {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
             mainPanel.setLayout(new FlowLayout());
+
             TicketEditor ticketEditor = new TicketEditor(this.ticket);
             mainPanel.add(new NamedPanel("Ticket", ticketEditor));
             StatementEditor statementEditor = new StatementEditor(this.ticket.getStatement());
             ticketEditor.addObserver(statementEditor);
             mainPanel.add(new NamedPanel("Statement", statementEditor));
-            mainPanel.add(new NamedPanel("Client", new ClientEditor(new Client())));
+            mainPanel.add(new NamedPanel("Client", new ClientEditor(this.ticket.getStatement().getClient())));
             mainPanel.revalidate();
             mainPanel.repaint();
         });
