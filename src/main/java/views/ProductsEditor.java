@@ -1,5 +1,6 @@
 package views;
 
+import language.TextContent;
 import logic.Logic;
 import models.Product;
 
@@ -19,7 +20,8 @@ public class ProductsEditor extends JPanel {
 
     private void initComponent() {
         AppContext context = AppContext.getAppContext();
-        this.newProductButton = new JButton("+");
+        TextContent textContent = TextContent.getTextContent();
+        this.newProductButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON));
         this.newProductButton.addActionListener(_ -> {
             context.perform(entityManager -> {
                 Product product = new Product();

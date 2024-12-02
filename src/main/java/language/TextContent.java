@@ -23,6 +23,7 @@ public class TextContent {
         TICKET_DISPLAY_TABLE_NUMBER_LABEL,
         TICKETS_EDITOR_NEW_TICKET_BUTTON,
         STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL,
+        PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON,
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET
     }
@@ -69,6 +70,7 @@ public class TextContent {
         this.texts.put(Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL, make("Table number", "Numéro de table"));
         this.texts.put(Key.TICKETS_EDITOR_NEW_TICKET_BUTTON, make("New ticket", "Nouvelle commande"));
         this.texts.put(Key.STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL, make("Late penalty policy", "Politique de pénalité de retard"));
+        this.texts.put(Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON, make("New product", "Nouveau produit"));
         this.texts.put(Key.CANNOT_CREATE_CLIENT, make("Cannot create client profile", "Impossible de créer un profil de client"));
         this.texts.put(Key.CANNOT_CREATE_LIVE_PRODUCT, make("No usable product", "Pas de produit utilisable"));
         this.texts.put(Key.CANNOT_CREATE_PRODUCT, make("No usable product", "Pas de produit utilisable"));
