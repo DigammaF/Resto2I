@@ -20,7 +20,7 @@ public class Client {
     @ManyToOne(cascade = CascadeType.ALL)
     private Restaurant restaurant;
 
-    public Client(String name, String tax_id, String contact, Restaurant restaurant) {
+    public Client(Restaurant restaurant, String name, String tax_id, String contact) {
         this.name = name;
         this.tax_id = tax_id;
         this.contact = contact;
