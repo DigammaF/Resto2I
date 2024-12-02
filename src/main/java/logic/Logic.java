@@ -37,6 +37,11 @@ public class Logic {
         restaurant.getClients().add(client);
     }
 
+    public static void remClient(Restaurant restaurant, Client client) {
+        client.setRestaurant(null);
+        restaurant.getClients().remove(client);
+    }
+
     public static void bindTicketStatement(Ticket ticket, Statement statement) {
         statement.setTicket(ticket);
         ticket.setStatement(statement);
