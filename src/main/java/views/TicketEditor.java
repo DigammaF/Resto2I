@@ -27,15 +27,6 @@ public class TicketEditor extends JPanel
      */
     private HashMap<ProductType, JButton> newButtons;
 
-            //TODO à suppr
-            private JButton newSoftDrinkButton;
-            private JButton newAlcoholButton;
-            private JButton newEntreeButton;
-            private JButton newMealButton;
-            private JButton newDessertButton;
-            private JPanel liveProductsPanel;
-            //TODO à suppr
-
     private JScrollPane liveProductsScrollPane;
 
     private ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
@@ -52,89 +43,16 @@ public class TicketEditor extends JPanel
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
 
-        //remplacer tout ce qui est ci-dessous par des appels à initComponent()
-        this.newSoftDrinkButton = new JButton();
-        this.newSoftDrinkButton.setText(textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK));
-        this.newSoftDrinkButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
-                        liveProduct, product -> product.getProductType() == ProductType.SOFT_DRINK
-                );
-                liveProductDisplay.addObserver(this);
-                this.liveProductsPanel.add(liveProductDisplay);
-                this.revalidate();
-                this.repaint();
-            });
-        });
-
-        this.newAlcoholButton = new JButton();
-        this.newAlcoholButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ALCOHOL));
-        this.newAlcoholButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                this.liveProductsPanel.add(
-                        new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.ALCOHOL)
-                );
-                this.revalidate();
-                this.repaint(); // TODO keep changing those callbacks to include .addObserver
-            });
-        });
-
-        this.newEntreeButton = new JButton();
-        this.newEntreeButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ENTREE));
-        this.newEntreeButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                this.liveProductsPanel.add(
-                        new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.ENTREE)
-                );
-                this.revalidate();
-                this.repaint();
-            });
-        });
-        this.newMealButton = new JButton();
-        this.newMealButton.setText(textContent.get(context.getLanguage(), TextContent.Key.MEAL));
-        this.newMealButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                this.liveProductsPanel.add(
-                        new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.MEAL)
-                );
-                this.revalidate();
-                this.repaint();
-            });
-        });
-        this.newDessertButton = new JButton();
-        this.newDessertButton.setText(textContent.get(context.getLanguage(), TextContent.Key.DESSERT));
-        this.newDessertButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                this.liveProductsPanel.add(
-                        new LiveProductDisplay(liveProduct, product -> product.getProductType() == ProductType.DESSERT)
-                );
-                this.revalidate();
-                this.repaint();
-            });
-        });
-
-
-
+        for (ProductType currentProductType : ProductType.values()) {
+            JButton newButton = new JButton();
+            this.newButtons.put(currentProductType, newButton);
+            newButton.setText(
+                    textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
+            );
+            newButton.addActionListener(
+                    makeActionListener(currentProductType);
+            );
+        }
 
         this.liveProductsPanel = new JPanel();
         this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
@@ -149,11 +67,12 @@ public class TicketEditor extends JPanel
     private void initLayout() {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-        buttonsPanel.add(this.newSoftDrinkButton);
-        buttonsPanel.add(this.newAlcoholButton);
-        buttonsPanel.add(this.newEntreeButton);
-        buttonsPanel.add(this.newMealButton);
-        buttonsPanel.add(this.newDessertButton);
+
+        //TODO refaire
+        for (ProductType currentButton : newButtons.values()) {
+            buttonsPanel.add(currentButton);
+        }
+
         this.liveProductsPanel.setLayout(new BoxLayout(this.liveProductsPanel, BoxLayout.Y_AXIS));
         this.setLayout(new BorderLayout());
         this.add(buttonsPanel, BorderLayout.NORTH);
@@ -184,19 +103,24 @@ public class TicketEditor extends JPanel
         if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
     }
 
-    private void initComponent(){
-        for (ProductType currentProductType : ProductType.values()) {
-            JButton newButton = new JButton();
-            this.newButtons.put(currentProductType, newButton);
-            newButton.setText(
-                    textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
-            );
-            newButton.addActionListener(
-                    makeActionListener(currentProductType);
-            );
-        }
+
+
+    private Function<Integer, Integer> makeActionListener(ProductType productTypeParam){
+        return ( _ -> {
+            context.perform(entityManager -> {
+                LiveProduct liveProduct = new LiveProduct();
+                liveProduct.setCount(1);
+                Logic.addLiveProduct(this.ticket, liveProduct);
+                entityManager.persist(liveProduct);
+                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                        liveProduct, product -> product.getProductType() == productTypeParam
+                );
+                liveProductDisplay.addObserver(this);
+                this.liveProductsPanel.add(liveProductDisplay);
+                this.revalidate();
+                this.repaint();
+            });
+        })
     }
-    private void makeActionListener(ProductType productType){
-        //todo
-    }
+
 }
