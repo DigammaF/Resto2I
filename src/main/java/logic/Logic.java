@@ -2,6 +2,9 @@ package logic;
 
 import models.*;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  *
  * Holds static methods that operate on multiple types
@@ -50,5 +53,17 @@ public class Logic {
     public static void addStatement(Restaurant restaurant, Statement statement) {
         statement.setRestaurant(restaurant);
         restaurant.getStatements().add(statement);
+    }
+
+    @FunctionalInterface
+    public interface AttributeMapper<T> {
+        String select(T object);
+    }
+
+    public static <T> Optional<T> suggestBest(String text, List<T> objects, AttributeMapper<T> mapper) {
+        for (T object : objects) {
+            if (mapper.select(object).contains(text)) { return Optional.of(object); }
+        }
+        return Optional.empty();
     }
 }

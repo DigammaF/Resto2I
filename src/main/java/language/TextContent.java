@@ -35,6 +35,7 @@ public class TextContent {
         CLIENT_EDITOR_NO_AUTO_COMPLETE_BUTTON,
         CLIENT_EDITOR_NO_PROFILE_LABEL,
         CLIENT_EDITOR_PROFILE_LOCKED_LABEL,
+        CLIENT_EDITOR_NEW_PROFILE_BUTTON,
 
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET
@@ -96,6 +97,7 @@ public class TextContent {
         this.texts.put(Key.CLIENT_EDITOR_NO_AUTO_COMPLETE_BUTTON, make("No auto complete available", "Pas de complétion disponible"));
         this.texts.put(Key.CLIENT_EDITOR_NO_PROFILE_LABEL, make("No profile", "Pas de profil"));
         this.texts.put(Key.CLIENT_EDITOR_PROFILE_LOCKED_LABEL, make("Modifying profile: ", "Modification du profile: "));
+        this.texts.put(Key.CLIENT_EDITOR_NEW_PROFILE_BUTTON, make("New profile", "Nouveau profile"));
 
         this.texts.put(Key.CANNOT_CREATE_CLIENT, make("Cannot create client profile", "Impossible de créer un profil de client"));
         this.texts.put(Key.CANNOT_CREATE_LIVE_PRODUCT, make("No usable product", "Pas de produit utilisable"));
