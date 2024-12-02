@@ -65,7 +65,6 @@ public class ClientEditor extends JPanel {
         this.autoCompleteButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_AUTO_COMPLETE_BUTTON));
         this.autoCompleteButton.addActionListener(_ -> {
             if (this.autoCompleteTarget != null && !this.autoCompleted) {
-                System.out.println("!!!");
                 this.autoCompleteLabel.setText(
                         textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_PROFILE_LOCKED_LABEL) + " " + this.autoCompleteTarget.getName()
                 );
