@@ -2,6 +2,8 @@ package models;
 
 import jakarta.persistence.*;
 import logic.Logic;
+import logic.ProductType;
+import logic.Tax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,5 +198,17 @@ public class Restaurant {
         if (client.isPresent()) { statement.setClient(client.get()); }
         else { return false; }
         return true;
+    }
+
+    public void fillWithDummyValues() {
+        Logic.addProduct(this, new Product(
+                this, true, "AAA", 10, Tax.ALCOHOL, true, ProductType.ALCOHOL
+        ));
+        Logic.addProduct(this, new Product(
+                this, true, "BBB", 20, Tax.ALCOHOL, true, ProductType.ALCOHOL
+        ));
+        Logic.addClient(this, new Client(this, "Alice", "ALICE TAX ID", "ALICE CONTACT"));
+        Logic.addClient(this, new Client(this, "First", "FIRST TAX ID", "FIRST CONTACT"));
+        this.address = "221B Baker Street";
     }
 }
