@@ -191,6 +191,7 @@ public class Restaurant {
         Logic.addTicket(this, ticket);
         Logic.addStatement(this, statement);
         Logic.bindTicketStatement(ticket, statement);
+        statement.setLatePenalty(this.latePenaltyPolicy);
         Optional<Client> client = createClient();
         if (client.isPresent()) { statement.setClient(client.get()); }
         else { return false; }
