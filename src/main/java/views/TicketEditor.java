@@ -14,17 +14,28 @@ import models.Ticket;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TicketEditor extends JPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
 {
     private Ticket ticket;
-    private JButton newSoftDrinkButton;
-    private JButton newAlcoholButton;
-    private JButton newEntreeButton;
-    private JButton newMealButton;
-    private JButton newDessertButton;
-    private JPanel liveProductsPanel;
+
+    /**
+     * Contains all the new buttons corresponding to each ProductType.
+     * eg the new "soft drink" button will be a JButton value listed under the "ProductType.SOFT_DRINK" key.
+     */
+    private HashMap<ProductType, JButton> newButtons;
+
+            //TODO à suppr
+            private JButton newSoftDrinkButton;
+            private JButton newAlcoholButton;
+            private JButton newEntreeButton;
+            private JButton newMealButton;
+            private JButton newDessertButton;
+            private JPanel liveProductsPanel;
+            //TODO à suppr
+
     private JScrollPane liveProductsScrollPane;
 
     private ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
@@ -40,6 +51,8 @@ public class TicketEditor extends JPanel
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
+
+        //remplacer tout ce qui est ci-dessous par des appels à initComponent()
         this.newSoftDrinkButton = new JButton();
         this.newSoftDrinkButton.setText(textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK));
         this.newSoftDrinkButton.addActionListener(_ -> {
@@ -57,6 +70,7 @@ public class TicketEditor extends JPanel
                 this.repaint();
             });
         });
+
         this.newAlcoholButton = new JButton();
         this.newAlcoholButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ALCOHOL));
         this.newAlcoholButton.addActionListener(_ -> {
@@ -72,6 +86,7 @@ public class TicketEditor extends JPanel
                 this.repaint(); // TODO keep changing those callbacks to include .addObserver
             });
         });
+
         this.newEntreeButton = new JButton();
         this.newEntreeButton.setText(textContent.get(context.getLanguage(), TextContent.Key.ENTREE));
         this.newEntreeButton.addActionListener(_ -> {
@@ -117,6 +132,10 @@ public class TicketEditor extends JPanel
                 this.repaint();
             });
         });
+
+
+
+
         this.liveProductsPanel = new JPanel();
         this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
 
@@ -163,5 +182,21 @@ public class TicketEditor extends JPanel
         System.out.println(event);
         if (event instanceof LiveProductDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
         if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
+    }
+
+    private void initComponent(){
+        for (ProductType currentProductType : ProductType.values()) {
+            JButton newButton = new JButton();
+            this.newButtons.put(currentProductType, newButton);
+            newButton.setText(
+                    textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
+            );
+            newButton.addActionListener(
+                    makeActionListener(currentProductType);
+            );
+        }
+    }
+    private void makeActionListener(ProductType productType){
+        //todo
     }
 }
