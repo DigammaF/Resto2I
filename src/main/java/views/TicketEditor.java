@@ -68,7 +68,6 @@ public class TicketEditor extends JPanel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
 
-        //TODO refaire
         for (ProductType currentButton : newButtons.values()) {
             buttonsPanel.add(currentButton);
         }
