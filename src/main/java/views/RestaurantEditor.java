@@ -2,11 +2,12 @@ package views;
 
 import language.TextContent;
 import models.Restaurant;
+import views.editorpanels.EditorPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RestaurantEditor extends JPanel {
+public class RestaurantEditor extends EditorPanel {
     private final Restaurant restaurant;
     private JTextField nameTextField;
     private JLabel nameLabel;
@@ -24,9 +25,11 @@ public class RestaurantEditor extends JPanel {
     private JLabel latePenaltyPolicyLabel;
 
     public RestaurantEditor(Restaurant restaurant) {
+        super();
         this.restaurant = restaurant;
         this.initComponents();
         this.initLayout();
+        super.initStyle();
     }
 
     private void initComponents() {
