@@ -18,4 +18,6 @@ public class NamedPanel extends JPanel {
         this.add(nameLabel);
         this.add(panel);
     }
+
+
 }

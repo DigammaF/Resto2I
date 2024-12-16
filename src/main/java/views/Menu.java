@@ -1,6 +1,7 @@
 package views;
 
 import language.TextContent;
+import views.style.AppPanel1;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.*;
  * Sidebar menu
  *
  */
-public class Menu extends JPanel {
+public class Menu extends AppPanel1 {
     private JButton productsEditorButton;
     private JButton ticketsEditorButton;
     private JButton restaurantEditorButton;
@@ -69,7 +70,8 @@ public class Menu extends JPanel {
     }
 
     private void initLayout() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //todo : see if this could be moved to AppPanel1.java
+
         this.add(this.productsEditorButton);
         this.add(this.ticketsEditorButton);
         this.add(this.restaurantEditorButton);
@@ -77,7 +79,9 @@ public class Menu extends JPanel {
     }
 
     //todo see if that can be generalized in a class that handles all styles of all JPanels, eg make a parent to Menu and similar classes
+    @Override
     protected void initStyle(){
+        super.initStyle();
         this.setBackground(Color.cyan);
     }
 }
