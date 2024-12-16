@@ -53,9 +53,10 @@ public class TicketEditor extends JPanel
             this.newButtons.put(currentProductType, newButton);
             newButton.setText(currentProductType.toString());
             newButton.addActionListener(
-                    makeActionListener(currentProductType, context)
+                    makeActionListener(currentProductType)
             );
         }
+
         this.liveProductsPanel = new JPanel();
         this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
 
@@ -107,8 +108,8 @@ public class TicketEditor extends JPanel
 
 
 
-    private ActionListener makeActionListener(ProductType productTypeParam, AppContext context){
-
+    private ActionListener makeActionListener(ProductType productTypeParam){
+        AppContext context = AppContext.getAppContext();
         return (ActionEvent e) -> {
             context.perform(entityManager -> {
                 LiveProduct liveProduct = new LiveProduct();
