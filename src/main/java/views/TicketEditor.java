@@ -51,14 +51,11 @@ public class TicketEditor extends JPanel
         for (ProductType currentProductType : ProductType.values()) {
             JButton newButton = new JButton();
             this.newButtons.put(currentProductType, newButton);
-            newButton.setText(
-                    textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
-            );
+            newButton.setText(currentProductType.toString());
             newButton.addActionListener(
                     makeActionListener(currentProductType, context)
             );
         }
-
         this.liveProductsPanel = new JPanel();
         this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
 
