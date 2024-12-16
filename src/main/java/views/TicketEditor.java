@@ -46,6 +46,7 @@ public class TicketEditor extends JPanel
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
+        this.newButtons = new HashMap<ProductType, JButton>();
 
         for (ProductType currentProductType : ProductType.values()) {
             JButton newButton = new JButton();
