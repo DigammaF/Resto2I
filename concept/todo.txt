@@ -1,0 +1,3 @@
+
+- Check every instantiation of models (Client, LiveProduct, etc) to make sure they are instantiated with
+    logical values. If necessary, use Restaurant methods
