@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class StyledPanel extends JPanel {
-    public int DEFAULT_PADDING_SIZE = 15;
+    public static int DEFAULT_PADDING_SIZE = 15;
 
     private int paddingSize;
 
