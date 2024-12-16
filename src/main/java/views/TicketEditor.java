@@ -36,6 +36,7 @@ public class TicketEditor extends JPanel
 
     public TicketEditor(Ticket ticket) {
         super();
+        System.out.println("debug : TicketEditor créé");
         this.ticket = ticket;
         this.ticketEditorEventObservers = new ArrayList<>();
         this.initComponents();
@@ -53,7 +54,7 @@ public class TicketEditor extends JPanel
                     textContent.get(context.getLanguage(), TextContent.Key.SOFT_DRINK)
             );
             newButton.addActionListener(
-                    makeActionListener(currentProductType)
+                    makeActionListener(currentProductType, context)
             );
         }
 
@@ -71,7 +72,7 @@ public class TicketEditor extends JPanel
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
 
-        for (ProductType currentButton : newButtons.values()) {
+        for (JButton currentButton : newButtons.values()) {
             buttonsPanel.add(currentButton);
         }
 
@@ -100,6 +101,7 @@ public class TicketEditor extends JPanel
 
     @Override
     public void onEvent(LiveProductDisplayEvent event) {
+        System.out.println("debug : onEvent appelé");
         System.out.println(event);
         if (event instanceof LiveProductDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
         if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
@@ -107,7 +109,7 @@ public class TicketEditor extends JPanel
 
 
 
-    private Function<ActionEvent, void> makeActionListener(ProductType productTypeParam){
+    private ActionListener makeActionListener(ProductType productTypeParam, AppContext context){
 
         return (ActionEvent e) -> {
             context.perform(entityManager -> {
