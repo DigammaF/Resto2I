@@ -1,7 +1,7 @@
 package views;
 
 import language.TextContent;
-import views.style.AppPanel1;
+import views.style.DefaultPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.*;
  * Sidebar menu
  *
  */
-public class Menu extends AppPanel1 {
+public class Menu extends DefaultPanel {
     private JButton productsEditorButton;
     private JButton ticketsEditorButton;
     private JButton restaurantEditorButton;

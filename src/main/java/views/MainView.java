@@ -1,13 +1,14 @@
 package views;
 
 import views.style.AppPanel1;
+import views.style.StyledPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainView extends JFrame {
     private Menu menu;
-    private AppPanel1 mainPanel;
+    private StyledPanel mainPanel;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -26,7 +27,7 @@ public class MainView extends JFrame {
 
     private void initComponents() {
         this.menu = new Menu();
-        this.mainPanel = new AppPanel1();
+        this.mainPanel = new StyledPanel(15);
     }
 
     private void initLayout() {
