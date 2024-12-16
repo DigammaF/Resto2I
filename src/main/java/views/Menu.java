@@ -3,6 +3,7 @@ package views;
 import language.TextContent;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Menu extends JPanel {
         this.initComponents();
         this.initTexts();
         this.initLayout();
+        this.initStyle();
     }
 
     private void initComponents() {
@@ -72,5 +74,10 @@ public class Menu extends JPanel {
         this.add(this.ticketsEditorButton);
         this.add(this.restaurantEditorButton);
         this.add(this.languageSwitchButton);
+    }
+
+    //todo see if that can be generalized in a class that handles all styles of all JPanels, eg make a parent to Menu and similar classes
+    protected void initStyle(){
+        this.setBackground(Color.cyan);
     }
 }
