@@ -70,7 +70,7 @@ public class Menu extends DefaultPanel {
     }
 
     private void initLayout() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //todo : see if this could be moved to AppPanel1.java
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(this.productsEditorButton);
         this.add(this.ticketsEditorButton);
@@ -78,7 +78,6 @@ public class Menu extends DefaultPanel {
         this.add(this.languageSwitchButton);
     }
 
-    //todo see if that can be generalized in a class that handles all styles of all JPanels, eg make a parent to Menu and similar classes
     @Override
     protected void initStyle(){
         super.initStyle();

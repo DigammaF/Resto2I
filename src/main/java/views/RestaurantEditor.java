@@ -2,7 +2,7 @@ package views;
 
 import language.TextContent;
 import models.Restaurant;
-import views.editorpanels.EditorPanel;
+import views.style.EditorPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,6 @@ public class RestaurantEditor extends EditorPanel {
         this.restaurant = restaurant;
         this.initComponents();
         this.initLayout();
-        super.initStyle();
     }
 
     private void initComponents() {

@@ -1,6 +1,5 @@
 package views;
 
-import views.style.AppPanel1;
 import views.style.StyledPanel;
 
 import javax.swing.*;
