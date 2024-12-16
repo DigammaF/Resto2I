@@ -189,6 +189,14 @@ public class Restaurant {
         return Optional.of(product);
     }
 
+    /**
+     *
+     *  Initiates a ticket + statement duo
+     *
+     * @param ticket
+     * @param statement
+     * @return true if the initialization was successful
+     */
     public boolean initTicketStatement(Ticket ticket, Statement statement) {
         Logic.addTicket(this, ticket);
         Logic.addStatement(this, statement);
