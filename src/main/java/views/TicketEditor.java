@@ -107,25 +107,22 @@ public class TicketEditor extends EditorPanel
     private ActionListener makeActionListener(ProductType productTypeParam){
         AppContext context = AppContext.getAppContext();
         return (ActionEvent _) -> {
-            context.perform(entityManager -> {
-                context.getRestaurant().createLiveProduct(
-                        this.ticket,
-                        context.getRestaurant().getProducts()
-                                .stream().filter(product -> product.getProductType() == productTypeParam)
-                                .toList()
-                ).ifPresent(liveProduct -> {
-                    liveProduct.setCount(1);
-                    entityManager.persist(liveProduct);
-                    LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
-                            liveProduct, product -> product.getProductType() == productTypeParam
-                    );
-                    liveProductDisplay.addObserver(this);
-                    this.liveProductsPanel.add(liveProductDisplay);
-                    this.revalidate();
-                    this.repaint();
-                });
+            context.getRestaurant().createLiveProduct(
+                    this.ticket,
+                    context.getRestaurant().getProducts()
+                            .stream().filter(product -> product.getProductType() == productTypeParam)
+                            .toList()
+            ).ifPresent(liveProduct -> {
+                liveProduct.setCount(1);
+                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                        liveProduct, product -> product.getProductType() == productTypeParam
+                );
+                liveProductDisplay.addObserver(this);
+                this.liveProductsPanel.add(liveProductDisplay);
+                this.revalidate();
+                this.repaint();
+                this.notifyObservers(TicketEditorEvent.COST_CHANGE);
             });
-            this.notifyObservers(TicketEditorEvent.COST_CHANGE);
         };
     }
 

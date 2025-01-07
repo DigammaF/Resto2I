@@ -17,7 +17,6 @@ public class Menu extends DefaultPanel {
     private JButton ticketsEditorButton;
     private JButton restaurantEditorButton;
     private JButton languageSwitchButton;
-    private TextArea notificationsTextArea;
 
     public Menu() {
         super();
@@ -61,8 +60,6 @@ public class Menu extends DefaultPanel {
             }
             initTexts();
         });
-        this.notificationsTextArea = new TextArea();
-        this.notificationsTextArea.setEditable(false);
     }
 
     private void initTexts() {
@@ -88,16 +85,12 @@ public class Menu extends DefaultPanel {
 
         this.add(this.languageSwitchButton);
         this.add(Box.createHorizontalStrut(SPACING));
-        this.add(this.notificationsTextArea);
+
     }
 
     @Override
     protected void initStyle(){
         super.initStyle();
         this.setBackground(Color.cyan);
-    }
-
-    public void println(String text) {
-        this.notificationsTextArea.append(text + "\n");
     }
 }

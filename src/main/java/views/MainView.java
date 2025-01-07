@@ -8,6 +8,7 @@ import java.awt.*;
 public class MainView extends JFrame {
     private Menu menu;
     private StyledPanel mainPanel;
+    private TextArea notificationsTextArea;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -27,15 +28,24 @@ public class MainView extends JFrame {
     private void initComponents() {
         this.menu = new Menu();
         this.mainPanel = new StyledPanel(15);
+        this.notificationsTextArea = new TextArea();
+        this.notificationsTextArea.setEditable(false);
     }
 
     private void initLayout() {
         this.setLayout(new BorderLayout());
-        this.add(this.menu, BorderLayout.WEST);
+
+        JPanel westPanel = new JPanel();
+        westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+
+        westPanel.add(this.menu);
+        westPanel.add(this.notificationsTextArea);
+
+        this.add(westPanel, BorderLayout.WEST);
         this.add(this.mainPanel, BorderLayout.CENTER);
     }
 
     public void println(String text) {
-        this.menu.println(text);
+        this.notificationsTextArea.append(text + "\n");
     }
 }
