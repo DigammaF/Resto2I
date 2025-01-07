@@ -74,17 +74,17 @@ public class Menu extends DefaultPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(this.productsEditorButton);
-        int SPACING = 30;
+        int SPACING = 10;
         this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.ticketsEditorButton);
-       this.add(Box.createHorizontalStrut(SPACING));
+       this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.restaurantEditorButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+        this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.languageSwitchButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+
 
     }
 
