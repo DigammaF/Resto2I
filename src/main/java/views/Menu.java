@@ -17,6 +17,7 @@ public class Menu extends DefaultPanel {
     private MenuButton ticketsEditorButton;
     private MenuButton restaurantEditorButton;
     private MenuButton languageSwitchButton;
+    private TextArea notificationsTextArea;
 
     public Menu() {
         super();
@@ -59,7 +60,9 @@ public class Menu extends DefaultPanel {
                 case FR -> context.setLanguage(TextContent.Language.EN);
             }
             initTexts();
+            this.println("<span style=\"color:red\">Language switched</span>\n");
         });
+        this.notificationsTextArea = new TextArea();
     }
 
     private void initTexts() {
@@ -77,11 +80,16 @@ public class Menu extends DefaultPanel {
         this.add(this.ticketsEditorButton);
         this.add(this.restaurantEditorButton);
         this.add(this.languageSwitchButton);
+        this.add(this.notificationsTextArea);
     }
 
     @Override
     protected void initStyle(){
         super.initStyle();
         this.setBackground(Color.cyan);
+    }
+
+    public void println(String text) {
+        this.notificationsTextArea.append(text + "\n");
     }
 }

@@ -36,6 +36,6 @@ public class MainView extends JFrame {
     }
 
     public void println(String text) {
-        System.out.println(text);
+        this.menu.println(text);
     }
 }
