@@ -23,16 +23,28 @@ import java.awt.event.KeyEvent;
  */
 public class Validate extends KeyAdapter {
     private final JTextField field;
-    private final EnterKeyAction enterKeyAction;
+    private final Action enterKeyAction;
+    private Process postProcess;
 
     @FunctionalInterface
-    public interface EnterKeyAction {
+    public interface Action {
         boolean execute(String text);
     }
 
-    public Validate(JTextField field, EnterKeyAction enterKeyAction) {
+    @FunctionalInterface
+    public interface Process {
+        void process(String text);
+    }
+
+    public Validate(JTextField field, Action enterKeyAction) {
         this.field = field;
         this.enterKeyAction = enterKeyAction;
+        this.postProcess = _ -> { };
+    }
+
+    public Validate withPostAction(final Process postProcess) {
+        this.postProcess = postProcess;
+        return this;
     }
 
     @Override
@@ -40,6 +52,7 @@ public class Validate extends KeyAdapter {
         if (e.getKeyChar() == '\n') {
             if (this.enterKeyAction.execute(this.field.getText().trim())) {
                 this.field.setBackground(Color.green);
+                this.postProcess.process(this.field.getText().trim());
             }
         } else {
             super.keyTyped(e);
