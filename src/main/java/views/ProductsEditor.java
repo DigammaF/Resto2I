@@ -3,11 +3,12 @@ package views;
 import language.TextContent;
 import logic.Logic;
 import models.Product;
+import views.style.EditorPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ProductsEditor extends JPanel {
+public class ProductsEditor extends EditorPanel {
     private JButton newProductButton;
     private JPanel productsPanel;
     private JScrollPane productsScrollPane;

@@ -7,6 +7,7 @@ import models.Statement;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import views.style.EditorPanel;
 
 import javax.swing.*;
 import java.text.ParseException;
@@ -15,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-public class StatementEditor extends JPanel implements Observer<TicketEditorEvent> {
+public class StatementEditor extends EditorPanel implements Observer<TicketEditorEvent> {
     private Statement statement;
     private JLabel amountLabel;
     private JLabel dateLabel;
