@@ -93,7 +93,6 @@ public class StatementEditor extends EditorPanel implements Observer<TicketEdito
 
     @Override
     public void onEvent(TicketEditorEvent event) {
-        System.out.println(event);
         switch (event) {
             case COST_CHANGE -> {
                 this.updateStatementAmount();

@@ -53,9 +53,7 @@ public class LiveProduct {
         this.ticket = ticket;
     }
 
-    public LiveProduct() {
-
-    }
+    public LiveProduct() { }
 
     public double getCost() {
         return this.product.getCost() * this.count;
