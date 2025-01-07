@@ -1,7 +1,7 @@
 package views;
 
-import Events.LiveProductDisplayEvents;
-import Events.LiveProductDisplayEvents.LiveProductDisplayEvent;
+import events.LiveProductDisplayEvents;
+import events.LiveProductDisplayEvents.LiveProductDisplayEvent;
 import logic.Logic;
 import logic.Observable;
 import logic.Observer;
@@ -10,7 +10,6 @@ import models.LiveProduct;
 import models.Product;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 

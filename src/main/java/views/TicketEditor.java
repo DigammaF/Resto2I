@@ -1,8 +1,8 @@
 package views;
 
-import Events.LiveProductDisplayEvents;
-import Events.LiveProductDisplayEvents.LiveProductDisplayEvent;
-import Events.TicketEditorEvent;
+import events.LiveProductDisplayEvents;
+import events.LiveProductDisplayEvents.LiveProductDisplayEvent;
+import events.TicketEditorEvent;
 import language.TextContent;
 import logic.Logic;
 import logic.Observable;
@@ -16,7 +16,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.Function;
 
 public class TicketEditor extends JPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>

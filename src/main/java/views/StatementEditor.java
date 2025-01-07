@@ -1,19 +1,14 @@
 package views;
 
-import Events.TicketEditorEvent;
+import events.TicketEditorEvent;
 import language.TextContent;
 import logic.Observer;
 import models.Statement;
-import org.jdatepicker.JDatePanel;
-import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatter;
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
