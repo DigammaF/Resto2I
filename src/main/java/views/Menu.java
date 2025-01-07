@@ -62,6 +62,7 @@ public class Menu extends DefaultPanel {
             initTexts();
         });
         this.notificationsTextArea = new TextArea();
+        this.notificationsTextArea.setEditable(false);
     }
 
     private void initTexts() {
