@@ -14,19 +14,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 
 public class StatementEditor extends EditorPanel implements Observer<TicketEditorEvent> {
-    private Statement statement;
+    private final Statement statement;
     private JLabel amountLabel;
     private JLabel dateLabel;
-    private UtilDateModel utilDateModel;
     private JDatePickerImpl datePicker;
     private JLabel latePenaltyLabel;
     private JTextField latePenaltyField;
 
     public class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
-        private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
 
         @Override
         public Object stringToValue(String text) throws ParseException {
@@ -34,7 +34,7 @@ public class StatementEditor extends EditorPanel implements Observer<TicketEdito
         }
 
         @Override
-        public String valueToString(Object value) throws ParseException {
+        public String valueToString(Object value) {
             if (value instanceof Date) {
                 Calendar date = (Calendar) value;
                 return dateFormatter.format(date.getTime());
@@ -56,10 +56,10 @@ public class StatementEditor extends EditorPanel implements Observer<TicketEdito
         this.updateStatementAmount();
         this.amountLabel = new JLabel(this.getAmountLabelText());
         this.dateLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.DUE_DATE));
-        this.utilDateModel = new UtilDateModel();
-        this.utilDateModel.setValue(this.statement.getDue());
-        this.utilDateModel.setSelected(true);
-        JDatePanelImpl datePanel = new JDatePanelImpl(this.utilDateModel, new Properties());
+        UtilDateModel utilDateModel = new UtilDateModel();
+        utilDateModel.setValue(this.statement.getDue());
+        utilDateModel.setSelected(true);
+        JDatePanelImpl datePanel = new JDatePanelImpl(utilDateModel, new Properties());
         this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
         this.latePenaltyLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL));
         this.latePenaltyField = new JTextField();
@@ -93,12 +93,9 @@ public class StatementEditor extends EditorPanel implements Observer<TicketEdito
 
     @Override
     public void onEvent(TicketEditorEvent event) {
-        switch (event) {
-            case COST_CHANGE -> {
-                this.updateStatementAmount();
-                this.amountLabel.setText(this.getAmountLabelText());
-            }
-            default -> { }
+        if (Objects.requireNonNull(event) == TicketEditorEvent.COST_CHANGE) {
+            this.updateStatementAmount();
+            this.amountLabel.setText(this.getAmountLabelText());
         }
     }
 }

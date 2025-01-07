@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Panels inside an editor (eg user inputs fields) will inherit from this class.
+ * Panels inside an editor (e.g. user inputs fields) will inherit from this class.
  */
 public class AppPanel2 extends JPanel {
     private static final int PADDING_SIZE=50;//15;

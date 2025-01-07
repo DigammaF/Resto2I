@@ -4,12 +4,11 @@ package views.style;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class StyledButton extends JButton {
     public static int DEFAULT_MARGIN_SIZE = 15;
 
-    private int marginSize;
+    private final int marginSize;
 
     public StyledButton(String text, int marginSize){
         super(text);

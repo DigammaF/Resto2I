@@ -16,15 +16,14 @@ import java.util.Vector;
 public class LiveProductDisplay extends JPanel
         implements Observable<LiveProductDisplayEvent>
 {
-    private LiveProduct liveProduct;
-    private ProductFilter productFilter;
-    private ComboBoxModel<Product> productsModel;
+    private final LiveProduct liveProduct;
+    private final ProductFilter productFilter;
     private JComboBox<Product> productsComboBox;
     private JLabel countLabel;
     private JTextField countField;
     private JButton removeButton;
 
-    private ArrayList<Observer<LiveProductDisplayEvent>> liveProductDisplayEventObservers;
+    private final ArrayList<Observer<LiveProductDisplayEvent>> liveProductDisplayEventObservers;
 
     @FunctionalInterface
     public interface ProductFilter {
@@ -52,14 +51,14 @@ public class LiveProductDisplay extends JPanel
     private void initComponents() {
         // TODO: check that every action affecting cost also sends the appropriate event
         AppContext context = AppContext.getAppContext();
-        this.productsModel = new DefaultComboBoxModel<>(
+        ComboBoxModel<Product> productsModel = new DefaultComboBoxModel<>(
                 new Vector<>(
                         context.getRestaurant().getProducts()
                                 .stream().filter(product -> product.isUsed() && this.productFilter.execute(product))
                                 .toList()
                 )
         );
-        this.productsComboBox = new JComboBox<>(this.productsModel);
+        this.productsComboBox = new JComboBox<>(productsModel);
         this.countLabel = new JLabel("X");
         this.countField = new JTextField();
         this.countField.setText(Integer.toString(liveProduct.getCount()));

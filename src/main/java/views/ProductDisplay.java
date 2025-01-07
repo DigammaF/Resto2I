@@ -1,29 +1,21 @@
 package views;
 
 import language.TextContent;
-import logic.Observable;
-import logic.Observer;
 import logic.ProductType;
 import logic.Tax;
 import models.Product;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductDisplay extends JPanel {
-    private Product product;
+    private final Product product;
     private JButton availableButton;
     private JLabel productNameLabel;
     private JTextField productNameTextField;
     private JLabel costLabel;
     private JTextField costField;
-    private ComboBoxModel<Tax> taxComboBoxModel;
     private JComboBox<Tax> taxComboBox;
-    private ComboBoxModel<ProductType> productTypeComboBoxModel;
     private JComboBox<ProductType> productTypeComboBox;
     private JButton removeButton;
 
@@ -57,10 +49,10 @@ public class ProductDisplay extends JPanel {
         this.costField = new JTextField();
         this.costField.setText(Double.toString(this.product.getCost()));
         this.costField.addKeyListener(new Validate(this.costField, text -> context.perform(_ -> this.product.setCost(Double.parseDouble(text)))));
-        this.taxComboBoxModel = new DefaultComboBoxModel<>(Tax.values());
-        this.taxComboBox = new JComboBox<>(this.taxComboBoxModel);
-        this.productTypeComboBoxModel = new DefaultComboBoxModel<>(ProductType.values());
-        this.productTypeComboBox = new JComboBox<>(this.productTypeComboBoxModel);
+        ComboBoxModel<Tax> taxComboBoxModel = new DefaultComboBoxModel<>(Tax.values());
+        this.taxComboBox = new JComboBox<>(taxComboBoxModel);
+        ComboBoxModel<ProductType> productTypeComboBoxModel = new DefaultComboBoxModel<>(ProductType.values());
+        this.productTypeComboBox = new JComboBox<>(productTypeComboBoxModel);
         this.productTypeComboBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
                 product.setProductType((ProductType) event.getItem());
@@ -70,9 +62,7 @@ public class ProductDisplay extends JPanel {
         this.removeButton = new JButton("X");
         ProductDisplay productDisplay = this;
         this.removeButton.addActionListener(_ -> {
-            if (context.perform(_ -> {
-                product.setUsed(false);
-            })) {
+            if (context.perform(_ -> product.setUsed(false))) {
                 productDisplay.getParent().remove(productDisplay);
                 context.getMainView().validate();
                 context.getMainView().repaint();

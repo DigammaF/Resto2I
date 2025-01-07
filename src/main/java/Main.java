@@ -1,7 +1,6 @@
 import views.AppContext;
 import views.MainView;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Main {

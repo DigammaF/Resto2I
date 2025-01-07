@@ -3,8 +3,8 @@ package views;
 import javax.swing.*;
 
 public class NamedPanel extends JPanel {
-    private JLabel nameLabel;
-    private JPanel panel;
+    private final JLabel nameLabel;
+    private final JPanel panel;
 
     public NamedPanel(String name, JPanel panel) {
         super();

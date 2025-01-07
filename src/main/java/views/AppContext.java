@@ -24,7 +24,7 @@ public class AppContext {
     private final EntityManager entityManager;
     private Restaurant restaurant;
     private MainView mainView;
-    private boolean demoMode;
+    private final boolean demoMode;
 
     public boolean isDemoMode() {
         return demoMode;
@@ -65,9 +65,8 @@ public class AppContext {
         return appContext;
     }
 
-    public static AppContext getAppContext(boolean demoMode) {
+    public static void getAppContext(boolean demoMode) {
         if (appContext == null) { appContext = new AppContext(demoMode); }
-        return appContext;
     }
 
     private AppContext(boolean demoMode) {

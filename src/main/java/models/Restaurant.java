@@ -162,10 +162,10 @@ public class Restaurant {
         this.tax_id = "tax_id";
         this.SIREN = "SIREN";
         this.latePenaltyPolicy = "latePenaltyPolicy";
-        this.products = new ArrayList<Product>();
-        this.tickets = new ArrayList<Ticket>();
-        this.statements = new ArrayList<Statement>();
-        this.clients = new ArrayList<Client>();
+        this.products = new ArrayList<>();
+        this.tickets = new ArrayList<>();
+        this.statements = new ArrayList<>();
+        this.clients = new ArrayList<>();
     }
 
     public Optional<Client> createClient() {
@@ -193,8 +193,8 @@ public class Restaurant {
      *
      *  Initiates a ticket + statement duo
      *
-     * @param ticket
-     * @param statement
+     * @param ticket ticket to use in duo
+     * @param statement statement to use in duo
      * @return true if the initialization was successful
      */
     public boolean initTicketStatement(Ticket ticket, Statement statement) {

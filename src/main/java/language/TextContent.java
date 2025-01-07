@@ -113,7 +113,7 @@ public class TextContent {
     }
 
     static private Map<Language, String> make(String en, String fr) {
-        Map<Language, String> map = new HashMap<Language, String>();
+        Map<Language, String> map = new HashMap<>();
         map.put(Language.EN, en);
         map.put(Language.FR, fr);
         return map;

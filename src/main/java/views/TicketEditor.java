@@ -21,18 +21,18 @@ import java.util.HashMap;
 public class TicketEditor extends EditorPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
 {
-    private Ticket ticket;
+    private final Ticket ticket;
     private JPanel liveProductsPanel;
 
     /**
      * Contains all the new buttons corresponding to each ProductType.
-     * eg the new "soft drink" button will be a JButton value listed under the "ProductType.SOFT_DRINK" key.
+     * e.g. the new "soft drink" button will be a JButton value listed under the "ProductType.SOFT_DRINK" key.
      */
     private HashMap<ProductType, JButton> newButtons;
 
     private JScrollPane liveProductsScrollPane;
 
-    private ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
+    private final ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
 
     public TicketEditor(Ticket ticket) {
         super();
@@ -45,7 +45,7 @@ public class TicketEditor extends EditorPanel
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.newButtons = new HashMap<ProductType, JButton>();
+        this.newButtons = new HashMap<>();
 
         for (ProductType currentProductType : Arrays.stream(ProductType.values()).sorted().toList()) {
             JButton newButton = new JButton();
@@ -105,30 +105,28 @@ public class TicketEditor extends EditorPanel
 
     private ActionListener makeActionListener(ProductType productTypeParam){
         AppContext context = AppContext.getAppContext();
-        return (ActionEvent _) -> {
-            context.getRestaurant().createLiveProduct(
-                    this.ticket,
-                    context.getRestaurant().getProducts()
-                            .stream().filter(product -> product.getProductType() == productTypeParam)
-                            .toList()
-            ).ifPresentOrElse(
-                liveProduct -> {
-                    liveProduct.setCount(1);
-                    LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
-                            liveProduct, product -> product.getProductType() == productTypeParam
-                    );
-                    liveProductDisplay.addObserver(this);
-                    this.liveProductsPanel.add(liveProductDisplay);
-                    this.revalidate();
-                    this.repaint();
-                    this.notifyObservers(TicketEditorEvent.COST_CHANGE);
-                },
-                () -> {
-                    TextContent textContent = TextContent.getTextContent();
-                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.TICKET_EDITOR_NO_LIVE_PRODUCT_WARNING) + productTypeParam);
-                }
-            );
-        };
+        return (ActionEvent _) -> context.getRestaurant().createLiveProduct(
+                this.ticket,
+                context.getRestaurant().getProducts()
+                        .stream().filter(product -> product.getProductType() == productTypeParam)
+                        .toList()
+        ).ifPresentOrElse(
+            liveProduct -> {
+                liveProduct.setCount(1);
+                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                        liveProduct, product -> product.getProductType() == productTypeParam
+                );
+                liveProductDisplay.addObserver(this);
+                this.liveProductsPanel.add(liveProductDisplay);
+                this.revalidate();
+                this.repaint();
+                this.notifyObservers(TicketEditorEvent.COST_CHANGE);
+            },
+            () -> {
+                TextContent textContent = TextContent.getTextContent();
+                context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.TICKET_EDITOR_NO_LIVE_PRODUCT_WARNING) + productTypeParam);
+            }
+        );
     }
 
 }

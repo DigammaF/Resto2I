@@ -1,14 +1,13 @@
 package views;
 
 import language.TextContent;
-import models.Client;
 import models.Ticket;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class TicketDisplay extends JPanel {
-    private Ticket ticket;
+    private final Ticket ticket;
     private JLabel dateLabel;
     private JButton emittedButton;
     private JLabel tableNumberLabel;
