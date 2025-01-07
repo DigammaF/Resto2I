@@ -35,7 +35,16 @@ public class TicketDisplay extends JPanel {
         this.tableNumberLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL));
         this.tableNumberField = new JTextField();
         this.tableNumberField.setText(Integer.toString(this.ticket.getTableNumber()));
-        this.tableNumberField.addKeyListener(new Validate(this.tableNumberField, text -> context.perform(_ -> this.ticket.setTableNumber(Integer.parseInt(text)))));
+        this.tableNumberField.addKeyListener(new Validate(
+                this.tableNumberField,
+                text -> context.perform(_ -> this.ticket.setTableNumber(Integer.parseInt(text)))
+        ).withPostAction(tableNumber -> {
+            if (context.getRestaurant().getTickets().stream().anyMatch(
+                    ticket -> !ticket.isEmitted() && ticket != this.ticket && String.valueOf(ticket.getTableNumber()).equals(tableNumber)
+            )) {
+                this.tableNumberField.setBackground(Color.ORANGE);
+            }
+        }));
         this.editButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
         this.editButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();

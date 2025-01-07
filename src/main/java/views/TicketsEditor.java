@@ -15,8 +15,26 @@ public class TicketsEditor extends JPanel {
     private JPanel ticketsPanel;
     private JScrollPane ticketsScrollPane;
 
+    private TicketFilter ticketFilter;
+    private boolean allowNewTicket;
+
+    @FunctionalInterface
+    public interface TicketFilter {
+        boolean execute(Ticket ticket);
+    }
+
     public TicketsEditor() {
         super();
+        this.allowNewTicket = true;
+        this.ticketFilter = _ -> true;
+        this.initComponents();
+        this.initLayout();
+    }
+
+    public TicketsEditor(boolean allowNewTicket, TicketFilter ticketFilter) {
+        super();
+        this.allowNewTicket = allowNewTicket;
+        this.ticketFilter = ticketFilter;
         this.initComponents();
         this.initLayout();
     }
@@ -24,27 +42,29 @@ public class TicketsEditor extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.newTicketButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.TICKETS_EDITOR_NEW_TICKET_BUTTON));
-        this.newTicketButton.addActionListener(_ -> {
-            context.perform(entityManager -> {
-                Ticket ticket = new Ticket();
-                Statement statement = new Statement();
-                if (context.getRestaurant().initTicketStatement(ticket, statement)) {
-                    entityManager.persist(ticket);
-                    entityManager.persist(statement);
-                    entityManager.persist(statement.getClient());
-                    this.ticketsPanel.add(new TicketDisplay(ticket));
-                    this.revalidate();
-                    this.repaint();
-                } else {
-                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_TICKET));
-                }
+        if (this.allowNewTicket) {
+            this.newTicketButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.TICKETS_EDITOR_NEW_TICKET_BUTTON));
+            this.newTicketButton.addActionListener(_ -> {
+                context.perform(entityManager -> {
+                    Ticket ticket = new Ticket();
+                    Statement statement = new Statement();
+                    if (context.getRestaurant().initTicketStatement(ticket, statement)) {
+                        entityManager.persist(ticket);
+                        entityManager.persist(statement);
+                        entityManager.persist(statement.getClient());
+                        this.ticketsPanel.add(new TicketDisplay(ticket));
+                        this.revalidate();
+                        this.repaint();
+                    } else {
+                        context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_TICKET));
+                    }
+                });
             });
-        });
+        }
         this.ticketsPanel = new JPanel();
         this.ticketsScrollPane = new JScrollPane(this.ticketsPanel);
 
-        for (Ticket ticket : context.getRestaurant().getTickets()) {
+        for (Ticket ticket : context.getRestaurant().getTickets().stream().filter(ticket -> this.ticketFilter.execute(ticket)).toList()) {
             this.ticketsPanel.add(new TicketDisplay(ticket));
         }
     }
@@ -52,7 +72,7 @@ public class TicketsEditor extends JPanel {
     private void initLayout() {
         this.ticketsPanel.setLayout(new BoxLayout(this.ticketsPanel, BoxLayout.Y_AXIS));
         this.setLayout(new BorderLayout());
-        this.add(this.newTicketButton, BorderLayout.NORTH);
+        if (this.allowNewTicket) { this.add(this.newTicketButton, BorderLayout.NORTH); }
         this.add(ticketsScrollPane, BorderLayout.CENTER);
         this.add(Box.createHorizontalStrut(500), BorderLayout.SOUTH);
     }

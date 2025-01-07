@@ -20,10 +20,7 @@ todo
 - clément : gérer espaces
 - rouge pour produit init
 - partout : empecher validation si tout pas bon
-
-- éditeur de commandes : commandes en cours ; les commandes finies sont archivées
-
-- pas de duplicata de commandes
+- éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
 
 # Infos présentation
 

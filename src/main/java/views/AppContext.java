@@ -101,7 +101,7 @@ public class AppContext {
     /**
      *
      * <p>
-     * Use .perform to perform an action that requires an EntityManager Transaction.
+     * Use .perform to perform an action that requires a EntityManager Transaction.
      * Just remember that an action has to be fully performed before the next one starts!
      * <br/>
      * <strong>No nested transactions!</strong>
