@@ -35,5 +35,7 @@ public class MainView extends JFrame {
         this.add(this.mainPanel, BorderLayout.CENTER);
     }
 
-    public void println(String text) { }
+    public void println(String text) {
+        System.out.println(text);
+    }
 }

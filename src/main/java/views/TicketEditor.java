@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class TicketEditor extends JPanel
@@ -35,7 +36,6 @@ public class TicketEditor extends JPanel
 
     public TicketEditor(Ticket ticket) {
         super();
-        System.out.println("debug : TicketEditor créé");
         this.ticket = ticket;
         this.ticketEditorEventObservers = new ArrayList<>();
         this.initComponents();
@@ -47,7 +47,7 @@ public class TicketEditor extends JPanel
         TextContent textContent = TextContent.getTextContent();
         this.newButtons = new HashMap<ProductType, JButton>();
 
-        for (ProductType currentProductType : ProductType.values()) {
+        for (ProductType currentProductType : Arrays.stream(ProductType.values()).sorted().toList()) {
             JButton newButton = new JButton();
             this.newButtons.put(currentProductType, newButton);
             newButton.setText(currentProductType.toString());
@@ -99,30 +99,32 @@ public class TicketEditor extends JPanel
 
     @Override
     public void onEvent(LiveProductDisplayEvent event) {
-        System.out.println("debug : onEvent appelé");
-        System.out.println(event);
         if (event instanceof LiveProductDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
         if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
     }
 
-
-
     private ActionListener makeActionListener(ProductType productTypeParam){
         AppContext context = AppContext.getAppContext();
-        return (ActionEvent e) -> {
+        return (ActionEvent _) -> {
             context.perform(entityManager -> {
-                LiveProduct liveProduct = new LiveProduct();
-                liveProduct.setCount(1);
-                Logic.addLiveProduct(this.ticket, liveProduct);
-                entityManager.persist(liveProduct);
-                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
-                        liveProduct, product -> product.getProductType() == productTypeParam
-                );
-                liveProductDisplay.addObserver(this);
-                this.liveProductsPanel.add(liveProductDisplay);
-                this.revalidate();
-                this.repaint();
+                context.getRestaurant().createLiveProduct(
+                        this.ticket,
+                        context.getRestaurant().getProducts()
+                                .stream().filter(product -> product.getProductType() == productTypeParam)
+                                .toList()
+                ).ifPresent(liveProduct -> {
+                    liveProduct.setCount(1);
+                    entityManager.persist(liveProduct);
+                    LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                            liveProduct, product -> product.getProductType() == productTypeParam
+                    );
+                    liveProductDisplay.addObserver(this);
+                    this.liveProductsPanel.add(liveProductDisplay);
+                    this.revalidate();
+                    this.repaint();
+                });
             });
+            this.notifyObservers(TicketEditorEvent.COST_CHANGE);
         };
     }
 

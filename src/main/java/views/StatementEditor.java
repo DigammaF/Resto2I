@@ -92,7 +92,6 @@ public class StatementEditor extends JPanel implements Observer<TicketEditorEven
 
     @Override
     public void onEvent(TicketEditorEvent event) {
-        System.out.println(event);
         switch (event) {
             case COST_CHANGE -> {
                 this.updateStatementAmount();

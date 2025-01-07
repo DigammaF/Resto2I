@@ -50,10 +50,15 @@ public class LiveProductDisplay extends JPanel
     }
 
     private void initComponents() {
+        // TODO: check that every action affecting cost also sends the appropriate event
         AppContext context = AppContext.getAppContext();
-        Vector<Product> products = new Vector<>(context.getRestaurant().getProducts());
-        Vector<Product> usedProducts = new Vector<>(products.stream().filter(product -> product.isUsed() && this.productFilter.execute(product)).toList());
-        this.productsModel = new DefaultComboBoxModel<>(usedProducts);
+        this.productsModel = new DefaultComboBoxModel<>(
+                new Vector<>(
+                        context.getRestaurant().getProducts()
+                                .stream().filter(product -> product.isUsed() && this.productFilter.execute(product))
+                                .toList()
+                )
+        );
         this.productsComboBox = new JComboBox<>(this.productsModel);
         this.countLabel = new JLabel("X");
         this.countField = new JTextField();
