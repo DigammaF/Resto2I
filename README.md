@@ -25,3 +25,8 @@ todo
 
 - pas de duplicata de commandes
 
+# Infos présentation
+
+- Qu'est ce qu'on a fait d'original
+- Qu'est ce qu'on a appris
+- support de présentation facultatif mais sympa
