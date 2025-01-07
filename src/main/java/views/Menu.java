@@ -2,6 +2,7 @@ package views;
 
 import language.TextContent;
 import views.style.DefaultPanel;
+import views.style.MenuButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +13,10 @@ import java.awt.*;
  *
  */
 public class Menu extends DefaultPanel {
-    private JButton productsEditorButton;
-    private JButton ticketsEditorButton;
-    private JButton restaurantEditorButton;
-    private JButton languageSwitchButton;
+    private MenuButton productsEditorButton;
+    private MenuButton ticketsEditorButton;
+    private MenuButton restaurantEditorButton;
+    private MenuButton languageSwitchButton;
 
     public Menu() {
         super();
@@ -27,7 +28,7 @@ public class Menu extends DefaultPanel {
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
-        this.productsEditorButton = new JButton();
+        this.productsEditorButton = new MenuButton();
         this.productsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -35,7 +36,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.ticketsEditorButton = new JButton();
+        this.ticketsEditorButton = new MenuButton();
         this.ticketsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -43,7 +44,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.restaurantEditorButton = new JButton();
+        this.restaurantEditorButton = new MenuButton();
         this.restaurantEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -51,7 +52,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.languageSwitchButton = new JButton("FR/EN");
+        this.languageSwitchButton = new MenuButton("FR/EN");
         this.languageSwitchButton.addActionListener(_ -> {
             switch (context.getLanguage()) {
                 case EN -> context.setLanguage(TextContent.Language.FR);

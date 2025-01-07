@@ -14,3 +14,14 @@ todo
 # Execution
 todo
 
+
+# TODO List
+
+- clément : gérer espaces
+- rouge pour produit init
+- partout : empecher validation si tout pas bon
+
+- éditeur de commandes : commandes en cours ; les commandes finies sont archivées
+
+- pas de duplicata de commandes
+
