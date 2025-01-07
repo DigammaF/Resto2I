@@ -1,6 +1,7 @@
 package views;
 
 import language.TextContent;
+import models.Ticket;
 import views.style.DefaultPanel;
 import views.style.MenuButton;
 
@@ -15,6 +16,7 @@ import java.awt.*;
 public class Menu extends DefaultPanel {
     private JButton productsEditorButton;
     private JButton ticketsEditorButton;
+    private JButton ticketsArchiveButton;
     private JButton restaurantEditorButton;
     private JButton languageSwitchButton;
 
@@ -40,7 +42,15 @@ public class Menu extends DefaultPanel {
         this.ticketsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
-            mainPanel.add(new TicketsEditor());
+            mainPanel.add(new TicketsEditor(true, ticket -> !ticket.isEmitted()));
+            mainPanel.validate();
+            mainPanel.repaint();
+        });
+        this.ticketsArchiveButton = new JButton();
+        this.ticketsArchiveButton.addActionListener(_ -> {
+            JPanel mainPanel = context.getMainView().getMainPanel();
+            mainPanel.removeAll();
+            mainPanel.add(new TicketsEditor(false, Ticket::isEmitted));
             mainPanel.validate();
             mainPanel.repaint();
         });
@@ -67,6 +77,7 @@ public class Menu extends DefaultPanel {
         TextContent text = TextContent.getTextContent();
         this.productsEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_PRODUCTS_EDITOR_BUTTON));
         this.ticketsEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_TICKETS_EDITOR_BUTTON));
+        this.ticketsArchiveButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_TICKETS_ARCHIVE_BUTTON));
         this.restaurantEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_RESTAURANT_EDITOR_BUTTON));
     }
 
@@ -78,7 +89,10 @@ public class Menu extends DefaultPanel {
         this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.ticketsEditorButton);
-       this.add(Box.createHorizontalStrut(SPACING));
+        this.add(Box.createHorizontalStrut(SPACING));
+
+        this.add(this.ticketsArchiveButton);
+        this.add(Box.createHorizontalStrut(SPACING));
 
         this.add(this.restaurantEditorButton);
         this.add(Box.createHorizontalStrut(SPACING));

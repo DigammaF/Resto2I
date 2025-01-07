@@ -4,7 +4,6 @@ import events.LiveProductDisplayEvents;
 import events.LiveProductDisplayEvents.LiveProductDisplayEvent;
 import events.TicketEditorEvent;
 import language.TextContent;
-import logic.Logic;
 import logic.Observable;
 import logic.Observer;
 import logic.ProductType;
