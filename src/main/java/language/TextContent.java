@@ -28,6 +28,8 @@ public class TextContent {
 
         TICKETS_EDITOR_NEW_TICKET_BUTTON,
 
+        TICKET_EDITOR_NO_LIVE_PRODUCT_WARNING,
+
         STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL,
 
         PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON,
@@ -90,6 +92,8 @@ public class TextContent {
         this.texts.put(Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL, make("Table number", "Numéro de table"));
 
         this.texts.put(Key.TICKETS_EDITOR_NEW_TICKET_BUTTON, make("New ticket", "Nouvelle commande"));
+
+        this.texts.put(Key.TICKET_EDITOR_NO_LIVE_PRODUCT_WARNING, make("No product in category ", "Pas de produit dans la catégorie "));
 
         this.texts.put(Key.STATEMENT_EDITOR_LATE_PENALTY_POLICY_LABEL, make("Late penalty policy", "Politique de pénalité de retard"));
 

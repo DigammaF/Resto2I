@@ -111,17 +111,23 @@ public class TicketEditor extends EditorPanel
                     context.getRestaurant().getProducts()
                             .stream().filter(product -> product.getProductType() == productTypeParam)
                             .toList()
-            ).ifPresent(liveProduct -> {
-                liveProduct.setCount(1);
-                LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
-                        liveProduct, product -> product.getProductType() == productTypeParam
-                );
-                liveProductDisplay.addObserver(this);
-                this.liveProductsPanel.add(liveProductDisplay);
-                this.revalidate();
-                this.repaint();
-                this.notifyObservers(TicketEditorEvent.COST_CHANGE);
-            });
+            ).ifPresentOrElse(
+                liveProduct -> {
+                    liveProduct.setCount(1);
+                    LiveProductDisplay liveProductDisplay = new LiveProductDisplay(
+                            liveProduct, product -> product.getProductType() == productTypeParam
+                    );
+                    liveProductDisplay.addObserver(this);
+                    this.liveProductsPanel.add(liveProductDisplay);
+                    this.revalidate();
+                    this.repaint();
+                    this.notifyObservers(TicketEditorEvent.COST_CHANGE);
+                },
+                () -> {
+                    TextContent textContent = TextContent.getTextContent();
+                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.TICKET_EDITOR_NO_LIVE_PRODUCT_WARNING) + productTypeParam);
+                }
+            );
         };
     }
 
