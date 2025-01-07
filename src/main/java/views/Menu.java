@@ -88,16 +88,16 @@ public class Menu extends DefaultPanel {
         this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.ticketsEditorButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+        this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.ticketsArchiveButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+        this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.restaurantEditorButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+        this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.languageSwitchButton);
-        this.add(Box.createHorizontalStrut(SPACING));
+
 
     }
 

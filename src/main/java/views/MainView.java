@@ -4,11 +4,15 @@ import views.style.StyledPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class MainView extends JFrame {
     private Menu menu;
     private StyledPanel mainPanel;
     private TextArea notificationsTextArea;
+    private JPanel notificationsPanel;
+    private JPanel westPanel;
 
     public JPanel getMainPanel() {
         return mainPanel;
@@ -23,6 +27,7 @@ public class MainView extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.initComponents();
         this.initLayout();
+        this.addResizeListener();
     }
 
     private void initComponents() {
@@ -30,22 +35,58 @@ public class MainView extends JFrame {
         this.mainPanel = new StyledPanel(15);
         this.notificationsTextArea = new TextArea();
         this.notificationsTextArea.setEditable(false);
+        this.westPanel = new JPanel();
+
+        this.westPanel = new JPanel();
+        this.notificationsPanel = new JPanel(new BorderLayout());
+
+        this.notificationsPanel.add(this.notificationsTextArea);
+
+
     }
 
     private void initLayout() {
         this.setLayout(new BorderLayout());
 
-        JPanel westPanel = new JPanel();
-        westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.Y_AXIS));
+        this.westPanel.setLayout(new BoxLayout(this.westPanel, BoxLayout.Y_AXIS));
 
-        westPanel.add(this.menu);
-        westPanel.add(this.notificationsTextArea);
+        this.westPanel.add(this.menu);
 
-        this.add(westPanel, BorderLayout.WEST);
+        //empty space
+        this.westPanel.add(Box.createVerticalGlue());
+
+        this.add(this.westPanel, BorderLayout.WEST);
         this.add(this.mainPanel, BorderLayout.CENTER);
+
+        this.westPanel.add(this.notificationsPanel);
+
+        updateNotificationPanelHeight();
     }
 
-    public void println(String text) {
+    private void addResizeListener() {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateNotificationPanelHeight();
+            }
+        });
+
+    }
+
+
+    private void updateNotificationPanelHeight() {
+        int notifHeight = (int) (this.getHeight() * 0.2); // 20%
+        this.notificationsPanel.setPreferredSize(new Dimension(westPanel.getWidth(), notifHeight));
+        this.notificationsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, notifHeight));
+        this.notificationsPanel.setMinimumSize(new Dimension(0, notifHeight));
+
+        this.westPanel.revalidate();
+        this.westPanel.repaint();
+
+    }
+
+
+        public void println(String text) {
         this.notificationsTextArea.append(text + "\n");
     }
 }
