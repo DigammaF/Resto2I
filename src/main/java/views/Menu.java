@@ -13,10 +13,10 @@ import java.awt.*;
  *
  */
 public class Menu extends DefaultPanel {
-    private MenuButton productsEditorButton;
-    private MenuButton ticketsEditorButton;
-    private MenuButton restaurantEditorButton;
-    private MenuButton languageSwitchButton;
+    private JButton productsEditorButton;
+    private JButton ticketsEditorButton;
+    private JButton restaurantEditorButton;
+    private JButton languageSwitchButton;
     private TextArea notificationsTextArea;
 
     public Menu() {
@@ -29,7 +29,7 @@ public class Menu extends DefaultPanel {
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
-        this.productsEditorButton = new MenuButton();
+        this.productsEditorButton = new JButton();
         this.productsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -37,7 +37,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.ticketsEditorButton = new MenuButton();
+        this.ticketsEditorButton = new JButton();
         this.ticketsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -45,7 +45,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.restaurantEditorButton = new MenuButton();
+        this.restaurantEditorButton = new JButton();
         this.restaurantEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -53,14 +53,13 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.languageSwitchButton = new MenuButton("FR/EN");
+        this.languageSwitchButton = new JButton("FR/EN");
         this.languageSwitchButton.addActionListener(_ -> {
             switch (context.getLanguage()) {
                 case EN -> context.setLanguage(TextContent.Language.FR);
                 case FR -> context.setLanguage(TextContent.Language.EN);
             }
             initTexts();
-            this.println("<span style=\"color:red\">Language switched</span>\n");
         });
         this.notificationsTextArea = new TextArea();
     }
@@ -77,9 +76,17 @@ public class Menu extends DefaultPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(this.productsEditorButton);
+        int SPACING = 30;
+        this.add(Box.createVerticalStrut(SPACING));
+
         this.add(this.ticketsEditorButton);
+       this.add(Box.createHorizontalStrut(SPACING));
+
         this.add(this.restaurantEditorButton);
+        this.add(Box.createHorizontalStrut(SPACING));
+
         this.add(this.languageSwitchButton);
+        this.add(Box.createHorizontalStrut(SPACING));
         this.add(this.notificationsTextArea);
     }
 

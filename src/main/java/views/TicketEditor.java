@@ -10,6 +10,7 @@ import logic.Observer;
 import logic.ProductType;
 import models.LiveProduct;
 import models.Ticket;
+import views.style.EditorPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class TicketEditor extends JPanel
+public class TicketEditor extends EditorPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
 {
     private Ticket ticket;
