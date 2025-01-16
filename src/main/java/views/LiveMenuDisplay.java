@@ -28,10 +28,12 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
     private class Item {
         public JComboBox<Product> comboBox;
         public JButton claimedButton;
+        public String name;
 
-        public Item(JComboBox<Product> comboBox, JButton claimedButton) {
+        public Item(JComboBox<Product> comboBox, JButton claimedButton, String name) {
             this.comboBox = comboBox;
             this.claimedButton = claimedButton;
+            this.name = name;
         }
     }
 
@@ -67,7 +69,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
                     context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
                 }
             });
-            this.items.add(new Item(comboBox, claimedButton));
+            this.items.add(new Item(comboBox, claimedButton, liveMenuItem.getName()));
         }
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
@@ -114,6 +116,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
         for (Item item : this.items) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+            panel.add(new JLabel(item.name));
             panel.add(item.comboBox);
             panel.add(new JLabel(textContent.get(context.getLanguage(), TextContent.Key.CLAIMED)));
             panel.add(item.claimedButton);

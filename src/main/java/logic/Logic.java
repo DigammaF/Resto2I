@@ -71,10 +71,12 @@ public class Logic {
 
     public static void addMenuItem(Menu menu, MenuItem menuItem) {
         menu.getMenuItems().add(menuItem);
+        menuItem.setMenu(menu);
     }
 
     public static void RemMenuitem(Menu menu, MenuItem menuItem) {
         menu.getMenuItems().remove(menuItem);
+        menuItem.setMenu(null);
     }
 
     public static void addLiveMenuItem(LiveMenu liveMenu, LiveMenuItem liveMenuItem) {

@@ -96,19 +96,24 @@ public class TicketEditor extends EditorPanel
         JButton button = new JButton();
         button.setText(menu.getName());
         button.addActionListener(_ -> {
-            context.getRestaurant().createLiveMenu(this.ticket, menu).ifPresentOrElse(
-                    (liveMenu -> {
-                        LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
-                        liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
-                        this.liveMenusPanel.add(liveMenuDisplay);
-                        context.getMainView().validate();
-                        context.getMainView().repaint();
-                        this.notifyObservers(TicketEditorEvent.COST_CHANGE);
-                    }),
-                    () -> {
-                        context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));
-                    }
-            );
+            if (context.perform(_ -> {
+                context.getRestaurant().createLiveMenu(this.ticket, menu).ifPresentOrElse(
+                        (liveMenu -> {
+                            LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
+                            liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
+                            this.liveMenusPanel.add(liveMenuDisplay);
+                            context.getMainView().validate();
+                            context.getMainView().repaint();
+                        }),
+                        () -> {
+                            context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));
+                        }
+                );
+            })) {
+                this.notifyObservers(TicketEditorEvent.COST_CHANGE);
+            } else {
+                context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));
+            }
         });
         return button;
     }
