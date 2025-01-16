@@ -1,5 +1,7 @@
 package views;
 
+import views.style.Colors;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -51,12 +53,12 @@ public class Validate extends KeyAdapter {
     public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == '\n') {
             if (this.enterKeyAction.execute(this.field.getText().trim())) {
-                this.field.setBackground(Color.green);
+                this.field.setBackground(Colors.COMMITED_FIELD);
                 this.postProcess.process(this.field.getText().trim());
             }
         } else {
             super.keyTyped(e);
-            this.field.setBackground(Color.red);
+            this.field.setBackground(Colors.MODIFIED_FIELD);
         }
     }
 }

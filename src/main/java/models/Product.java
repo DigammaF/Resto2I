@@ -11,6 +11,12 @@ import logic.Tax;
  */
 @Entity
 public class Product {
+    public static boolean DEFAULT_AVAILABLE = false;
+    public static String DEFAULT_NAME = "unamed";
+    public static double DEFAULT_COST = 0.0;
+    public static Tax DEFAULT_TAX = Tax.INSTANT;
+    public static ProductType DEFAULT_PRODUCT_TYPE = ProductType.DEFAULT;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -112,12 +118,12 @@ public class Product {
     }
 
     public Product() {
-        this.available = false;
-        this.name = "unamed";
-        this.cost = 0;
-        this.tax = Tax.INSTANT;
+        this.available = DEFAULT_AVAILABLE;
+        this.name = DEFAULT_NAME;
+        this.cost = DEFAULT_COST;
+        this.tax = DEFAULT_TAX;
         this.used = true;
-        this.productType = ProductType.DEFAULT;
+        this.productType = DEFAULT_PRODUCT_TYPE;
     }
 
     public double getATICost() {

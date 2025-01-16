@@ -50,7 +50,6 @@ public class LiveProductDisplay extends JPanel
     }
 
     private void initComponents() {
-        // TODO: check that every action affecting cost also sends the appropriate event
         AppContext context = AppContext.getAppContext();
         ComboBoxModel<Product> productsModel = new DefaultComboBoxModel<>(
                 new Vector<>(

@@ -14,6 +14,8 @@ import java.util.List;
  */
 @Entity
 public class Ticket {
+    public static int DEFAULT_TABLE_NUMBER = 0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -95,7 +97,7 @@ public class Ticket {
     public Ticket() {
         this.emitted = false;
         this.date = new Date();
-        this.tableNumber = 0;
+        this.tableNumber = DEFAULT_TABLE_NUMBER;
         this.liveProducts = new ArrayList<>();
     }
 

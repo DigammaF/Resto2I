@@ -3,6 +3,7 @@ package views;
 import language.TextContent;
 import logic.Logic;
 import models.Client;
+import views.style.Colors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,11 +71,11 @@ public class ClientEditor extends JPanel {
                 );
                 this.autoCompleteButton.setText(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NEW_PROFILE_BUTTON));
                 this.nameField.setText(this.autoCompleteTarget.getName());
-                this.nameField.setBackground(Color.WHITE);
+                this.nameField.setBackground(Colors.UNMODIFIED_FIELD);
                 this.taxIDField.setText(this.autoCompleteTarget.getTaxID());
-                this.taxIDField.setBackground(Color.WHITE);
+                this.taxIDField.setBackground(Colors.UNMODIFIED_FIELD);
                 this.contactField.setText(this.autoCompleteTarget.getContact());
-                this.contactField.setBackground(Color.WHITE);
+                this.contactField.setBackground(Colors.UNMODIFIED_FIELD);
                 this.client = this.autoCompleteTarget;
                 this.autoCompleted = true;
             }

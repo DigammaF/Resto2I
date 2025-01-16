@@ -21,6 +21,7 @@ todo
 - rouge pour produit init
 - partout : empecher validation si tout pas bon
 - éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
+- Menus
 
 # Infos présentation
 

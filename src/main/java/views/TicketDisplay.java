@@ -2,6 +2,7 @@ package views;
 
 import language.TextContent;
 import models.Ticket;
+import views.style.Colors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,7 @@ public class TicketDisplay extends JPanel {
         this.tableNumberLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.TICKET_DISPLAY_TABLE_NUMBER_LABEL));
         this.tableNumberField = new JTextField();
         this.tableNumberField.setText(Integer.toString(this.ticket.getTableNumber()));
+        if (this.ticket.getTableNumber() == Ticket.DEFAULT_TABLE_NUMBER) { this.tableNumberField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.tableNumberField.addKeyListener(new Validate(
                 this.tableNumberField,
                 text -> context.perform(_ -> this.ticket.setTableNumber(Integer.parseInt(text)))
@@ -41,7 +43,8 @@ public class TicketDisplay extends JPanel {
             if (context.getRestaurant().getTickets().stream().anyMatch(
                     ticket -> !ticket.isEmitted() && ticket != this.ticket && String.valueOf(ticket.getTableNumber()).equals(tableNumber)
             )) {
-                this.tableNumberField.setBackground(Color.ORANGE);
+                this.tableNumberField.setBackground(Colors.STRANGE_VALUE_FIELD);
+                context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.SHARED_TABLE_NUMBER_WARNING));
             }
         }));
         this.editButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
