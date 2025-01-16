@@ -3,6 +3,7 @@ package views;
 import language.TextContent;
 import models.Ticket;
 import views.style.DefaultPanel;
+import views.style.Paddings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,7 +85,7 @@ public class Menu extends DefaultPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(this.productsEditorButton);
-        int SPACING = 30;
+        int SPACING = Paddings.MENUSPACING;
         this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.ticketsEditorButton);

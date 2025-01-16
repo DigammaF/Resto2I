@@ -33,6 +33,7 @@ public class ProductDisplay extends JPanel {
         this.product = product;
         this.initComponents();
         this.initLayout();
+
     }
 
     private void initComponents() {
