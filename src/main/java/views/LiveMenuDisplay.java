@@ -1,6 +1,7 @@
 package views;
 
 import events.LiveMenuDisplayEvents;
+import language.TextContent;
 import logic.Logic;
 import logic.Observable;
 import logic.Observer;
@@ -17,10 +18,20 @@ import java.util.Vector;
 public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
     private LiveMenu liveMenu;
     private JLabel liveMenuNameLabel;
-    private List<JComboBox<Product>> liveMenuItemComboBoxes;
+    private List<Item> liveMenuItems;
     private JButton removeButton;
 
     private List<Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent>> observers;
+
+    private class Item {
+        public JComboBox<Product> comboBox;
+        public JButton claimedButton;
+
+        public Item(JComboBox<Product> comboBox, JButton claimedButton) {
+            this.comboBox = comboBox;
+            this.claimedButton = claimedButton;
+        }
+    }
 
     public LiveMenuDisplay(LiveMenu liveMenu) {
         this.liveMenu = liveMenu;
@@ -32,17 +43,23 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         this.liveMenuNameLabel = new JLabel(this.liveMenu.getName());
-        this.liveMenuItemComboBoxes = new ArrayList<>();
+        this.liveMenuItems = new ArrayList<>();
         for (LiveMenuItem liveMenuItem : this.liveMenu.getLiveMenuItems()) {
-            ComboBoxModel<Product> productsModel = new DefaultComboBoxModel<>(
+            ComboBoxModel<Product> model = new DefaultComboBoxModel<>(
                     new Vector<>(
                             context.getRestaurant().getProducts()
                                     .stream().filter(product -> product.isUsed() && liveMenuItem.allowed(product))
                                     .toList()
                     )
             );
-            JComboBox<Product> liveMenuItemComboBox = getProductJComboBox(liveMenuItem, productsModel);
-            this.liveMenuItemComboBoxes.add(liveMenuItemComboBox);
+            JComboBox<Product> comboBox = getProductJComboBox(liveMenuItem, model);
+            JButton claimedButton = new JButton();
+            claimedButton.setText(getClaimedButtonText(liveMenuItem));
+            claimedButton.addActionListener(_ -> {
+                liveMenuItem.setClaimed(!liveMenuItem.isClaimed());
+                claimedButton.setText(getClaimedButtonText(liveMenuItem));
+            });
+            this.liveMenuItems.add(new Item(comboBox, claimedButton));
         }
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
@@ -67,8 +84,24 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
         return liveMenuItemComboBox;
     }
 
-    private void initLayout() {
+    private String getClaimedButtonText(LiveMenuItem liveMenuItem) {
+        return liveMenuItem.isClaimed() ? "✔️" : "❌";
+    }
 
+    private void initLayout() {
+        AppContext context = AppContext.getAppContext();
+        TextContent textContent = TextContent.getTextContent();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(this.liveMenuNameLabel);
+        for (Item item : this.liveMenuItems) {
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+            panel.add(item.comboBox);
+            panel.add(new JLabel(textContent.get(context.getLanguage(), TextContent.Key.CLAIMED)));
+            panel.add(item.claimedButton);
+            this.add(panel);
+        }
+        this.add(this.removeButton);
     }
 
     @Override
