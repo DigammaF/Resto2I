@@ -20,8 +20,28 @@ public class MenuItem {
     @ManyToOne(cascade = CascadeType.ALL)
     private LiveMenu liveMenu;
 
+    public LiveMenu getLiveMenu() {
+        return liveMenu;
+    }
+
+    public void setLiveMenu(LiveMenu liveMenu) {
+        this.liveMenu = liveMenu;
+    }
+
+    public String getAllowedTags() {
+        return allowedTags;
+    }
+
+    public void setAllowedTags(String allowedTags) {
+        this.allowedTags = allowedTags;
+    }
+
     @Column(name = "allowedTags", nullable = false)
     private String allowedTags;
+
+    public MenuItem() {
+        this.allowedTags = "";
+    }
 
     public boolean allowed(Product product) {
         Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));

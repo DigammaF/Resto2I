@@ -67,5 +67,31 @@ public class Logic {
         return Optional.empty();
     }
 
-    public static void
+    public static void addMenuItem(LiveMenu liveMenu, MenuItem menuItem) {
+        liveMenu.getMenuItems().add(menuItem);
+    }
+
+    public static void RemMenuitem(LiveMenu liveMenu, MenuItem menuItem) {
+        liveMenu.getMenuItems().remove(menuItem);
+    }
+
+    public static void addLiveMenu(Restaurant restaurant, LiveMenu liveMenu) {
+        liveMenu.setRestaurant(restaurant);
+        restaurant.getLiveMenus().add(liveMenu);
+    }
+
+    public static void remLiveMenu(Restaurant restaurant, LiveMenu liveMenu) {
+        liveMenu.setRestaurant(null);
+        restaurant.getLiveMenus().remove(liveMenu);
+    }
+
+    public static void addMenu(Restaurant restaurant, Menu menu) {
+        menu.setRestaurant(restaurant);
+        restaurant.getMenus().add(menu);
+    }
+
+    public static void remMenu(Restaurant restaurant, Menu menu) {
+        menu.setRestaurant(null);
+        restaurant.getMenus().remove(menu);
+    }
 }
