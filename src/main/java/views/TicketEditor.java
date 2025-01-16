@@ -132,7 +132,7 @@ public class TicketEditor extends EditorPanel
         this.add(this.liveProductsPanel);
         this.addMenuPanel.setLayout(new BoxLayout(this.addMenuPanel, BoxLayout.X_AXIS));
         this.add(this.addMenuPanel);
-        this.liveMenusPanel.setLayout(new BoxLayout(this.liveMenusPanel, BoxLayout.X_AXIS));
+        this.liveMenusPanel.setLayout(new BoxLayout(this.liveMenusPanel, BoxLayout.Y_AXIS));
         this.add(this.liveMenusPanel);
     }
 
