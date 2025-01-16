@@ -27,7 +27,10 @@ public class MainView extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.initComponents();
         this.initLayout();
+        this.initSizes();
+        this.initStyle();
         this.addResizeListener();
+
     }
 
     private void initComponents() {
@@ -41,6 +44,10 @@ public class MainView extends JFrame {
         this.notificationsPanel = new JPanel(new BorderLayout());
 
         this.notificationsPanel.add(this.notificationsTextArea);
+    }
+
+    protected void initStyle(){
+        westPanel.setBackground(Color.cyan);
     }
 
     private void initLayout() {
@@ -59,6 +66,18 @@ public class MainView extends JFrame {
         this.westPanel.add(this.notificationsPanel);
 
         updateNotificationPanelHeight();
+    }
+
+    private void initSizes(){
+
+        int mainViewWidth = this.getWidth();
+
+       // int menuWidth = (int) (mainViewWidth * 0.5);
+        this.westPanel.setPreferredSize(new Dimension(200, this.getHeight()));
+
+        this.westPanel.revalidate();
+        this.westPanel.repaint();
+
     }
 
     private void addResizeListener() {

@@ -10,6 +10,7 @@ import models.LiveProduct;
 import models.Product;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -38,6 +39,11 @@ public class LiveProductDisplay extends JPanel
         this.productFilter = productFilter;
         this.initComponents();
         this.initLayout();
+
+        SwingUtilities.invokeLater(() -> {
+            this.initSizes();
+
+        });
     }
 
     public LiveProductDisplay(LiveProduct liveProduct) {
@@ -47,6 +53,9 @@ public class LiveProductDisplay extends JPanel
         this.productFilter = _ -> true;
         this.initComponents();
         this.initLayout();
+
+        SwingUtilities.invokeLater(this::initSizes);
+
     }
 
     private void initComponents() {
@@ -68,7 +77,9 @@ public class LiveProductDisplay extends JPanel
         this.productsComboBox.setSelectedItem(liveProduct.getProduct());
         this.countLabel = new JLabel("X");
         this.countField = new JTextField();
+
         this.countField.setText(Integer.toString(liveProduct.getCount()));
+
         this.countField.addKeyListener(new Validate(
                 this.countField,
                 text -> {
@@ -80,6 +91,9 @@ public class LiveProductDisplay extends JPanel
                     }
                 }
         ));
+
+
+
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
             Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
@@ -89,14 +103,43 @@ public class LiveProductDisplay extends JPanel
             this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
             this.notifyObservers(new LiveProductDisplayEvents.Removed(this));
         });
+
+
+
+
     }
 
     private void initLayout() {
+
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(productsComboBox);
+        this.add(Box.createHorizontalGlue());
         this.add(countLabel);
         this.add(countField);
         this.add(removeButton);
+
+
+    }
+
+    /** limit the size of countField*/
+    private void initSizes(){
+        this.revalidate();
+        this.repaint();
+        this.setVisible(true);
+
+        Dimension labelDims = this.countLabel.getPreferredSize();
+        Dimension countDims = this.countField.getPreferredSize();
+        System.out.println(" count old Dims : " + countDims.width + "     "+ countDims.height );
+
+        int newWidth = 3*(labelDims.width);
+
+        this.countField.setPreferredSize(new Dimension(newWidth,countDims.height));
+        countDims = this.countField.getPreferredSize();
+        System.out.println(" new dims  : " + countDims.width + " "+ countDims.height );
+
+        this.revalidate();
+        this.repaint();
+        this.setVisible(true);
     }
 
     public ProductFilter getProductFilter(ProductType productType) {
@@ -117,5 +160,13 @@ public class LiveProductDisplay extends JPanel
     public void notifyObservers(LiveProductDisplayEvent event) {
         ArrayList<Observer<LiveProductDisplayEvent>> observers = new ArrayList<>(this.liveProductDisplayEventObservers);
         for (Observer<LiveProductDisplayEvent> observer: observers) { observer.onEvent(event); }
+    }
+
+    //only for debug atm
+    public void setColor(){
+        this.countLabel.setForeground(Color.MAGENTA);
+        this.countField.setForeground(Color.MAGENTA);
+        this.countLabel.setBackground(Color.CYAN);
+        this.countField.setBackground(Color.CYAN);
     }
 }

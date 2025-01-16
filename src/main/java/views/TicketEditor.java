@@ -70,9 +70,11 @@ public class TicketEditor extends EditorPanel
 
         this.liveProductsPanel = new JPanel();
 
+
         for (LiveProduct liveProduct : this.ticket.getLiveProducts()) {
             LiveProductDisplay liveProductDisplay = new LiveProductDisplay(liveProduct);
             liveProductDisplay.addObserver(this);
+            //liveProductDisplay.setColor(); //debug
             this.liveProductsPanel.add(liveProductDisplay);
         }
 
