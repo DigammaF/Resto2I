@@ -1,6 +1,11 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Logic;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -48,5 +53,9 @@ public class MenuItem {
 
     public MenuItem() {
         this.allowedTags = "";
+    }
+
+    public boolean allowed(Product product) {
+        return Logic.tagsAllowProduct(product, allowedTags);
     }
 }

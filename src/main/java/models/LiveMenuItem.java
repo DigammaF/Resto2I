@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Logic;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,12 +70,11 @@ public class LiveMenuItem {
 
     public LiveMenuItem() {
         this.allowedTags = "";
+        this.name = "";
+        this.claimed = true;
     }
 
     public boolean allowed(Product product) {
-        Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));
-        productTags.addAll(product.getProductType().toAllStrings());
-        Set<String> allowedTags = new HashSet<>(List.of(this.allowedTags.split(" ")));
-        return productTags.stream().anyMatch(allowedTags::contains);
+        return Logic.tagsAllowProduct(product, allowedTags);
     }
 }

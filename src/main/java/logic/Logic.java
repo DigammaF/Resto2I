@@ -2,8 +2,10 @@ package logic;
 
 import models.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  *
@@ -75,6 +77,16 @@ public class Logic {
         menu.getMenuItems().remove(menuItem);
     }
 
+    public static void addLiveMenuItem(LiveMenu liveMenu, LiveMenuItem liveMenuItem) {
+        liveMenu.getLiveMenuItems().add(liveMenuItem);
+        liveMenuItem.setLiveMenu(liveMenu);
+    }
+
+    public static void remLiveMenuItem(LiveMenu liveMenu, LiveMenuItem liveMenuItem) {
+        liveMenu.getLiveMenuItems().remove(liveMenuItem);
+        liveMenuItem.setLiveMenu(null);
+    }
+
     public static void addLiveMenu(Ticket ticket, LiveMenu liveMenu) {
         liveMenu.setTicket(ticket);
         ticket.getLiveMenus().add(liveMenu);
@@ -93,5 +105,12 @@ public class Logic {
     public static void remMenu(Restaurant restaurant, Menu menu) {
         menu.setRestaurant(null);
         restaurant.getMenus().remove(menu);
+    }
+
+    public static boolean tagsAllowProduct(Product product, String tags) {
+        Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));
+        productTags.addAll(product.getProductType().toAllStrings());
+        Set<String> allowedTags = new HashSet<>(List.of(tags.split(" ")));
+        return productTags.stream().anyMatch(allowedTags::contains);
     }
 }

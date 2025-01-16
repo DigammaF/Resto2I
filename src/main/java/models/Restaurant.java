@@ -183,6 +183,32 @@ public class Restaurant {
         return Optional.of(product);
     }
 
+    public Optional<LiveMenu> createLiveMenu(Ticket ticket, Menu menu) {
+        LiveMenu liveMenu = new LiveMenu();
+        liveMenu.setMenu(menu);
+        Logic.addLiveMenu(ticket, liveMenu);
+        for (MenuItem menuItem : menu.getMenuItems()) {
+            List<Product> availableProducts = this.products.stream().filter(menuItem::allowed).toList();
+            if (availableProducts.isEmpty()) { return Optional.empty(); }
+            LiveMenuItem liveMenuItem = new LiveMenuItem();
+            liveMenuItem.setLiveMenu(liveMenu);
+            liveMenuItem.setAllowedTags(menuItem.getAllowedTags());
+            liveMenuItem.setName(menuItem.getName());
+            LiveProduct liveProduct = new LiveProduct();
+            liveProduct.setCount(1);
+            liveProduct.setProduct(availableProducts.getFirst());
+            liveMenuItem.setLiveProduct(liveProduct);
+            Logic.addLiveMenuItem(liveMenu, liveMenuItem);
+        }
+        return Optional.of(liveMenu);
+    }
+
+    public Optional<Menu> createMenu() {
+        Menu menu = new Menu();
+        Logic.addMenu(this, menu);
+        return Optional.of(menu);
+    }
+
     /**
      *
      *  Initiates a ticket + statement duo
