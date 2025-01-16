@@ -75,14 +75,13 @@ public class MainView extends JFrame {
 
 
     private void updateNotificationPanelHeight() {
-        int notifHeight = (int) (this.getHeight() * 0.2); // 20%
-        this.notificationsPanel.setPreferredSize(new Dimension(westPanel.getWidth(), notifHeight));
-        this.notificationsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, notifHeight));
-        this.notificationsPanel.setMinimumSize(new Dimension(0, notifHeight));
+        int notificationHeight = (int) (this.getHeight() * 0.2); // 20%
+        this.notificationsPanel.setPreferredSize(new Dimension(westPanel.getWidth(), notificationHeight));
+        this.notificationsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, notificationHeight));
+        this.notificationsPanel.setMinimumSize(new Dimension(0, notificationHeight));
 
         this.westPanel.revalidate();
         this.westPanel.repaint();
-
     }
 
 
