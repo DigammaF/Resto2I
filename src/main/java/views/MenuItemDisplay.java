@@ -30,9 +30,17 @@ public class MenuItemDisplay extends JPanel {
         ));
         this.tagsLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.TAGS));
         this.tagsTextField = new JTextField(this.menuItem.getAllowedTags());
+        this.tagsTextField.addKeyListener(new Validate(
+                this.tagsTextField,
+                text -> context.perform(_ -> this.menuItem.setAllowedTags(text))
+        ));
     }
 
     private void initLayout() {
-
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(this.nameLabel);
+        this.add(this.nameTextField);
+        this.add(this.tagsLabel);
+        this.add(this.tagsTextField);
     }
 }
