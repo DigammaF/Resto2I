@@ -103,6 +103,7 @@ public class TicketEditor extends EditorPanel
                         this.liveMenusPanel.add(liveMenuDisplay);
                         context.getMainView().validate();
                         context.getMainView().repaint();
+                        this.notifyObservers(TicketEditorEvent.COST_CHANGE);
                     }),
                     () -> {
                         context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));

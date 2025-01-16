@@ -10,6 +10,7 @@ import models.LiveMenuItem;
 import models.Product;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,9 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
+        TextContent textContent = TextContent.getTextContent();
         this.nameLabel = new JLabel(this.liveMenu.getName());
-        this.costLabel = new JLabel(String.valueOf(this.liveMenu.getATICost()));
+        this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST) + ": " + String.valueOf(this.liveMenu.getATICost()) + "€");
         this.items = new ArrayList<>();
         for (LiveMenuItem liveMenuItem : this.liveMenu.getLiveMenuItems()) {
             ComboBoxModel<Product> model = new DefaultComboBoxModel<>(
@@ -95,6 +97,8 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
         TextContent textContent = TextContent.getTextContent();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(this.nameLabel);
+        this.add(this.costLabel);
+
         for (Item item : this.items) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
