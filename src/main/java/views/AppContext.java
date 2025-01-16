@@ -67,7 +67,7 @@ public class AppContext {
 
     public static void getAppContext(boolean demoMode) {
         if (appContext == null) { appContext = new AppContext(demoMode); }
-        if (demoMode) { getAppContext().getRestaurant().fillWithDummyValues(); }
+        appContext.perform(_ -> appContext.getRestaurant().fillWithDummyValues());
     }
 
     private AppContext(boolean demoMode) {
