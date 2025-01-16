@@ -68,7 +68,6 @@ public class ProductDisplay extends JPanel {
             }
         });
         this.taxComboBox.setSelectedItem(this.product.getTax());
-        if (this.product.getTax() == Product.DEFAULT_TAX) { this.taxComboBox.setBackground(Colors.STRANGE_VALUE_FIELD); }
         ComboBoxModel<ProductType> productTypeComboBoxModel = new DefaultComboBoxModel<>(ProductType.values());
         this.productTypeComboBox = new JComboBox<>(productTypeComboBoxModel);
         this.productTypeComboBox.addItemListener(event -> {

@@ -43,7 +43,9 @@ public class TextContent {
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET,
 
-        SHARED_TABLE_NUMBER_WARNING
+        SHARED_TABLE_NUMBER_WARNING,
+
+        TAX_CONDITIONED, TAX_INSTANT, TAX_ALCOHOL
     }
 
     public enum Language {
@@ -115,6 +117,10 @@ public class TextContent {
         this.texts.put(Key.CANNOT_CREATE_TICKET, make("Cannot create ticket", "Impossible de créer la commande"));
 
         this.texts.put(Key.SHARED_TABLE_NUMBER_WARNING, make("Two tables share the same number", "Deux tables partagent le même numéro"));
+
+        this.texts.put(Key.TAX_INSTANT, make("Instant", "Instantané"));
+        this.texts.put(Key.TAX_CONDITIONED, make("Conditioned", "Conditionné"));
+        this.texts.put(Key.TAX_ALCOHOL, make("Alcohol", "Alcool"));
     }
 
     static private Map<Language, String> make(String en, String fr) {
