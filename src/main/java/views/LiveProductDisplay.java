@@ -10,6 +10,7 @@ import models.LiveProduct;
 import models.Product;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -59,6 +60,13 @@ public class LiveProductDisplay extends JPanel
                 )
         );
         this.productsComboBox = new JComboBox<>(productsModel);
+        this.productsComboBox.addItemListener(event -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                this.liveProduct.setProduct((Product) event.getItem());
+                this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
+            }
+        });
+        this.productsComboBox.setSelectedItem(liveProduct.getProduct());
         this.countLabel = new JLabel("X");
         this.countField = new JTextField();
         this.countField.setText(Integer.toString(liveProduct.getCount()));

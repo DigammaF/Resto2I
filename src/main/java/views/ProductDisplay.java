@@ -51,6 +51,12 @@ public class ProductDisplay extends JPanel {
         this.costField.addKeyListener(new Validate(this.costField, text -> context.perform(_ -> this.product.setCost(Double.parseDouble(text)))));
         ComboBoxModel<Tax> taxComboBoxModel = new DefaultComboBoxModel<>(Tax.values());
         this.taxComboBox = new JComboBox<>(taxComboBoxModel);
+        this.taxComboBox.addItemListener(event -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                product.setTax((Tax) taxComboBox.getSelectedItem());
+            }
+        });
+        this.taxComboBox.setSelectedItem(this.product.getTax());
         ComboBoxModel<ProductType> productTypeComboBoxModel = new DefaultComboBoxModel<>(ProductType.values());
         this.productTypeComboBox = new JComboBox<>(productTypeComboBoxModel);
         this.productTypeComboBox.addItemListener(event -> {
