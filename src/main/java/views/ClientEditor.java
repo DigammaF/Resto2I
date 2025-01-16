@@ -70,16 +70,21 @@ public class ClientEditor extends JPanel {
                 );
                 this.autoCompleteButton.setText(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NEW_PROFILE_BUTTON));
                 this.nameField.setText(this.autoCompleteTarget.getName());
+                this.nameField.setBackground(Color.WHITE);
                 this.taxIDField.setText(this.autoCompleteTarget.getTaxID());
+                this.taxIDField.setBackground(Color.WHITE);
                 this.contactField.setText(this.autoCompleteTarget.getContact());
+                this.contactField.setBackground(Color.WHITE);
                 this.client = this.autoCompleteTarget;
                 this.autoCompleted = true;
             }
             else if (this.autoCompleted) {
                 this.autoCompleted = false;
                 this.autoCompleteLabel.setText(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_PROFILE_LABEL));
-                this.client = new Client();
-                Logic.addClient(context.getRestaurant(), this.client);
+                context.getRestaurant().createClient().ifPresentOrElse(
+                        (client -> { this.client = client; Logic.addClient(context.getRestaurant(), this.client); }),
+                        () -> { context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_CLIENT)); }
+                );
             }
         });
         this.autoCompleted = false;

@@ -6,6 +6,7 @@ import logic.ProductType;
 import logic.Tax;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -202,6 +203,8 @@ public class Restaurant {
         Logic.addStatement(this, statement);
         Logic.bindTicketStatement(ticket, statement);
         statement.setLatePenalty(this.latePenaltyPolicy);
+        ticket.setDate(new Date());
+        statement.setDue(ticket.getDate());
         Optional<Client> client = createClient();
         if (client.isPresent()) { statement.setClient(client.get()); }
         else { return false; }

@@ -41,8 +41,6 @@ public class MainView extends JFrame {
         this.notificationsPanel = new JPanel(new BorderLayout());
 
         this.notificationsPanel.add(this.notificationsTextArea);
-
-
     }
 
     private void initLayout() {
@@ -70,9 +68,7 @@ public class MainView extends JFrame {
                 updateNotificationPanelHeight();
             }
         });
-
     }
-
 
     private void updateNotificationPanelHeight() {
         int notificationHeight = (int) (this.getHeight() * 0.2); // 20%
@@ -84,8 +80,7 @@ public class MainView extends JFrame {
         this.westPanel.repaint();
     }
 
-
-        public void println(String text) {
+    public void println(String text) {
         this.notificationsTextArea.append(text + "\n");
     }
 }
