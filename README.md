@@ -20,7 +20,6 @@ todo
 - clément : gérer espaces
 - éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
 - Menus
-  - add menus in TicketEditor
   - views.MenuItemDisplay
   - views.MenuEditor
   - views.MenuDisplay
