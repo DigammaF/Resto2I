@@ -20,7 +20,6 @@ todo
 - clément : gérer espaces
 - éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
 - Menus
-  - LiveMenuItem -> add claimed
   - LiveMenuDisplay -> display LiveMenuItem name & claimed
   - LiveMenuDisplay layout
   - restaurant methods to create a LiveMenuItem and instantiate a LiveMenu from a Menu

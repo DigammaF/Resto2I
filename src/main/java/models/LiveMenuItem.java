@@ -24,6 +24,17 @@ public class LiveMenuItem {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "claimed", nullable = false)
+    private boolean claimed;
+
+    public boolean isClaimed() {
+        return claimed;
+    }
+
+    public void setClaimed(boolean claimed) {
+        this.claimed = claimed;
+    }
+
     public String getName() {
         return name;
     }
