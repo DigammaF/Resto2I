@@ -74,7 +74,7 @@ public class Logic {
         menuItem.setMenu(menu);
     }
 
-    public static void RemMenuitem(Menu menu, MenuItem menuItem) {
+    public static void remMenuitem(Menu menu, MenuItem menuItem) {
         menu.getMenuItems().remove(menuItem);
         menuItem.setMenu(null);
     }

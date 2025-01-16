@@ -1,9 +1,11 @@
 package views;
 
 import language.TextContent;
+import logic.Logic;
 import models.MenuItem;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class MenuItemDisplay extends JPanel {
     private MenuItem menuItem;
@@ -11,6 +13,7 @@ public class MenuItemDisplay extends JPanel {
     private JTextField nameTextField;
     private JLabel tagsLabel;
     private JTextField tagsTextField;
+    private JButton removeButton;
 
     public MenuItemDisplay(MenuItem menuItem) {
         super();
@@ -34,6 +37,18 @@ public class MenuItemDisplay extends JPanel {
                 this.tagsTextField,
                 text -> context.perform(_ -> this.menuItem.setAllowedTags(text))
         ));
+        this.removeButton = new JButton("X");
+        this.removeButton.addActionListener(_ -> {
+            if (context.perform(_ -> {
+                Logic.remMenuitem(this.menuItem.getMenu(), this.menuItem);
+            })) {
+                this.getParent().remove(this);
+                context.getMainView().validate();
+                context.getMainView().repaint();
+            } else {
+                context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
+            }
+        });
     }
 
     private void initLayout() {
@@ -42,5 +57,6 @@ public class MenuItemDisplay extends JPanel {
         this.add(this.nameTextField);
         this.add(this.tagsLabel);
         this.add(this.tagsTextField);
+        this.add(this.removeButton);
     }
 }

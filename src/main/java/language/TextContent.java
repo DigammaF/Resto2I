@@ -43,6 +43,7 @@ public class TextContent {
 
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET, CANNOT_CREATE_LIVE_MENU,
+        CANNOT_CREATE_MENU_ITEM,
 
         CANNOT_WRITE_DATABASE,
 
@@ -121,6 +122,7 @@ public class TextContent {
         this.texts.put(Key.CANNOT_CREATE_STATEMENT, make("Cannot create statement", "Impossible de créer la facture"));
         this.texts.put(Key.CANNOT_CREATE_TICKET, make("Cannot create ticket", "Impossible de créer la commande"));
         this.texts.put(Key.CANNOT_CREATE_LIVE_MENU, make("Cannot create menu", "Impossible de créer le menu"));
+        this.texts.put(Key.CANNOT_CREATE_MENU_ITEM, make("Cannot create menu item", "Impossible de créer l'objet dans le menu"));
 
         this.texts.put(Key.CANNOT_WRITE_DATABASE, make("Cannot write in database", "Impossible d'écrire dans la base de données"));
         
