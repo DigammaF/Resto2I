@@ -23,6 +23,7 @@ public class TicketEditor extends EditorPanel
 {
     private final Ticket ticket;
     private JPanel liveProductsPanel;
+    private JPanel liveMenusPanel;
 
     /**
      * Contains all the new buttons corresponding to each ProductType.

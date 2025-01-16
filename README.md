@@ -21,12 +21,15 @@ todo
 - éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
 - Menus
   - restaurant methods to create a LiveMenuItem and instantiate a LiveMenu from a Menu
-  - views.LiveMenuDisplay
-  - views.MenuDisplay
-  - views.MenuEditor
+  - add menus in dummy values
+  - add menus in TicketEditor
   - views.MenuItemDisplay
+  - views.MenuEditor
+  - views.MenuDisplay
   - views.MenusEditor
 - DatePicker fonctionnel
+- Sort the Product types in TicketEditor
+- test in real connected mode
 
 # Infos présentation
 

@@ -42,7 +42,7 @@ public class TextContent {
         CLIENT_EDITOR_NEW_PROFILE_BUTTON,
 
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
-        CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET,
+        CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET, CANNOT_CREATE_LIVE_MENU,
 
         SHARED_TABLE_NUMBER_WARNING,
 
@@ -117,6 +117,7 @@ public class TextContent {
         this.texts.put(Key.CANNOT_CREATE_PRODUCT, make("No usable product", "Pas de produit utilisable"));
         this.texts.put(Key.CANNOT_CREATE_STATEMENT, make("Cannot create statement", "Impossible de créer la facture"));
         this.texts.put(Key.CANNOT_CREATE_TICKET, make("Cannot create ticket", "Impossible de créer la commande"));
+        this.texts.put(Key.CANNOT_CREATE_LIVE_MENU, make("Cannot create menu", "Impossible de créer le menu"));
 
         this.texts.put(Key.SHARED_TABLE_NUMBER_WARNING, make("Two tables share the same number", "Deux tables partagent le même numéro"));
 
