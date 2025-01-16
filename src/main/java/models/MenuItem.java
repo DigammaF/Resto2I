@@ -2,10 +2,6 @@ package models;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  *
  *  A product slot in a LiveMenu
@@ -18,14 +14,14 @@ public class MenuItem {
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private LiveMenu liveMenu;
+    private Menu menu;
 
-    public LiveMenu getLiveMenu() {
-        return liveMenu;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setLiveMenu(LiveMenu liveMenu) {
-        this.liveMenu = liveMenu;
+    public void setMenu(Menu liveMenu) {
+        this.menu = liveMenu;
     }
 
     public String getAllowedTags() {
@@ -41,12 +37,5 @@ public class MenuItem {
 
     public MenuItem() {
         this.allowedTags = "";
-    }
-
-    public boolean allowed(Product product) {
-        Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));
-        productTags.addAll(product.getProductType().toAllStrings());
-        Set<String> allowedTags = new HashSet<>(List.of(this.allowedTags.split(" ")));
-        return productTags.stream().anyMatch(allowedTags::contains);
     }
 }

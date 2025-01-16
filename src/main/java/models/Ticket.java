@@ -35,8 +35,15 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
     private List<LiveProduct> liveProducts;
 
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<LiveMenu> liveMenus;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "ticket")
     private Statement statement;
+
+    public List<LiveMenu> getLiveMenus() {
+        return liveMenus;
+    }
 
     public Statement getStatement() {
         return statement;
@@ -82,16 +89,16 @@ public class Ticket {
         return liveProducts;
     }
 
-    public void setLiveProducts(List<LiveProduct> liveProducts) {
-        this.liveProducts = liveProducts;
-    }
-
-    public Ticket(boolean emitted, Restaurant restaurant, Date date, int tableNumber, List<LiveProduct> liveProducts) {
+    public Ticket(
+            boolean emitted, Restaurant restaurant, Date date, int tableNumber, List<LiveProduct> liveProducts,
+            List<LiveMenu> liveMenus
+    ) {
         this.emitted = emitted;
         this.restaurant = restaurant;
         this.date = date;
         this.tableNumber = tableNumber;
         this.liveProducts = liveProducts;
+        this.liveMenus = liveMenus;
     }
 
     public Ticket() {
@@ -99,13 +106,20 @@ public class Ticket {
         this.date = new Date();
         this.tableNumber = DEFAULT_TABLE_NUMBER;
         this.liveProducts = new ArrayList<>();
+        this.liveMenus = new ArrayList<>();
     }
 
     public double getTotalCost() {
-        return this.liveProducts.stream().map(LiveProduct::getCost).reduce(0.0, Double::sum);
+        return
+                this.liveProducts.stream().map(LiveProduct::getCost).reduce(0.0, Double::sum)
+                + this.liveMenus.stream().map(LiveMenu::getCost).reduce(0.0, Double::sum)
+        ;
     }
 
     public double getTotalATICost() {
-        return this.liveProducts.stream().map(LiveProduct::getATICost).reduce(0.0, Double::sum);
+        return
+                this.liveProducts.stream().map(LiveProduct::getATICost).reduce(0.0, Double::sum)
+                + this.liveMenus.stream().map(LiveMenu::getATICost).reduce(0.0, Double::sum)
+        ;
     }
 }

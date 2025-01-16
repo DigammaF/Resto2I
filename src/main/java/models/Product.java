@@ -12,7 +12,7 @@ import logic.Tax;
 @Entity
 public class Product {
     public static boolean DEFAULT_AVAILABLE = false;
-    public static String DEFAULT_NAME = "unamed";
+    public static String DEFAULT_NAME = "unnamed";
     public static double DEFAULT_COST = 0.0;
     public static Tax DEFAULT_TAX = Tax.INSTANT;
     public static ProductType DEFAULT_PRODUCT_TYPE = ProductType.DEFAULT;

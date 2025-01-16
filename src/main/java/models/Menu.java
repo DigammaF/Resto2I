@@ -2,6 +2,8 @@ package models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 /**
  *
  *  A group of MenuItem s
@@ -9,6 +11,9 @@ import jakarta.persistence.*;
  */
 @Entity
 public class Menu {
+    public static String DEFAULT_NAME = "unnamed";
+    public static double DEFAULT_COST = 0.0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,6 +26,24 @@ public class Menu {
 
     @Column(name = "available")
     private boolean available;
+
+    @Column(name = "cost")
+    private double cost;
+
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    private List<MenuItem> menuItems;
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
     public boolean isAvailable() {
         return available;
@@ -47,6 +70,7 @@ public class Menu {
     }
 
     public Menu() {
-        this.name = "";
+        this.name = DEFAULT_NAME;
+        this.cost = DEFAULT_COST;
     }
 }

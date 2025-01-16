@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Tax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +21,17 @@ public class LiveMenu {
     private Menu menu;
 
     @OneToMany(mappedBy = "liveMenu", cascade = CascadeType.ALL)
-    private List<MenuItem> menuItems;
+    private List<LiveMenuItem> liveMenuItems;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Restaurant restaurant;
+    private Ticket ticket;
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     public Menu getMenu() {
@@ -41,11 +42,27 @@ public class LiveMenu {
         this.menu = menu;
     }
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
+    public List<LiveMenuItem> getLiveMenuItems() {
+        return liveMenuItems;
     }
 
     public LiveMenu() {
-        this.menuItems = new ArrayList<MenuItem>();
+        this.liveMenuItems = new ArrayList<LiveMenuItem>();
+    }
+
+    public double getCost() {
+        return this.menu.getCost();
+    }
+
+    public Tax computeTax() {
+        return Tax.INSTANT;
+    }
+
+    public double getATICost() {
+        return this.computeTax().applied(this.menu.getCost());
+    }
+
+    public String getName() {
+        return this.menu.getName();
     }
 }

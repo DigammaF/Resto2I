@@ -67,22 +67,22 @@ public class Logic {
         return Optional.empty();
     }
 
-    public static void addMenuItem(LiveMenu liveMenu, MenuItem menuItem) {
-        liveMenu.getMenuItems().add(menuItem);
+    public static void addMenuItem(Menu menu, MenuItem menuItem) {
+        menu.getMenuItems().add(menuItem);
     }
 
-    public static void RemMenuitem(LiveMenu liveMenu, MenuItem menuItem) {
-        liveMenu.getMenuItems().remove(menuItem);
+    public static void RemMenuitem(Menu menu, MenuItem menuItem) {
+        menu.getMenuItems().remove(menuItem);
     }
 
-    public static void addLiveMenu(Restaurant restaurant, LiveMenu liveMenu) {
-        liveMenu.setRestaurant(restaurant);
-        restaurant.getLiveMenus().add(liveMenu);
+    public static void addLiveMenu(Ticket ticket, LiveMenu liveMenu) {
+        liveMenu.setTicket(ticket);
+        ticket.getLiveMenus().add(liveMenu);
     }
 
-    public static void remLiveMenu(Restaurant restaurant, LiveMenu liveMenu) {
-        liveMenu.setRestaurant(null);
-        restaurant.getLiveMenus().remove(liveMenu);
+    public static void remLiveMenu(Ticket ticket, LiveMenu liveMenu) {
+        liveMenu.setTicket(null);
+        ticket.getLiveMenus().remove(liveMenu);
     }
 
     public static void addMenu(Restaurant restaurant, Menu menu) {

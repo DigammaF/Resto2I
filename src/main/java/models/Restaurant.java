@@ -52,9 +52,6 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Menu> menus;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<LiveMenu> liveMenus;
-
     public String getName() {
         return name;
     }
@@ -131,14 +128,10 @@ public class Restaurant {
         return menus;
     }
 
-    public List<LiveMenu> getLiveMenus() {
-        return liveMenus;
-    }
-
     public Restaurant(String name, String email, String address, String phone,
                       String tax_id, String SIREN, String latePenaltyPolicy,
                       List<Product> products, List<Ticket> tickets, List<Statement> statements,
-                      List<Client> clients, List<Menu> menus, List<LiveMenu> liveMenus
+                      List<Client> clients, List<Menu> menus
     ) {
         this.name = name;
         this.email = email;
@@ -152,7 +145,6 @@ public class Restaurant {
         this.statements = statements;
         this.clients = clients;
         this.menus = menus;
-        this.liveMenus = liveMenus;
     }
 
     public Restaurant() {
@@ -168,7 +160,6 @@ public class Restaurant {
         this.statements = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.menus = new ArrayList<>();
-        this.liveMenus = new ArrayList<>();
     }
 
     public Optional<Client> createClient() {
