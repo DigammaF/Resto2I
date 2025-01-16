@@ -65,6 +65,8 @@ public class TicketEditor extends EditorPanel
             liveProductDisplay.addObserver(this);
             this.liveProductsPanel.add(liveProductDisplay);
         }
+
+        this.liveMenusPanel = new JPanel();
     }
 
     private void initLayout() {

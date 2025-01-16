@@ -252,7 +252,7 @@ public class Restaurant {
         for (ProductType productType : ProductType.values()) {
             for (int n = 0; n < 6; n++) {
                 Logic.addProduct(this, new Product(
-                        this, true, Generation.generateRandomString(6),
+                        this, true, productType.toString() + " " + Generation.generateRandomString(6),
                         Generation.generateRandomInt(1, 60), Tax.INSTANT, true, productType, ""
                 ));
             }

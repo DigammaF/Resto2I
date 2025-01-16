@@ -2,6 +2,7 @@ package models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,5 +73,6 @@ public class Menu {
     public Menu() {
         this.name = DEFAULT_NAME;
         this.cost = DEFAULT_COST;
+        this.menuItems = new ArrayList<MenuItem>();
     }
 }
