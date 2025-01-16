@@ -19,6 +19,8 @@ public class ProductDisplay extends JPanel {
     private JTextField costField;
     private JComboBox<Tax> taxComboBox;
     private JComboBox<ProductType> productTypeComboBox;
+    private JLabel tagsLabel;
+    private JTextField tagsTextField;
     private JButton removeButton;
 
     public Product getProduct() {
@@ -53,7 +55,7 @@ public class ProductDisplay extends JPanel {
         ));
         if (Objects.equals(this.product.getName(), Product.DEFAULT_NAME)) { this.productNameTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST));
-        this.costField = new JTextField();
+        this.costField = new JTextField(10);
         this.costField.setText(Double.toString(this.product.getCost()));
         this.costField.addKeyListener(new Validate(this.costField, text -> context.perform(_ -> this.product.setCost(Double.parseDouble(text)))));
         if (this.product.getCost() == Product.DEFAULT_COST) { this.costField.setBackground(Colors.STRANGE_VALUE_FIELD); }
@@ -77,6 +79,10 @@ public class ProductDisplay extends JPanel {
         });
         this.productTypeComboBox.setSelectedItem(this.product.getProductType());
         if (this.product.getProductType() == Product.DEFAULT_PRODUCT_TYPE) { this.productTypeComboBox.setBackground(Colors.STRANGE_VALUE_FIELD); }
+        this.tagsLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.TAGS));
+        this.tagsTextField = new JTextField(10);
+        this.tagsTextField.setText(this.product.getTags());
+        this.tagsTextField.addKeyListener(new Validate(this.tagsTextField, text -> context.perform(_ -> this.product.setTags(text))));
         this.removeButton = new JButton("X");
         ProductDisplay productDisplay = this;
         this.removeButton.addActionListener(_ -> {
@@ -97,6 +103,8 @@ public class ProductDisplay extends JPanel {
         this.add(this.costField);
         this.add(this.taxComboBox);
         this.add(this.productTypeComboBox);
+        this.add(this.tagsLabel);
+        this.add(this.tagsTextField);
         this.add(this.removeButton);
     }
 

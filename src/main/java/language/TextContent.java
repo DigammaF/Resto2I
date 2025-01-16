@@ -15,7 +15,7 @@ public class TextContent {
         EDIT, EMITTED, YES, NO, AVAILABLE,
         NAME, COST, ADDRESS, PHONE, EMAIL, TAXID, SIREN,
         CONTACT, SOFT_DRINK, ALCOHOL, ENTREE, MEAL, DESSERT,
-        DATE, DUE_DATE, DEFAULT, CLIENT, TICKET, STATEMENT,
+        DATE, DUE_DATE, DEFAULT, CLIENT, TICKET, STATEMENT, TAGS,
 
         MENU_PRODUCTS_EDITOR_BUTTON,
         MENU_TICKETS_EDITOR_BUTTON,
@@ -83,6 +83,7 @@ public class TextContent {
         this.texts.put(Key.CLIENT, make("Client", "Client"));
         this.texts.put(Key.TICKET, make("Ticket", "Commande"));
         this.texts.put(Key.STATEMENT, make("Statement", "Facture"));
+        this.texts.put(Key.TAGS, make("Tags", "Etiquettes"));
 
         this.texts.put(Key.MENU_PRODUCTS_EDITOR_BUTTON, make("Product editor", "Editeur de produit"));
         this.texts.put(Key.MENU_TICKETS_EDITOR_BUTTON, make("Ticket editor", "Editeur de commande"));
