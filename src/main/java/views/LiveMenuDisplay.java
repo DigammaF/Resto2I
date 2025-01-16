@@ -61,29 +61,40 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
             JButton claimedButton = new JButton();
             claimedButton.setText(getClaimedButtonText(liveMenuItem));
             claimedButton.addActionListener(_ -> {
-                liveMenuItem.setClaimed(!liveMenuItem.isClaimed());
-                claimedButton.setText(getClaimedButtonText(liveMenuItem));
+                if (context.perform(_ -> liveMenuItem.setClaimed(!liveMenuItem.isClaimed()))) {
+                    claimedButton.setText(getClaimedButtonText(liveMenuItem));
+                } else {
+                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
+                }
             });
             this.items.add(new Item(comboBox, claimedButton));
         }
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
-            Logic.remLiveMenu(this.liveMenu.getTicket(), this.liveMenu);
-            this.getParent().remove(this);
-            context.getMainView().validate();
-            context.getMainView().repaint();
-            this.notifyObservers(new LiveMenuDisplayEvents.CostChanged());
-            this.notifyObservers(new LiveMenuDisplayEvents.Removed(this));
+            if (context.perform(_ -> Logic.remLiveMenu(this.liveMenu.getTicket(), this.liveMenu))) {
+                this.getParent().remove(this);
+                context.getMainView().validate();
+                context.getMainView().repaint();
+                this.notifyObservers(new LiveMenuDisplayEvents.CostChanged());
+                this.notifyObservers(new LiveMenuDisplayEvents.Removed(this));
+            } else {
+                context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
+            }
         });
     }
 
     private JComboBox<Product> getProductJComboBox(LiveMenuItem liveMenuItem, ComboBoxModel<Product> productsModel) {
+        AppContext context = AppContext.getAppContext();
+        TextContent textContent = TextContent.getTextContent();
         JComboBox<Product> liveMenuItemComboBox = new JComboBox<>(productsModel);
         liveMenuItemComboBox.setSelectedItem(liveMenuItem.getLiveProduct().getProduct());
         liveMenuItemComboBox.addItemListener(event -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
-                liveMenuItem.getLiveProduct().setProduct((Product) event.getItem());
-                this.notifyObservers(new LiveMenuDisplayEvents.CostChanged());
+                if (context.perform(_ -> liveMenuItem.getLiveProduct().setProduct((Product) event.getItem()))) {
+                    this.notifyObservers(new LiveMenuDisplayEvents.CostChanged());
+                } else {
+                    context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
+                }
             }
         });
         return liveMenuItemComboBox;
