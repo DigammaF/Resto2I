@@ -262,5 +262,9 @@ public class Restaurant {
         this.createMenuItem(menu).get().withName("ONE");
         this.createMenuItem(menu).get().withName("TWO");
         this.createMenuItem(menu).get().withName("THREE");
+        menu = this.createMenu().get();
+        this.createMenuItem(menu).get().withName(":ONE");
+        this.createMenuItem(menu).get().withName(":TWO");
+        this.createMenuItem(menu).get().withName(":THREE");
     }
 }

@@ -10,6 +10,7 @@ import logic.Observer;
 import logic.ProductType;
 import models.LiveMenu;
 import models.LiveProduct;
+import models.Menu;
 import models.Ticket;
 import views.style.EditorPanel;
 
@@ -26,6 +27,7 @@ public class TicketEditor extends EditorPanel
     private final Ticket ticket;
     private JPanel liveProductsPanel;
     private JPanel liveMenusPanel;
+    private JPanel addMenuPanel;
 
     /**
      * Contains all the new buttons corresponding to each ProductType.
@@ -37,7 +39,7 @@ public class TicketEditor extends EditorPanel
 
     private class LiveMenuDisplayObserver implements Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
         private TicketEditor ticketEditor;
-        public void setTicketEditor(TicketEditor ticketEditor) { this.ticketEditor = ticketEditor; }
+        public LiveMenuDisplayObserver(TicketEditor ticketEditor) { this.ticketEditor = ticketEditor; }
         public void onEvent(LiveMenuDisplayEvents.LiveMenuDisplayEvent event) { this.ticketEditor.onEvent(event); }
     }
 
@@ -47,7 +49,7 @@ public class TicketEditor extends EditorPanel
         super();
         this.ticket = ticket;
         this.ticketEditorEventObservers = new ArrayList<>();
-        this.liveMenuDisplayObserver = new LiveMenuDisplayObserver();
+        this.liveMenuDisplayObserver = new LiveMenuDisplayObserver(this);
         this.initComponents();
         this.initLayout();
     }
@@ -80,8 +82,34 @@ public class TicketEditor extends EditorPanel
             LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
             liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
             this.liveMenusPanel.add(liveMenuDisplay);
-
         }
+
+        this.addMenuPanel = new JPanel();
+
+        for (Menu menu : context.getRestaurant().getMenus()) {
+            JButton button = getButton(menu, context, textContent);
+            this.addMenuPanel.add(button);
+        }
+    }
+
+    private JButton getButton(Menu menu, AppContext context, TextContent textContent) {
+        JButton button = new JButton();
+        button.setText(menu.getName());
+        button.addActionListener(_ -> {
+            context.getRestaurant().createLiveMenu(this.ticket, menu).ifPresentOrElse(
+                    (liveMenu -> {
+                        LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
+                        liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
+                        this.liveMenusPanel.add(liveMenuDisplay);
+                        context.getMainView().validate();
+                        context.getMainView().repaint();
+                    }),
+                    () -> {
+                        context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));
+                    }
+            );
+        });
+        return button;
     }
 
     private void initLayout() {
@@ -94,6 +122,8 @@ public class TicketEditor extends EditorPanel
         this.add(buttonsPanel);
         this.liveProductsPanel.setLayout(new BoxLayout(this.liveProductsPanel, BoxLayout.Y_AXIS));
         this.add(this.liveProductsPanel);
+        this.addMenuPanel.setLayout(new BoxLayout(this.addMenuPanel, BoxLayout.X_AXIS));
+        this.add(this.addMenuPanel);
         this.liveMenusPanel.setLayout(new BoxLayout(this.liveMenusPanel, BoxLayout.X_AXIS));
         this.add(this.liveMenusPanel);
     }

@@ -17,8 +17,9 @@ import java.util.Vector;
 
 public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
     private LiveMenu liveMenu;
-    private JLabel liveMenuNameLabel;
-    private List<Item> liveMenuItems;
+    private JLabel nameLabel;
+    private JLabel costLabel;
+    private List<Item> items;
     private JButton removeButton;
 
     private List<Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent>> observers;
@@ -42,8 +43,9 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
-        this.liveMenuNameLabel = new JLabel(this.liveMenu.getName());
-        this.liveMenuItems = new ArrayList<>();
+        this.nameLabel = new JLabel(this.liveMenu.getName());
+        this.costLabel = new JLabel(String.valueOf(this.liveMenu.getATICost()));
+        this.items = new ArrayList<>();
         for (LiveMenuItem liveMenuItem : this.liveMenu.getLiveMenuItems()) {
             ComboBoxModel<Product> model = new DefaultComboBoxModel<>(
                     new Vector<>(
@@ -59,7 +61,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
                 liveMenuItem.setClaimed(!liveMenuItem.isClaimed());
                 claimedButton.setText(getClaimedButtonText(liveMenuItem));
             });
-            this.liveMenuItems.add(new Item(comboBox, claimedButton));
+            this.items.add(new Item(comboBox, claimedButton));
         }
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
@@ -92,8 +94,8 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(this.liveMenuNameLabel);
-        for (Item item : this.liveMenuItems) {
+        this.add(this.nameLabel);
+        for (Item item : this.items) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
             panel.add(item.comboBox);
@@ -114,7 +116,8 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
     }
 
     public void notifyObservers(LiveMenuDisplayEvents.LiveMenuDisplayEvent event) {
-        for (Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> observer : this.observers) {
+        List<Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent>> observers = this.observers.stream().toList();
+        for (Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> observer : observers) {
             observer.onEvent(event);
         }
     }
