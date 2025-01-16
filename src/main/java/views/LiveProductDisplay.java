@@ -83,16 +83,12 @@ public class LiveProductDisplay extends JPanel
         this.removeButton = new JButton("X");
         LiveProductDisplay liveProductDisplay = this;
         this.removeButton.addActionListener(_ -> {
-            if (context.perform(entityManager -> {
-                Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
-                entityManager.remove(liveProduct);
-            })) {
-                liveProductDisplay.getParent().remove(liveProductDisplay);
-                context.getMainView().validate();
-                context.getMainView().repaint();
-                this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
-                this.notifyObservers(new LiveProductDisplayEvents.Removed(this));
-            }
+            Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
+            liveProductDisplay.getParent().remove(liveProductDisplay);
+            context.getMainView().validate();
+            context.getMainView().repaint();
+            this.notifyObservers(new LiveProductDisplayEvents.CostChanged());
+            this.notifyObservers(new LiveProductDisplayEvents.Removed(this));
         });
     }
 

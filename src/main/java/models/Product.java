@@ -25,9 +25,15 @@ public class Product {
         return id;
     }
 
+    /**
+     * Available to clients?
+     */
     @Column(name = "available", nullable = false)
     private boolean available;
 
+    /**
+     * Available in the editor?
+     */
     @Column(name = "used", nullable = false)
     private boolean used;
 
