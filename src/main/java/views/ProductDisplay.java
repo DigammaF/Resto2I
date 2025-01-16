@@ -5,6 +5,7 @@ import logic.ProductType;
 import logic.Tax;
 import models.Product;
 import views.style.Colors;
+import views.style.Paddings;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -95,16 +96,27 @@ public class ProductDisplay extends JPanel {
 
     private void initLayout() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            this.add(Box.createHorizontalStrut(Paddings.OUTSIDE));
         this.add(this.availableButton);
+            this.add(Box.createHorizontalStrut(Paddings.MEDIUM));
         this.add(this.productNameLabel);
+            this.add(Box.createHorizontalStrut(Paddings.SMALL));
         this.add(this.productNameTextField);
+            this.add(Box.createHorizontalStrut(Paddings.MEDIUM));
         this.add(this.costLabel);
+            this.add(Box.createHorizontalStrut(Paddings.SMALL));
         this.add(this.costField);
+            this.add(Box.createHorizontalStrut(Paddings.MEDIUM));
         this.add(this.taxComboBox);
+            this.add(Box.createHorizontalStrut(Paddings.MEDIUM));
         this.add(this.productTypeComboBox);
+            this.add(Box.createHorizontalStrut(Paddings.SMALL));
         this.add(this.tagsLabel);
+            this.add(Box.createHorizontalStrut(Paddings.SMALL));
         this.add(this.tagsTextField);
+            this.add(Box.createHorizontalStrut(Paddings.MEDIUM));
         this.add(this.removeButton);
+            this.add(Box.createHorizontalStrut(Paddings.OUTSIDE));
     }
 
     private String getAvailableButtonText() {
