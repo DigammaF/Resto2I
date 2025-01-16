@@ -1,5 +1,6 @@
 package views;
 
+import events.LiveMenuDisplayEvents;
 import events.LiveProductDisplayEvents;
 import events.LiveProductDisplayEvents.LiveProductDisplayEvent;
 import events.TicketEditorEvent;
@@ -7,6 +8,7 @@ import language.TextContent;
 import logic.Observable;
 import logic.Observer;
 import logic.ProductType;
+import models.LiveMenu;
 import models.LiveProduct;
 import models.Ticket;
 import views.style.EditorPanel;
@@ -31,14 +33,21 @@ public class TicketEditor extends EditorPanel
      */
     private HashMap<ProductType, JButton> newButtons;
 
-    private JScrollPane liveProductsScrollPane;
-
     private final ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
+
+    private class LiveMenuDisplayObserver implements Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
+        private TicketEditor ticketEditor;
+        public void setTicketEditor(TicketEditor ticketEditor) { this.ticketEditor = ticketEditor; }
+        public void onEvent(LiveMenuDisplayEvents.LiveMenuDisplayEvent event) { this.ticketEditor.onEvent(event); }
+    }
+
+    private LiveMenuDisplayObserver liveMenuDisplayObserver;
 
     public TicketEditor(Ticket ticket) {
         super();
         this.ticket = ticket;
         this.ticketEditorEventObservers = new ArrayList<>();
+        this.liveMenuDisplayObserver = new LiveMenuDisplayObserver();
         this.initComponents();
         this.initLayout();
     }
@@ -58,7 +67,6 @@ public class TicketEditor extends EditorPanel
         }
 
         this.liveProductsPanel = new JPanel();
-        this.liveProductsScrollPane = new JScrollPane(liveProductsPanel);
 
         for (LiveProduct liveProduct : this.ticket.getLiveProducts()) {
             LiveProductDisplay liveProductDisplay = new LiveProductDisplay(liveProduct);
@@ -67,21 +75,27 @@ public class TicketEditor extends EditorPanel
         }
 
         this.liveMenusPanel = new JPanel();
+
+        for (LiveMenu liveMenu : this.ticket.getLiveMenus()) {
+            LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
+            liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
+            this.liveMenusPanel.add(liveMenuDisplay);
+
+        }
     }
 
     private void initLayout() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-
         for (JButton currentButton : newButtons.values()) {
             buttonsPanel.add(currentButton);
         }
-
+        this.add(buttonsPanel);
         this.liveProductsPanel.setLayout(new BoxLayout(this.liveProductsPanel, BoxLayout.Y_AXIS));
-        this.setLayout(new BorderLayout());
-        this.add(buttonsPanel, BorderLayout.NORTH);
-        this.add(this.liveProductsScrollPane, BorderLayout.CENTER);
-        this.add(Box.createHorizontalStrut(500), BorderLayout.SOUTH);
+        this.add(this.liveProductsPanel);
+        this.liveMenusPanel.setLayout(new BoxLayout(this.liveMenusPanel, BoxLayout.X_AXIS));
+        this.add(this.liveMenusPanel);
     }
 
     @Override
@@ -104,6 +118,11 @@ public class TicketEditor extends EditorPanel
     public void onEvent(LiveProductDisplayEvent event) {
         if (event instanceof LiveProductDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
         if (event instanceof LiveProductDisplayEvents.Removed removed) { removed.liveProductDisplay.removeObserver(this); }
+    }
+
+    public void onEvent(LiveMenuDisplayEvents.LiveMenuDisplayEvent event) {
+        if (event instanceof LiveMenuDisplayEvents.CostChanged) { this.notifyObservers(TicketEditorEvent.COST_CHANGE); }
+        if (event instanceof LiveMenuDisplayEvents.Removed removed) { removed.liveMenuDisplay.removeObserver(this.liveMenuDisplayObserver); }
     }
 
     private ActionListener makeActionListener(ProductType productTypeParam){
