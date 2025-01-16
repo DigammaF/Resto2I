@@ -213,10 +213,10 @@ public class Restaurant {
 
     public void fillWithDummyValues() {
         Logic.addProduct(this, new Product(
-                this, true, "AAA", 10, Tax.ALCOHOL, true, ProductType.ALCOHOL
+                this, true, "AAA", 10, Tax.ALCOHOL, true, ProductType.ALCOHOL, ""
         ));
         Logic.addProduct(this, new Product(
-                this, true, "BBB", 20, Tax.ALCOHOL, true, ProductType.ALCOHOL
+                this, true, "BBB", 20, Tax.ALCOHOL, true, ProductType.ALCOHOL, ""
         ));
         Logic.addClient(this, new Client(this, "Alice", "ALICE TAX ID", "ALICE CONTACT"));
         Logic.addClient(this, new Client(this, "First", "FIRST TAX ID", "FIRST CONTACT"));

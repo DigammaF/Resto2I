@@ -66,4 +66,6 @@ public class Logic {
         }
         return Optional.empty();
     }
+
+    public static void
 }

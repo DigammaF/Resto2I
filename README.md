@@ -20,6 +20,15 @@ todo
 - clément : gérer espaces
 - éliminer tout les AppContext.perform inutiles (la plupart du temps utilisés pour EntityManager.persist ce qui est inutile en raison du caractère en cascade de la persistence)
 - Menus
+  - views.MenuDisplay
+  - views.MenusEditor
+  - views.MenuEditor
+  - views.MenuItemDisplay
+  - views.LiveMenuDisplay
+  - models.MenuItem
+  - models.Menu
+  - models.LiveMenu
+- DatePicker fonctionnel
 
 # Infos présentation
 

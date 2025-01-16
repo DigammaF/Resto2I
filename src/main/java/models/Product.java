@@ -54,6 +54,17 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 
+    @Column(name = "tags", nullable = false)
+    private String tags;
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     public ProductType getProductType() {
         return productType;
     }
@@ -112,7 +123,8 @@ public class Product {
 
     public Product(
             Restaurant restaurant,
-            boolean available, String name, double cost, Tax tax, boolean used, ProductType productType
+            boolean available, String name, double cost, Tax tax, boolean used, ProductType productType,
+            String tags
     ) {
         this.available = available;
         this.name = name;
@@ -121,6 +133,7 @@ public class Product {
         this.restaurant = restaurant;
         this.used = used;
         this.productType = productType;
+        this.tags = tags;
     }
 
     public Product() {
@@ -130,6 +143,7 @@ public class Product {
         this.tax = DEFAULT_TAX;
         this.used = true;
         this.productType = DEFAULT_PRODUCT_TYPE;
+        this.tags = "";
     }
 
     public double getATICost() {
