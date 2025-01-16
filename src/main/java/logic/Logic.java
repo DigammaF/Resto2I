@@ -108,6 +108,7 @@ public class Logic {
     }
 
     public static boolean tagsAllowProduct(Product product, String tags) {
+        if (tags.isEmpty()) { return true; }
         Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));
         productTags.addAll(product.getProductType().toAllStrings());
         Set<String> allowedTags = new HashSet<>(List.of(tags.split(" ")));

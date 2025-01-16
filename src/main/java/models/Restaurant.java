@@ -1,10 +1,12 @@
 package models;
 
 import jakarta.persistence.*;
+import logic.Generation;
 import logic.Logic;
 import logic.ProductType;
 import logic.Tax;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -209,6 +211,12 @@ public class Restaurant {
         return Optional.of(menu);
     }
 
+    public Optional<MenuItem> createMenuItem(Menu menu) {
+        MenuItem menuItem = new MenuItem();
+        Logic.addMenuItem(menu, menuItem);
+        return Optional.of(menuItem);
+    }
+
     /**
      *
      *  Initiates a ticket + statement duo
@@ -240,5 +248,19 @@ public class Restaurant {
         Logic.addClient(this, new Client(this, "Alice", "ALICE TAX ID", "ALICE CONTACT"));
         Logic.addClient(this, new Client(this, "First", "FIRST TAX ID", "FIRST CONTACT"));
         this.address = "221B Baker Street";
+
+        for (ProductType productType : ProductType.values()) {
+            for (int n = 0; n < 6; n++) {
+                Logic.addProduct(this, new Product(
+                        this, true, Generation.generateRandomString(6),
+                        Generation.generateRandomInt(1, 60), Tax.INSTANT, true, productType, ""
+                ));
+            }
+        }
+
+        Menu menu = this.createMenu().get();
+        this.createMenuItem(menu).get().withName("ONE");
+        this.createMenuItem(menu).get().withName("TWO");
+        this.createMenuItem(menu).get().withName("THREE");
     }
 }

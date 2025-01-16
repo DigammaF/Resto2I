@@ -58,4 +58,9 @@ public class MenuItem {
     public boolean allowed(Product product) {
         return Logic.tagsAllowProduct(product, allowedTags);
     }
+
+    public MenuItem withName(String name) {
+        this.name = name;
+        return this;
+    }
 }
