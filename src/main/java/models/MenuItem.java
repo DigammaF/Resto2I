@@ -16,6 +16,20 @@ public class MenuItem {
     @ManyToOne(cascade = CascadeType.ALL)
     private Menu menu;
 
+    @Column(name = "allowedTags", nullable = false)
+    private String allowedTags;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -31,9 +45,6 @@ public class MenuItem {
     public void setAllowedTags(String allowedTags) {
         this.allowedTags = allowedTags;
     }
-
-    @Column(name = "allowedTags", nullable = false)
-    private String allowedTags;
 
     public MenuItem() {
         this.allowedTags = "";

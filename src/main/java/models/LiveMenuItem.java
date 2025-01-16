@@ -21,6 +21,17 @@ public class LiveMenuItem {
     @OneToOne(cascade = CascadeType.ALL)
     private LiveProduct liveProduct;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public LiveProduct getLiveProduct() {
         return liveProduct;
     }
