@@ -36,6 +36,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
     }
 
     public LiveMenuDisplay(LiveMenu liveMenu) {
+        super();
         this.liveMenu = liveMenu;
         this.observers = new ArrayList<>();
         this.initComponents();
