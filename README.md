@@ -18,9 +18,6 @@ todo
 # TODO List
 
 - clément : gérer espaces
-- DatePicker fonctionnel
-- Sort the Product types in TicketEditor
-- test in real connected mode
 
 # Infos présentation
 
