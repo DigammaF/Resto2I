@@ -31,14 +31,16 @@ public class MenuEditor extends JPanel {
         TextContent textContent = TextContent.getTextContent();
         this.availableButton = new FlatButton(this.getAvailableButtonText());
         this.nameLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.NAME));
-        this.nameTextField = new JTextField(this.menu.getName());
+        this.nameTextField = new JTextField(20);
+        this.nameTextField.setText(this.menu.getName());
         this.nameTextField.addKeyListener(new Validate(
                 this.nameTextField,
                 text -> context.perform(_ -> this.menu.setName(text))
         ));
         if (Objects.equals(this.menu.getName(), Menu.DEFAULT_NAME)) { this.nameTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST));
-        this.costTextField = new JTextField(String.valueOf(this.menu.getCost()));
+        this.costTextField = new JTextField(20);
+        this.costTextField.setText(String.valueOf(this.menu.getCost()));
         this.costTextField.addKeyListener(new Validate(
                 this.costTextField,
                 text -> context.perform(_ -> this.menu.setCost(Integer.parseInt(text)))
