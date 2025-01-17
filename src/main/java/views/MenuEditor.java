@@ -4,6 +4,7 @@ import language.TextContent;
 import models.Menu;
 import models.MenuItem;
 import views.style.Colors;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class MenuEditor extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.availableButton = new JButton(this.getAvailableButtonText());
+        this.availableButton = new FlatButton(this.getAvailableButtonText());
         this.nameLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.NAME));
         this.nameTextField = new JTextField(this.menu.getName());
         this.nameTextField.addKeyListener(new Validate(
@@ -43,7 +44,7 @@ public class MenuEditor extends JPanel {
                 text -> context.perform(_ -> this.menu.setCost(Integer.parseInt(text)))
         ));
         if (this.menu.getCost() == Menu.DEFAULT_COST) { this.costTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
-        this.newItemButton = new JButton("+");
+        this.newItemButton = new FlatButton("+");
         this.newItemButton.addActionListener(_ -> {
             if (!context.perform(_ -> {
                 context.getRestaurant().createMenuItem(this.menu).ifPresentOrElse(

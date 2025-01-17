@@ -4,6 +4,7 @@ import language.TextContent;
 import logic.Logic;
 import models.MenuItem;
 import views.style.Colors;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -43,7 +44,7 @@ public class MenuItemDisplay extends JPanel {
                 text -> context.perform(_ -> this.menuItem.setAllowedTags(text))
         ));
         if (Objects.equals(this.menuItem.getAllowedTags(), MenuItem.DEFAULT_TAGS)) { this.tagsTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
-        this.removeButton = new JButton("X");
+        this.removeButton = new FlatButton("X");
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> {
                 Logic.remMenuitem(this.menuItem.getMenu(), this.menuItem);

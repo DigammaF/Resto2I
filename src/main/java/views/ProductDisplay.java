@@ -5,6 +5,7 @@ import logic.ProductType;
 import logic.Tax;
 import models.Product;
 import views.style.Colors;
+import views.style.FlatButton;
 import views.style.Paddings;
 
 import javax.swing.*;
@@ -39,7 +40,7 @@ public class ProductDisplay extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.availableButton = new JButton(this.getAvailableButtonText());
+        this.availableButton = new FlatButton(this.getAvailableButtonText());
         this.availableButton.addActionListener(_ -> {
             if (context.perform(_ -> this.product.setAvailable(!this.product.isAvailable()))) {
                 this.availableButton.setText(this.getAvailableButtonText());
@@ -84,7 +85,7 @@ public class ProductDisplay extends JPanel {
         this.tagsTextField = new JTextField(10);
         this.tagsTextField.setText(this.product.getTags());
         this.tagsTextField.addKeyListener(new Validate(this.tagsTextField, text -> context.perform(_ -> this.product.setTags(text))));
-        this.removeButton = new JButton("X");
+        this.removeButton = new FlatButton("X");
         ProductDisplay productDisplay = this;
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> product.setUsed(false))) {

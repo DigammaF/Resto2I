@@ -2,6 +2,7 @@ package views;
 
 import language.TextContent;
 import models.Menu;
+import views.style.FlatButton;
 
 import javax.swing.*;
 
@@ -18,7 +19,7 @@ public class MenusEditor extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.newButton = new JButton("+");
+        this.newButton = new FlatButton("+");
         this.newButton.addActionListener(_ -> {
             if (context.perform(_ -> {
                 context.getRestaurant().createMenu().ifPresentOrElse(
@@ -54,7 +55,7 @@ public class MenusEditor extends JPanel {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.X_AXIS));
         menuPanel.add(new JLabel(menu.getName()));
-        JButton editButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
+        JButton editButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
         editButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -63,7 +64,7 @@ public class MenusEditor extends JPanel {
             mainPanel.repaint();
         });
         menuPanel.add(editButton);
-        JButton removeButton = new JButton("X");
+        JButton removeButton = new FlatButton("X");
         removeButton.addActionListener(_ -> {
             if (context.perform(_ -> {
                 menu.setUsed(false);

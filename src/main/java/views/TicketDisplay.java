@@ -3,6 +3,7 @@ package views;
 import language.TextContent;
 import models.Ticket;
 import views.style.Colors;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +27,7 @@ public class TicketDisplay extends JPanel {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.dateLabel = new JLabel(this.ticket.getDate().toString());
-        this.emittedButton = new JButton(this.getEmittedButtonText());
+        this.emittedButton = new FlatButton(this.getEmittedButtonText());
         this.emittedButton.addActionListener(_ -> {
             if (context.perform(_ -> this.ticket.setEmitted(!this.ticket.isEmitted()))) {
                 this.emittedButton.setText(this.getEmittedButtonText());
@@ -47,7 +48,7 @@ public class TicketDisplay extends JPanel {
                 context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.SHARED_TABLE_NUMBER_WARNING));
             }
         }));
-        this.editButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
+        this.editButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.EDIT));
         this.editButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();

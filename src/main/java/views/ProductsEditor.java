@@ -4,6 +4,7 @@ import language.TextContent;
 import logic.Logic;
 import models.Product;
 import views.style.EditorPanel;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class ProductsEditor extends EditorPanel {
     private void initComponent() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.newProductButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON));
+        this.newProductButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON));
         this.newProductButton.addActionListener(_ -> context.perform(entityManager -> {
             context.getRestaurant().createProduct().ifPresentOrElse(
                     (product -> {

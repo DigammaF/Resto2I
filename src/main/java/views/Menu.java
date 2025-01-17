@@ -4,6 +4,7 @@ import language.TextContent;
 import models.Ticket;
 import views.style.Colors;
 import views.style.DefaultPanel;
+import views.style.FlatButton;
 import views.style.Paddings;
 
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class Menu extends DefaultPanel {
 
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
-        this.productsEditorButton = new JButton();
+        this.productsEditorButton = new FlatButton("");
         this.productsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -40,7 +41,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.menusEditorButton = new JButton();
+        this.menusEditorButton = new FlatButton("");
         this.menusEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -48,7 +49,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.ticketsEditorButton = new JButton();
+        this.ticketsEditorButton = new FlatButton("");
         this.ticketsEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -56,7 +57,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.ticketsArchiveButton = new JButton();
+        this.ticketsArchiveButton = new FlatButton("");
         this.ticketsArchiveButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -64,7 +65,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.restaurantEditorButton = new JButton();
+        this.restaurantEditorButton = new FlatButton("");
         this.restaurantEditorButton.addActionListener(_ -> {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
@@ -72,7 +73,7 @@ public class Menu extends DefaultPanel {
             mainPanel.validate();
             mainPanel.repaint();
         });
-        this.languageSwitchButton = new JButton("FR/EN");
+        this.languageSwitchButton = new FlatButton("FR/EN");
         this.languageSwitchButton.addActionListener(_ -> {
             switch (context.getLanguage()) {
                 case EN -> context.setLanguage(TextContent.Language.FR);

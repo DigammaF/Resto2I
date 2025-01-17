@@ -3,6 +3,7 @@ package views;
 import language.TextContent;
 import models.Statement;
 import models.Ticket;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +41,7 @@ public class TicketsEditor extends JPanel {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         if (this.allowNewTicket) {
-            this.newTicketButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.TICKETS_EDITOR_NEW_TICKET_BUTTON));
+            this.newTicketButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.TICKETS_EDITOR_NEW_TICKET_BUTTON));
             this.newTicketButton.addActionListener(_ -> context.perform(entityManager -> {
                 Ticket ticket = new Ticket();
                 Statement statement = new Statement();

@@ -4,6 +4,7 @@ import language.TextContent;
 import logic.Logic;
 import models.Client;
 import views.style.Colors;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +64,7 @@ public class ClientEditor extends JPanel {
         this.contactField.setText(this.client.getContact());
         this.contactField.addKeyListener(new Validate(this.contactField, text -> context.perform(_ -> this.client.setContact(text))));
         this.autoCompleteLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_PROFILE_LABEL));
-        this.autoCompleteButton = new JButton(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_AUTO_COMPLETE_BUTTON));
+        this.autoCompleteButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_AUTO_COMPLETE_BUTTON));
         this.autoCompleteButton.addActionListener(_ -> {
             if (this.autoCompleteTarget != null && !this.autoCompleted) {
                 this.autoCompleteLabel.setText(

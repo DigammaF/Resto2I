@@ -8,6 +8,7 @@ import logic.Observer;
 import logic.ProductType;
 import models.LiveProduct;
 import models.Product;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,7 +95,7 @@ public class LiveProductDisplay extends JPanel
 
 
 
-        this.removeButton = new JButton("X");
+        this.removeButton = new FlatButton("X");
         this.removeButton.addActionListener(_ -> {
             Logic.remLiveProduct(this.liveProduct.getTicket(), this.liveProduct);
             this.getParent().remove(this);

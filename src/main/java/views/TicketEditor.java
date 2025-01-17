@@ -13,6 +13,7 @@ import models.LiveProduct;
 import models.Menu;
 import models.Ticket;
 import views.style.EditorPanel;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +61,7 @@ public class TicketEditor extends EditorPanel
         this.newButtons = new HashMap<>();
 
         for (ProductType currentProductType : Arrays.stream(ProductType.values()).sorted().toList()) {
-            JButton newButton = new JButton();
+            JButton newButton = new FlatButton("");
             this.newButtons.put(currentProductType, newButton);
             newButton.setText(currentProductType.toString());
             newButton.addActionListener(
@@ -95,7 +96,7 @@ public class TicketEditor extends EditorPanel
     }
 
     private JButton getButton(Menu menu, AppContext context, TextContent textContent) {
-        JButton button = new JButton();
+        JButton button = new FlatButton("");
         button.setText(menu.getName());
         button.addActionListener(_ -> {
             if (context.perform(_ -> {

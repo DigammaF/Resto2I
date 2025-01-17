@@ -8,6 +8,7 @@ import logic.Observer;
 import models.LiveMenu;
 import models.LiveMenuItem;
 import models.Product;
+import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,7 +61,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
                     )
             );
             JComboBox<Product> comboBox = getProductJComboBox(liveMenuItem, model);
-            JButton claimedButton = new JButton();
+            JButton claimedButton = new FlatButton("");
             claimedButton.setText(getClaimedButtonText(liveMenuItem));
             claimedButton.addActionListener(_ -> {
                 if (context.perform(_ -> liveMenuItem.setClaimed(!liveMenuItem.isClaimed()))) {
@@ -71,7 +72,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
             });
             this.items.add(new Item(comboBox, claimedButton, liveMenuItem.getName()));
         }
-        this.removeButton = new JButton("X");
+        this.removeButton = new FlatButton("X");
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> Logic.remLiveMenu(this.liveMenu.getTicket(), this.liveMenu))) {
                 this.getParent().remove(this);
