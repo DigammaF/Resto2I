@@ -16,6 +16,7 @@ public class StyledPanel extends JPanel {
     }
 
     protected void initStyle(){
+        this.setBackground(Colors.MAIN_BACKGROUND_COLOR);
         this.setBorder(new EmptyBorder(this.paddingSize, this.paddingSize, this.paddingSize, this.paddingSize));
     }
 }

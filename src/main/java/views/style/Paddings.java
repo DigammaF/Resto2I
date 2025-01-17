@@ -1,6 +1,10 @@
 package views.style;
 
-/** constants for the spacing in the project, in px*/
+import java.awt.*;
+
+/** constants for the spacing in the project, in px
+ *
+ * and colors */
 public class Paddings {
 
     public static final int SMALL=4;

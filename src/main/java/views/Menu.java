@@ -2,6 +2,7 @@ package views;
 
 import language.TextContent;
 import models.Ticket;
+import views.style.Colors;
 import views.style.DefaultPanel;
 import views.style.Paddings;
 
@@ -105,6 +106,6 @@ public class Menu extends DefaultPanel {
     @Override
     protected void initStyle(){
         super.initStyle();
-        this.setBackground(Color.cyan);
+        this.setBackground(Colors.SECONDARY_BACKGROUND_COLOR);
     }
 }

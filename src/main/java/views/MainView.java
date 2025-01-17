@@ -1,5 +1,7 @@
 package views;
 
+import views.style.Colors;
+import views.style.Paddings;
 import views.style.StyledPanel;
 
 import javax.swing.*;
@@ -47,7 +49,7 @@ public class MainView extends JFrame {
     }
 
     protected void initStyle(){
-        westPanel.setBackground(Color.cyan);
+        westPanel.setBackground(Colors.SECONDARY_BACKGROUND_COLOR);
     }
 
     private void initLayout() {
