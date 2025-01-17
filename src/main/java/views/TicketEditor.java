@@ -8,19 +8,16 @@ import language.TextContent;
 import logic.Observable;
 import logic.Observer;
 import logic.ProductType;
-import models.LiveMenu;
-import models.LiveProduct;
+import models.*;
 import models.Menu;
-import models.Ticket;
 import views.style.EditorPanel;
 import views.style.FlatButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
+import java.util.List;
 
 public class TicketEditor extends EditorPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
@@ -60,7 +57,9 @@ public class TicketEditor extends EditorPanel
         TextContent textContent = TextContent.getTextContent();
         this.newButtons = new HashMap<>();
 
-        for (ProductType currentProductType : Arrays.stream(ProductType.values()).sorted().toList()) {
+        List<ProductType> productTypes = Arrays.stream(ProductType.values()).sorted(Comparator.comparing(ProductType::toString)).toList();
+
+        for (ProductType currentProductType : productTypes) {
             JButton newButton = new FlatButton("");
             this.newButtons.put(currentProductType, newButton);
             newButton.setText(currentProductType.toString());
@@ -70,7 +69,6 @@ public class TicketEditor extends EditorPanel
         }
 
         this.liveProductsPanel = new JPanel();
-
 
         for (LiveProduct liveProduct : this.ticket.getLiveProducts()) {
             LiveProductDisplay liveProductDisplay = new LiveProductDisplay(liveProduct);
