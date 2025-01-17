@@ -14,10 +14,8 @@ import views.style.EditorPanel;
 import views.style.FlatButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.List;
 
 public class TicketEditor extends EditorPanel
         implements Observable<TicketEditorEvent>, Observer<LiveProductDisplayEvent>
@@ -35,13 +33,13 @@ public class TicketEditor extends EditorPanel
 
     private final ArrayList<Observer<TicketEditorEvent>> ticketEditorEventObservers;
 
-    private class LiveMenuDisplayObserver implements Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
-        private TicketEditor ticketEditor;
+    private static class LiveMenuDisplayObserver implements Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
+        private final TicketEditor ticketEditor;
         public LiveMenuDisplayObserver(TicketEditor ticketEditor) { this.ticketEditor = ticketEditor; }
         public void onEvent(LiveMenuDisplayEvents.LiveMenuDisplayEvent event) { this.ticketEditor.onEvent(event); }
     }
 
-    private LiveMenuDisplayObserver liveMenuDisplayObserver;
+    private final LiveMenuDisplayObserver liveMenuDisplayObserver;
 
     public TicketEditor(Ticket ticket) {
         super();
@@ -97,20 +95,16 @@ public class TicketEditor extends EditorPanel
         JButton button = new FlatButton("");
         button.setText(menu.getName());
         button.addActionListener(_ -> {
-            if (context.perform(_ -> {
-                context.getRestaurant().createLiveMenu(this.ticket, menu).ifPresentOrElse(
-                        (liveMenu -> {
-                            LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
-                            liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
-                            this.liveMenusPanel.add(liveMenuDisplay);
-                            context.getMainView().validate();
-                            context.getMainView().repaint();
-                        }),
-                        () -> {
-                            context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));
-                        }
-                );
-            })) {
+            if (context.perform(_ -> context.getRestaurant().createLiveMenu(this.ticket, menu).ifPresentOrElse(
+                    (liveMenu -> {
+                        LiveMenuDisplay liveMenuDisplay = new LiveMenuDisplay(liveMenu);
+                        liveMenuDisplay.addObserver(this.liveMenuDisplayObserver);
+                        this.liveMenusPanel.add(liveMenuDisplay);
+                        context.getMainView().validate();
+                        context.getMainView().repaint();
+                    }),
+                    () -> context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU))
+            ))) {
                 this.notifyObservers(TicketEditorEvent.COST_CHANGE);
             } else {
                 context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_LIVE_MENU));

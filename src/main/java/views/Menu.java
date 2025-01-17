@@ -8,7 +8,6 @@ import views.style.FlatButton;
 import views.style.Paddings;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  *

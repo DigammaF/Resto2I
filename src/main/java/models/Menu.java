@@ -12,8 +12,8 @@ import java.util.List;
  */
 @Entity
 public class Menu {
-    public static String DEFAULT_NAME = "unnamed";
-    public static double DEFAULT_COST = 0.0;
+    public static final String DEFAULT_NAME = "unnamed";
+    public static final double DEFAULT_COST = 0.0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,7 +84,7 @@ public class Menu {
     public Menu() {
         this.name = DEFAULT_NAME;
         this.cost = DEFAULT_COST;
-        this.menuItems = new ArrayList<MenuItem>();
+        this.menuItems = new ArrayList<>();
         this.used = true;
     }
 }

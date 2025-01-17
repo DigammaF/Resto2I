@@ -25,7 +25,7 @@ public class StatementEditor extends EditorPanel implements Observer<TicketEdito
     private JLabel latePenaltyLabel;
     private JTextField latePenaltyField;
 
-    public class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
+    public static class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
         private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
 
         @Override

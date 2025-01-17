@@ -24,18 +24,16 @@ public class ProductsEditor extends EditorPanel {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.newProductButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON));
-        this.newProductButton.addActionListener(_ -> context.perform(entityManager -> {
-            context.getRestaurant().createProduct().ifPresentOrElse(
-                    (product -> {
-                        Logic.addProduct(context.getRestaurant(), product);
-                        entityManager.persist(product);
-                        this.productsPanel.add(new ProductDisplay(product));
-                        this.revalidate();
-                        this.repaint();
-                    }),
-                    () -> { context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_PRODUCT)); }
-            );
-        }));
+        this.newProductButton.addActionListener(_ -> context.perform(entityManager -> context.getRestaurant().createProduct().ifPresentOrElse(
+                (product -> {
+                    Logic.addProduct(context.getRestaurant(), product);
+                    entityManager.persist(product);
+                    this.productsPanel.add(new ProductDisplay(product));
+                    this.revalidate();
+                    this.repaint();
+                }),
+                () -> context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_PRODUCT))
+        )));
         this.productsPanel = new JPanel();
         this.productsScrollPane = new JScrollPane(productsPanel);
 

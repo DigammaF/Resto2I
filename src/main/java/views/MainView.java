@@ -1,7 +1,6 @@
 package views;
 
 import views.style.Colors;
-import views.style.Paddings;
 import views.style.StyledPanel;
 
 import javax.swing.*;

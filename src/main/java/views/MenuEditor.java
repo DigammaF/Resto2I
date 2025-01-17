@@ -10,8 +10,7 @@ import javax.swing.*;
 import java.util.Objects;
 
 public class MenuEditor extends JPanel {
-    private Menu menu;
-    private JButton availableButton;
+    private final Menu menu;
     private JLabel nameLabel;
     private JTextField nameTextField;
     private JLabel costLabel;
@@ -29,7 +28,7 @@ public class MenuEditor extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.availableButton = new FlatButton(this.getAvailableButtonText());
+        JButton availableButton = new FlatButton(this.getAvailableButtonText());
         this.nameLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.NAME));
         this.nameTextField = new JTextField(20);
         this.nameTextField.setText(this.menu.getName());
@@ -48,19 +47,15 @@ public class MenuEditor extends JPanel {
         if (this.menu.getCost() == Menu.DEFAULT_COST) { this.costTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.newItemButton = new FlatButton("+");
         this.newItemButton.addActionListener(_ -> {
-            if (!context.perform(_ -> {
-                context.getRestaurant().createMenuItem(this.menu).ifPresentOrElse(
-                        (menuItem -> {
-                            MenuItemDisplay menuItemDisplay = new MenuItemDisplay(menuItem);
-                            this.itemsPanel.add(menuItemDisplay);
-                            context.getMainView().validate();
-                            context.getMainView().repaint();
-                        }),
-                        () -> {
-                            context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_MENU_ITEM));
-                        }
-                );
-            })) {
+            if (!context.perform(_ -> context.getRestaurant().createMenuItem(this.menu).ifPresentOrElse(
+                    (menuItem -> {
+                        MenuItemDisplay menuItemDisplay = new MenuItemDisplay(menuItem);
+                        this.itemsPanel.add(menuItemDisplay);
+                        context.getMainView().validate();
+                        context.getMainView().repaint();
+                    }),
+                    () -> context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_MENU_ITEM))
+            ))) {
                 context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
             }
         });

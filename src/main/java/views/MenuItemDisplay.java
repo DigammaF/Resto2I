@@ -7,11 +7,10 @@ import views.style.Colors;
 import views.style.FlatButton;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class MenuItemDisplay extends JPanel {
-    private MenuItem menuItem;
+    private final MenuItem menuItem;
     private JLabel nameLabel;
     private JTextField nameTextField;
     private JLabel tagsLabel;
@@ -46,9 +45,7 @@ public class MenuItemDisplay extends JPanel {
         if (Objects.equals(this.menuItem.getAllowedTags(), MenuItem.DEFAULT_TAGS)) { this.tagsTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.removeButton = new FlatButton("X");
         this.removeButton.addActionListener(_ -> {
-            if (context.perform(_ -> {
-                Logic.remMenuitem(this.menuItem.getMenu(), this.menuItem);
-            })) {
+            if (context.perform(_ -> Logic.remMenuitem(this.menuItem.getMenu(), this.menuItem))) {
                 this.getParent().remove(this);
                 context.getMainView().validate();
                 context.getMainView().repaint();

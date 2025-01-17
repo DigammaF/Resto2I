@@ -47,7 +47,7 @@ public class LiveMenu {
     }
 
     public LiveMenu() {
-        this.liveMenuItems = new ArrayList<LiveMenuItem>();
+        this.liveMenuItems = new ArrayList<>();
     }
 
     public double getCost() {

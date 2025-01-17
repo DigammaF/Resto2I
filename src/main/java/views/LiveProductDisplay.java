@@ -41,10 +41,7 @@ public class LiveProductDisplay extends JPanel
         this.initComponents();
         this.initLayout();
 
-        SwingUtilities.invokeLater(() -> {
-            this.initSizes();
-
-        });
+        SwingUtilities.invokeLater(this::initSizes);
     }
 
     public LiveProductDisplay(LiveProduct liveProduct) {

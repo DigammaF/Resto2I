@@ -85,7 +85,7 @@ public class ClientEditor extends JPanel {
                 this.autoCompleteLabel.setText(textContent.get(context.getLanguage(), TextContent.Key.CLIENT_EDITOR_NO_PROFILE_LABEL));
                 context.getRestaurant().createClient().ifPresentOrElse(
                         (client -> { this.client = client; Logic.addClient(context.getRestaurant(), this.client); }),
-                        () -> { context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_CLIENT)); }
+                        () -> context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_CREATE_CLIENT))
                 );
             }
         });

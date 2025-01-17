@@ -1,7 +1,6 @@
 package models;
 
 import jakarta.persistence.*;
-import logic.Logic;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @Entity
 public class Ticket {
-    public static int DEFAULT_TABLE_NUMBER = 0;
+    public static final int DEFAULT_TABLE_NUMBER = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

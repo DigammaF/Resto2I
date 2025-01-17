@@ -4,7 +4,6 @@ import language.TextContent;
 import views.AppContext;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public enum ProductType {

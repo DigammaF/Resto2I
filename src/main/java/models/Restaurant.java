@@ -6,7 +6,6 @@ import logic.Logic;
 import logic.ProductType;
 import logic.Tax;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -11,11 +11,11 @@ import logic.Tax;
  */
 @Entity
 public class Product {
-    public static boolean DEFAULT_AVAILABLE = false;
-    public static String DEFAULT_NAME = "unnamed";
-    public static double DEFAULT_COST = 0.0;
-    public static Tax DEFAULT_TAX = Tax.INSTANT;
-    public static ProductType DEFAULT_PRODUCT_TYPE = ProductType.DEFAULT;
+    public static final boolean DEFAULT_AVAILABLE = false;
+    public static final String DEFAULT_NAME = "unnamed";
+    public static final double DEFAULT_COST = 0.0;
+    public static final Tax DEFAULT_TAX = Tax.INSTANT;
+    public static final ProductType DEFAULT_PRODUCT_TYPE = ProductType.DEFAULT;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

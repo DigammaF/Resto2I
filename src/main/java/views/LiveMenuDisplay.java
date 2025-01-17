@@ -11,25 +11,24 @@ import models.Product;
 import views.style.FlatButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDisplayEvents.LiveMenuDisplayEvent> {
-    private LiveMenu liveMenu;
+    private final LiveMenu liveMenu;
     private JLabel nameLabel;
     private JLabel costLabel;
     private List<Item> items;
     private JButton removeButton;
 
-    private List<Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent>> observers;
+    private final List<Observer<LiveMenuDisplayEvents.LiveMenuDisplayEvent>> observers;
 
-    private class Item {
-        public JComboBox<Product> comboBox;
-        public JButton claimedButton;
-        public String name;
+    private static class Item {
+        public final JComboBox<Product> comboBox;
+        public final JButton claimedButton;
+        public final String name;
 
         public Item(JComboBox<Product> comboBox, JButton claimedButton, String name) {
             this.comboBox = comboBox;
@@ -50,7 +49,7 @@ public class LiveMenuDisplay extends JPanel implements Observable<LiveMenuDispla
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.nameLabel = new JLabel(this.liveMenu.getName());
-        this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST) + ": " + String.valueOf(this.liveMenu.getATICost()) + "€");
+        this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST) + ": " + this.liveMenu.getATICost() + "€");
         this.items = new ArrayList<>();
         for (LiveMenuItem liveMenuItem : this.liveMenu.getLiveMenuItems()) {
             ComboBoxModel<Product> model = new DefaultComboBoxModel<>(

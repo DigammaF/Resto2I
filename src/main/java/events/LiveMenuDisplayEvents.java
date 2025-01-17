@@ -8,7 +8,7 @@ public class LiveMenuDisplayEvents {
     public static class CostChanged extends LiveMenuDisplayEvent { }
 
     public static class Removed extends LiveMenuDisplayEvent {
-        public LiveMenuDisplay liveMenuDisplay;
+        public final LiveMenuDisplay liveMenuDisplay;
 
         public Removed(LiveMenuDisplay liveMenuDisplay) {
             this.liveMenuDisplay = liveMenuDisplay;

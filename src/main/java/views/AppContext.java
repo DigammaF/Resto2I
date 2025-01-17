@@ -20,7 +20,6 @@ import models.Restaurant;
  */
 public class AppContext {
     private TextContent.Language language;
-    private final EntityManagerFactory entityManagerFactory;
     private final EntityManager entityManager;
     private Restaurant restaurant;
     private MainView mainView;
@@ -74,12 +73,12 @@ public class AppContext {
         this.demoMode = demoMode;
         this.language = TextContent.Language.FR;
 
+        EntityManagerFactory entityManagerFactory;
         if (this.demoMode) {
-            this.entityManagerFactory = null;
             this.entityManager = new DemoEntityManager();
             this.restaurant = new Restaurant();
         } else {
-            this.entityManagerFactory = Persistence.createEntityManagerFactory("resto2I");
+            entityManagerFactory = Persistence.createEntityManagerFactory("resto2I");
             this.entityManager = entityManagerFactory.createEntityManager();
             try {
                 this.restaurant = this.entityManager.createQuery("SELECT restaurant FROM Restaurant restaurant", Restaurant.class).getSingleResult();

@@ -3,10 +3,6 @@ package models;
 import jakarta.persistence.*;
 import logic.Logic;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  *
  *  A product slot in a LiveMenu
@@ -14,8 +10,8 @@ import java.util.Set;
  */
 @Entity
 public class MenuItem {
-    public static String DEFAULT_NAME = "unnamed";
-    public static String DEFAULT_TAGS = "";
+    public static final String DEFAULT_NAME = "unnamed";
+    public static final String DEFAULT_TAGS = "";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
