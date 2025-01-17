@@ -3,9 +3,11 @@ package views;
 import language.TextContent;
 import logic.Logic;
 import models.MenuItem;
+import views.style.Colors;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class MenuItemDisplay extends JPanel {
     private MenuItem menuItem;
@@ -26,17 +28,21 @@ public class MenuItemDisplay extends JPanel {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
         this.nameLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.NAME));
-        this.nameTextField = new JTextField(this.menuItem.getName());
+        this.nameTextField = new JTextField(10);
+        this.nameTextField.setText(this.menuItem.getName());
         this.nameTextField.addKeyListener(new Validate(
                 this.nameTextField,
                 text -> context.perform(_ -> this.menuItem.setName(text))
         ));
+        if (Objects.equals(this.menuItem.getName(), MenuItem.DEFAULT_NAME)) { this.nameTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.tagsLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.TAGS));
-        this.tagsTextField = new JTextField(this.menuItem.getAllowedTags());
+        this.tagsTextField = new JTextField(10);
+        this.tagsTextField.setText(this.menuItem.getAllowedTags());
         this.tagsTextField.addKeyListener(new Validate(
                 this.tagsTextField,
                 text -> context.perform(_ -> this.menuItem.setAllowedTags(text))
         ));
+        if (Objects.equals(this.menuItem.getAllowedTags(), MenuItem.DEFAULT_TAGS)) { this.tagsTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.removeButton = new JButton("X");
         this.removeButton.addActionListener(_ -> {
             if (context.perform(_ -> {
@@ -52,7 +58,7 @@ public class MenuItemDisplay extends JPanel {
     }
 
     private void initLayout() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(this.nameLabel);
         this.add(this.nameTextField);
         this.add(this.tagsLabel);

@@ -3,8 +3,10 @@ package views;
 import language.TextContent;
 import models.Menu;
 import models.MenuItem;
+import views.style.Colors;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class MenuEditor extends JPanel {
     private Menu menu;
@@ -33,12 +35,14 @@ public class MenuEditor extends JPanel {
                 this.nameTextField,
                 text -> context.perform(_ -> this.menu.setName(text))
         ));
+        if (Objects.equals(this.menu.getName(), Menu.DEFAULT_NAME)) { this.nameTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.costLabel = new JLabel(textContent.get(context.getLanguage(), TextContent.Key.COST));
         this.costTextField = new JTextField(String.valueOf(this.menu.getCost()));
         this.costTextField.addKeyListener(new Validate(
                 this.costTextField,
                 text -> context.perform(_ -> this.menu.setCost(Integer.parseInt(text)))
         ));
+        if (this.menu.getCost() == Menu.DEFAULT_COST) { this.costTextField.setBackground(Colors.STRANGE_VALUE_FIELD); }
         this.newItemButton = new JButton("+");
         this.newItemButton.addActionListener(_ -> {
             if (!context.perform(_ -> {
@@ -58,6 +62,10 @@ public class MenuEditor extends JPanel {
             }
         });
         this.itemsPanel = new JPanel();
+        for (MenuItem menuItem : this.menu.getMenuItems()) {
+            MenuItemDisplay menuItemDisplay = new MenuItemDisplay(menuItem);
+            this.itemsPanel.add(menuItemDisplay);
+        }
     }
 
     private void initLayout() {
@@ -76,6 +84,7 @@ public class MenuEditor extends JPanel {
         this.add(costPanel);
 
         this.add(this.newItemButton);
+        this.itemsPanel.setLayout(new BoxLayout(this.itemsPanel, BoxLayout.Y_AXIS));
         this.add(this.itemsPanel);
     }
 

@@ -88,7 +88,7 @@ public class TicketEditor extends EditorPanel
 
         this.addMenuPanel = new JPanel();
 
-        for (Menu menu : context.getRestaurant().getMenus()) {
+        for (Menu menu : context.getRestaurant().getMenus().stream().filter(Menu::isUsed).toList()) {
             JButton button = getButton(menu, context, textContent);
             this.addMenuPanel.add(button);
         }

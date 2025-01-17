@@ -14,6 +14,9 @@ import java.util.Set;
  */
 @Entity
 public class MenuItem {
+    public static String DEFAULT_NAME = "unnamed";
+    public static String DEFAULT_TAGS = "";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -52,7 +55,8 @@ public class MenuItem {
     }
 
     public MenuItem() {
-        this.allowedTags = "";
+        this.name = DEFAULT_NAME;
+        this.allowedTags = DEFAULT_TAGS;
     }
 
     public boolean allowed(Product product) {
