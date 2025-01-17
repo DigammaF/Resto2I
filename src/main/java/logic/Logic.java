@@ -2,10 +2,7 @@ package logic;
 
 import models.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -111,9 +108,9 @@ public class Logic {
 
     public static boolean tagsAllowProduct(Product product, String tags) {
         if (tags.isEmpty()) { return true; }
-        Set<String> productTags = new HashSet<>(List.of(product.getTags().split(" ")));
-        productTags.addAll(product.getProductType().toAllStrings());
-        Set<String> allowedTags = new HashSet<>(List.of(tags.split(" ")));
+        Set<String> productTags = new HashSet<>(Arrays.stream(product.getTags().split(" ")).map(String::toLowerCase).toList());
+        productTags.addAll(product.getProductType().toAllStrings().stream().map(String::toLowerCase).toList());
+        Set<String> allowedTags = new HashSet<>(Arrays.stream(tags.split(" ")).map(String::toLowerCase).toList());
         return productTags.stream().anyMatch(allowedTags::contains);
     }
 }
