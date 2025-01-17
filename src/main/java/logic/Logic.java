@@ -111,6 +111,6 @@ public class Logic {
         Set<String> productTags = new HashSet<>(Arrays.stream(product.getTags().split(" ")).map(String::toLowerCase).toList());
         productTags.addAll(product.getProductType().toAllStrings().stream().map(String::toLowerCase).toList());
         Set<String> allowedTags = new HashSet<>(Arrays.stream(tags.split(" ")).map(String::toLowerCase).toList());
-        return productTags.stream().anyMatch(allowedTags::contains);
+        return productTags.containsAll(allowedTags);
     }
 }
