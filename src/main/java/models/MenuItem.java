@@ -67,4 +67,9 @@ public class MenuItem {
         this.name = name;
         return this;
     }
+
+    public MenuItem withAllowedTags(String allowedTags) {
+        this.allowedTags = allowedTags;
+        return this;
+    }
 }

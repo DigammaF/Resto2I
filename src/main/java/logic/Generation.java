@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 public class Generation {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom RANDOM = new SecureRandom();
-    private static final String WORDS = "sucre sale chaud froid amer exotique";
+    private static final String WORDS = "sucre sale chaud froid amer exotique petit moyen grand glace soda plat";
 
     public static String generateRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);

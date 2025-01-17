@@ -254,7 +254,7 @@ public class Restaurant {
                 Logic.addProduct(this, new Product(
                         this, true, productType.toString() + " " + Generation.generateRandomString(6),
                         Generation.generateRandomInt(1, 60), Tax.INSTANT, true, productType,
-                        Generation.generateRandomWords(3)
+                        Generation.generateRandomWords(4)
                 ));
             }
         }
@@ -262,14 +262,14 @@ public class Restaurant {
         Menu menu = this.createMenu().get();
         menu.setCost(50);
         menu.setName("Menu 1");
-        this.createMenuItem(menu).get().withName("ONE");
-        this.createMenuItem(menu).get().withName("TWO");
-        this.createMenuItem(menu).get().withName("THREE");
+        this.createMenuItem(menu).get().withName("Entree").withAllowedTags("petit");
+        this.createMenuItem(menu).get().withName("Plat").withAllowedTags("plat");
+        this.createMenuItem(menu).get().withName("Dessert").withAllowedTags("glace");
         menu = this.createMenu().get();
         menu.setCost(60);
         menu.setName("Menu 2");
-        this.createMenuItem(menu).get().withName(":ONE");
-        this.createMenuItem(menu).get().withName(":TWO");
-        this.createMenuItem(menu).get().withName(":THREE");
+        this.createMenuItem(menu).get().withName("Entree").withAllowedTags("sale");
+        this.createMenuItem(menu).get().withName("Plat").withAllowedTags("moyen");
+        this.createMenuItem(menu).get().withName("Dessert").withAllowedTags("sucre");
     }
 }
