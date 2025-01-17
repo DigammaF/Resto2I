@@ -19,6 +19,7 @@ public class TextContent {
         CLAIMED, NOT,
 
         MENU_PRODUCTS_EDITOR_BUTTON,
+        MENU_MENUS_EDITOR_BUTTON,
         MENU_TICKETS_EDITOR_BUTTON,
         MENU_TICKETS_ARCHIVE_BUTTON,
         MENU_RESTAURANT_EDITOR_BUTTON,
@@ -43,7 +44,7 @@ public class TextContent {
 
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET, CANNOT_CREATE_LIVE_MENU,
-        CANNOT_CREATE_MENU_ITEM,
+        CANNOT_CREATE_MENU_ITEM, CANNOT_CREATE_MENU,
 
         CANNOT_WRITE_DATABASE,
 
@@ -94,6 +95,7 @@ public class TextContent {
         this.texts.put(Key.NOT, make("not", "non"));
 
         this.texts.put(Key.MENU_PRODUCTS_EDITOR_BUTTON, make("Product editor", "Editeur de produit"));
+        this.texts.put(Key.MENU_MENUS_EDITOR_BUTTON, make("Menu editor", "Editeur de menu"));
         this.texts.put(Key.MENU_TICKETS_EDITOR_BUTTON, make("Ticket editor", "Editeur de commande"));
         this.texts.put(Key.MENU_TICKETS_ARCHIVE_BUTTON, make("Ticket archive", "Archive de commande"));
         this.texts.put(Key.MENU_RESTAURANT_EDITOR_BUTTON, make("Restaurant editor", "Editeur de restaurant"));
@@ -123,6 +125,7 @@ public class TextContent {
         this.texts.put(Key.CANNOT_CREATE_TICKET, make("Cannot create ticket", "Impossible de créer la commande"));
         this.texts.put(Key.CANNOT_CREATE_LIVE_MENU, make("Cannot create menu", "Impossible de créer le menu"));
         this.texts.put(Key.CANNOT_CREATE_MENU_ITEM, make("Cannot create menu item", "Impossible de créer l'objet dans le menu"));
+        this.texts.put(Key.CANNOT_CREATE_MENU, make("Cannot create menu", "Impossible de créer le menu"));
 
         this.texts.put(Key.CANNOT_WRITE_DATABASE, make("Cannot write in database", "Impossible d'écrire dans la base de données"));
         

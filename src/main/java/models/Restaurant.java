@@ -260,11 +260,13 @@ public class Restaurant {
 
         Menu menu = this.createMenu().get();
         menu.setCost(50);
+        menu.setName("Menu 1");
         this.createMenuItem(menu).get().withName("ONE");
         this.createMenuItem(menu).get().withName("TWO");
         this.createMenuItem(menu).get().withName("THREE");
         menu = this.createMenu().get();
         menu.setCost(60);
+        menu.setName("Menu 2");
         this.createMenuItem(menu).get().withName(":ONE");
         this.createMenuItem(menu).get().withName(":TWO");
         this.createMenuItem(menu).get().withName(":THREE");

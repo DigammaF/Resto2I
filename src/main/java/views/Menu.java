@@ -14,6 +14,7 @@ import java.awt.*;
  */
 public class Menu extends DefaultPanel {
     private JButton productsEditorButton;
+    private JButton menusEditorButton;
     private JButton ticketsEditorButton;
     private JButton ticketsArchiveButton;
     private JButton restaurantEditorButton;
@@ -34,6 +35,14 @@ public class Menu extends DefaultPanel {
             JPanel mainPanel = context.getMainView().getMainPanel();
             mainPanel.removeAll();
             mainPanel.add(new ProductsEditor());
+            mainPanel.validate();
+            mainPanel.repaint();
+        });
+        this.menusEditorButton = new JButton();
+        this.menusEditorButton.addActionListener(_ -> {
+            JPanel mainPanel = context.getMainView().getMainPanel();
+            mainPanel.removeAll();
+            mainPanel.add(new MenusEditor());
             mainPanel.validate();
             mainPanel.repaint();
         });
@@ -75,6 +84,7 @@ public class Menu extends DefaultPanel {
         AppContext context = AppContext.getAppContext();
         TextContent text = TextContent.getTextContent();
         this.productsEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_PRODUCTS_EDITOR_BUTTON));
+        this.menusEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_MENUS_EDITOR_BUTTON));
         this.ticketsEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_TICKETS_EDITOR_BUTTON));
         this.ticketsArchiveButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_TICKETS_ARCHIVE_BUTTON));
         this.restaurantEditorButton.setText(text.get(context.getLanguage(), TextContent.Key.MENU_RESTAURANT_EDITOR_BUTTON));
@@ -87,6 +97,9 @@ public class Menu extends DefaultPanel {
         int SPACING = 30;
         this.add(Box.createVerticalStrut(SPACING));
 
+        this.add(this.menusEditorButton);
+        this.add(Box.createVerticalStrut(SPACING));
+
         this.add(this.ticketsEditorButton);
         this.add(Box.createVerticalStrut(SPACING));
 
@@ -97,8 +110,6 @@ public class Menu extends DefaultPanel {
         this.add(Box.createVerticalStrut(SPACING));
 
         this.add(this.languageSwitchButton);
-
-
     }
 
     @Override

@@ -34,6 +34,17 @@ public class Menu {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuItem> menuItems;
 
+    @Column(name = "used")
+    private boolean used;
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
@@ -74,5 +85,6 @@ public class Menu {
         this.name = DEFAULT_NAME;
         this.cost = DEFAULT_COST;
         this.menuItems = new ArrayList<MenuItem>();
+        this.used = true;
     }
 }
