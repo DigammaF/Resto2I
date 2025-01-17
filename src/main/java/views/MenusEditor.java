@@ -19,7 +19,7 @@ public class MenusEditor extends JPanel {
     private void initComponents() {
         AppContext context = AppContext.getAppContext();
         TextContent textContent = TextContent.getTextContent();
-        this.newButton = new FlatButton("+");
+        this.newButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.MENUS_EDITOR_NEW_MENU));
         this.newButton.addActionListener(_ -> {
             if (context.perform(_ -> {
                 context.getRestaurant().createMenu().ifPresentOrElse(
@@ -76,6 +76,7 @@ public class MenusEditor extends JPanel {
                 context.getMainView().println(textContent.get(context.getLanguage(), TextContent.Key.CANNOT_WRITE_DATABASE));
             }
         });
+        menuPanel.add(removeButton);
         this.menusPanel.add(menuPanel);
     }
 }

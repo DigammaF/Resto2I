@@ -42,6 +42,9 @@ public class TextContent {
         CLIENT_EDITOR_PROFILE_LOCKED_LABEL,
         CLIENT_EDITOR_NEW_PROFILE_BUTTON,
 
+        MENUS_EDITOR_NEW_MENU,
+        MENUS_EDITOR_DESCRIPTION,
+
         CANNOT_CREATE_CLIENT, CANNOT_CREATE_LIVE_PRODUCT, CANNOT_CREATE_PRODUCT,
         CANNOT_CREATE_STATEMENT, CANNOT_CREATE_TICKET, CANNOT_CREATE_LIVE_MENU,
         CANNOT_CREATE_MENU_ITEM, CANNOT_CREATE_MENU,
@@ -117,6 +120,9 @@ public class TextContent {
         this.texts.put(Key.CLIENT_EDITOR_NO_PROFILE_LABEL, make("No profile", "Pas de profil"));
         this.texts.put(Key.CLIENT_EDITOR_PROFILE_LOCKED_LABEL, make("Modifying profile: ", "Modification du profile: "));
         this.texts.put(Key.CLIENT_EDITOR_NEW_PROFILE_BUTTON, make("New profile", "Nouveau profile"));
+
+        this.texts.put(Key.MENUS_EDITOR_NEW_MENU, make("Create new menu", "Créer un nouveau menu"));
+        this.texts.put(Key.MENUS_EDITOR_DESCRIPTION, make("Each section describes a set of available products (all tags must be present on the product)", "Chaque section décrit un ensemble de produits disponibles (toutes les étiquettes doivent être présentes sur le produit)"));
 
         this.texts.put(Key.CANNOT_CREATE_CLIENT, make("Cannot create client profile", "Impossible de créer un profil de client"));
         this.texts.put(Key.CANNOT_CREATE_LIVE_PRODUCT, make("No usable product", "Pas de produit utilisable"));

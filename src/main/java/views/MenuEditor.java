@@ -72,6 +72,8 @@ public class MenuEditor extends JPanel {
     }
 
     private void initLayout() {
+        AppContext context = AppContext.getAppContext();
+        TextContent textContent = TextContent.getTextContent();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JPanel namePanel = new JPanel();
@@ -89,6 +91,8 @@ public class MenuEditor extends JPanel {
         this.add(this.newItemButton);
         this.itemsPanel.setLayout(new BoxLayout(this.itemsPanel, BoxLayout.Y_AXIS));
         this.add(this.itemsPanel);
+
+        this.add(new JLabel(textContent.get(context.getLanguage(), TextContent.Key.MENUS_EDITOR_DESCRIPTION)));
     }
 
     private String getAvailableButtonText() {
