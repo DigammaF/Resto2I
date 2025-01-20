@@ -8,17 +8,6 @@ Sujet du projet : [lien moodle](https://moodle2425.centralelille.fr/pluginfile.p
 Maxime Chantegrel
 Clément Guillaumin
 
-# Compilation
-todo 
-
-# Execution
-todo
-
-
-# TODO List
-
-- clément : gérer espaces
-
 # Infos présentation
 
 - Qu'est ce qu'on a fait d'original
