@@ -26,7 +26,6 @@ public class ProductsEditor extends EditorPanel {
         this.newProductButton = new FlatButton(textContent.get(context.getLanguage(), TextContent.Key.PRODUCTS_EDITOR_NEW_PRODUCT_BUTTON));
         this.newProductButton.addActionListener(_ -> context.perform(entityManager -> context.getRestaurant().createProduct().ifPresentOrElse(
                 (product -> {
-                    Logic.addProduct(context.getRestaurant(), product);
                     entityManager.persist(product);
                     this.productsPanel.add(new ProductDisplay(product));
                     this.revalidate();
